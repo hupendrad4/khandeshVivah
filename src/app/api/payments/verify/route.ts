@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import crypto from "crypto"
+import { isPaymentConfigured } from "@/lib/payment-config"
 
 export async function POST(req: Request) {
   try {
@@ -12,25 +13,31 @@ export async function POST(req: Request) {
       actionType,
       targetUserId,
       messageContent,
+      simulation,
     } = await req.json()
-
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return NextResponse.json({ error: "Missing payment verification fields" }, { status: 400 })
-    }
 
     if (!userId) {
       return NextResponse.json({ error: "User ID required" }, { status: 400 })
     }
 
-    // Verify signature
-    const body = `${razorpay_order_id}|${razorpay_payment_id}`
-    const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
-      .update(body)
-      .digest("hex")
+    const isSimulation = simulation || !isPaymentConfigured()
 
-    if (expectedSignature !== razorpay_signature) {
-      return NextResponse.json({ error: "Invalid payment signature" }, { status: 400 })
+    if (!isSimulation) {
+      // Real payment verification
+      if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        return NextResponse.json({ error: "Missing payment verification fields" }, { status: 400 })
+      }
+
+      // Verify signature
+      const body = `${razorpay_order_id}|${razorpay_payment_id}`
+      const expectedSignature = crypto
+        .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+        .update(body)
+        .digest("hex")
+
+      if (expectedSignature !== razorpay_signature) {
+        return NextResponse.json({ error: "Invalid payment signature" }, { status: 400 })
+      }
     }
 
     // Upgrade user to premium
@@ -39,16 +46,16 @@ export async function POST(req: Request) {
       data: { isPremium: true, membershipTier: "PREMIUM" },
     })
 
-    // Record the payment
+    // Record the payment (with simulated ID if in simulation mode)
     await prisma.payment.create({
       data: {
         userId,
         amount: 499,
         currency: "INR",
         status: "completed",
-        method: "razorpay",
+        method: isSimulation ? "simulation" : "razorpay",
         planType: "premium",
-        transactionId: razorpay_payment_id,
+        transactionId: isSimulation ? `sim_pay_${Date.now()}` : razorpay_payment_id,
       },
     })
 
@@ -93,8 +100,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Payment verified and premium activated",
+      message: isSimulation ? "Premium activated (simulation mode)" : "Payment verified and premium activated",
       isPremium: true,
+      simulation: isSimulation,
     })
   } catch (error) {
     console.error("Verify payment error:", error)

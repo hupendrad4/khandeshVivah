@@ -19,8 +19,8 @@ interface PaymentGateResult {
 /**
  * usePaymentGate — wraps an action behind a premium check.
  * If the user is already premium, the action runs immediately.
- * If not, it opens the Razorpay checkout dialog. On successful payment
- * (including server-side verification), it upgrades the user locally and runs the action.
+ * If not, it opens the Razorpay checkout dialog (or simulates payment if not configured).
+ * On successful payment, it upgrades the user locally and runs the action.
  */
 export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateResult {
   const { t } = useI18n()
@@ -40,7 +40,7 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
       setIsProcessing(true)
 
       try {
-        // Step 1: Create a Razorpay order
+        // Step 1: Create a payment order (real or simulated — determined server-side)
         const orderRes = await fetch("/api/payments/create-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -52,73 +52,86 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
           throw new Error(err.error || "Failed to create payment order")
         }
 
-        const { orderId, amount, currency } = await orderRes.json()
+        const { orderId, amount, currency, simulation } = await orderRes.json()
 
-        // Step 2: Load Razorpay checkout script if not already loaded
-        if (!(window as any).Razorpay) {
-          await new Promise<void>((resolve, reject) => {
-            const script = document.createElement("script")
-            script.src = "https://checkout.razorpay.com/v1/checkout.js"
-            script.async = true
-            script.onload = () => resolve()
-            script.onerror = () => reject(new Error("Failed to load Razorpay SDK"))
-            document.body.appendChild(script)
-          })
+        let razorpayResult
+
+        if (simulation) {
+          // SIMULATION MODE: Skip Razorpay checkout, simulate successful payment
+          await new Promise((resolve) => setTimeout(resolve, 1500)) // Simulate processing delay
+          razorpayResult = {
+            razorpay_payment_id: `sim_pay_${Date.now()}`,
+            razorpay_order_id: orderId,
+            razorpay_signature: "sim_signature",
+          }
+        } else {
+          // REAL MODE: Load Razorpay checkout script if not already loaded
+          if (!(window as any).Razorpay) {
+            await new Promise<void>((resolve, reject) => {
+              const script = document.createElement("script")
+              script.src = "https://checkout.razorpay.com/v1/checkout.js"
+              script.async = true
+              script.onload = () => resolve()
+              script.onerror = () => reject(new Error("Failed to load Razorpay SDK"))
+              document.body.appendChild(script)
+            })
+          }
+
+          // Open Razorpay checkout
+          razorpayResult = await new Promise<{ razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }>(
+            (resolve, reject) => {
+              const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || ""
+              if (!razorpayKey) {
+                reject(new Error("Razorpay key is not configured"))
+                return
+              }
+
+              const options = {
+                key: razorpayKey,
+                amount,
+                currency,
+                name: "Khandesh Vivah",
+                description: "Premium Membership",
+                order_id: orderId,
+                prefill: {
+                  contact: user?.mobile || "",
+                  email: user?.email || "",
+                },
+                theme: {
+                  color: "#FF21A5",
+                },
+                handler: function (response: any) {
+                  resolve({
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                  })
+                },
+                modal: {
+                  ondismiss: function () {
+                    reject(new Error("Payment cancelled"))
+                  },
+                },
+              }
+
+              const rzp = new (window as any).Razorpay(options)
+              rzp.open()
+            },
+          )
         }
 
-        // Step 3: Open Razorpay checkout
-        const result = await new Promise<{ razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }>(
-          (resolve, reject) => {
-            const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || ""
-            if (!razorpayKey) {
-              reject(new Error("Razorpay key is not configured"))
-              return
-            }
-
-            const options = {
-              key: razorpayKey,
-              amount,
-              currency,
-              name: "Khandesh Vivah",
-              description: "Premium Membership",
-              order_id: orderId,
-              prefill: {
-                contact: user?.mobile || "",
-                email: user?.email || "",
-              },
-              theme: {
-                color: "#FF21A5",
-              },
-              handler: function (response: any) {
-                resolve({
-                  razorpay_payment_id: response.razorpay_payment_id,
-                  razorpay_order_id: response.razorpay_order_id,
-                  razorpay_signature: response.razorpay_signature,
-                })
-              },
-              modal: {
-                ondismiss: function () {
-                  reject(new Error("Payment cancelled"))
-                },
-              },
-            }
-
-            const rzp = new (window as any).Razorpay(options)
-            rzp.open()
-          },
-        )
-
-        // Step 4: Verify payment on the server
+        // Step 4: Verify payment on the server (or simulate verification)
         const verifyRes = await fetch("/api/payments/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            razorpay_order_id: result.razorpay_order_id,
-            razorpay_payment_id: result.razorpay_payment_id,
-            razorpay_signature: result.razorpay_signature,
+            razorpay_order_id: razorpayResult.razorpay_order_id,
+            razorpay_payment_id: razorpayResult.razorpay_payment_id,
+            razorpay_signature: razorpayResult.razorpay_signature,
             userId: user?.id,
             actionType,
             targetUserId,
+            simulation,
           }),
         })
 
@@ -132,7 +145,10 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
           setUser({ ...user, isPremium: true, membershipTier: "PREMIUM" as any })
         }
 
-        toast.success(t("premium.paymentSuccess") || "Payment successful! Premium activated.")
+        const msg = simulation
+          ? "Premium activated (simulation mode)"
+          : t("premium.paymentSuccess") || "Payment successful! Premium activated."
+        toast.success(msg)
 
         // Step 6: Execute the intended action
         if (actionType === "send_interest" || actionType === "send_message") {

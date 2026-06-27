@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import Razorpay from "razorpay"
 import { prisma } from "@/lib/prisma"
+import { isPaymentConfigured } from "@/lib/payment-config"
 
 const razorpay = new Razorpay({
   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
@@ -21,6 +22,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
+    // If Razorpay is not configured, return a simulated order
+    if (!isPaymentConfigured()) {
+      return NextResponse.json({
+        orderId: `sim_order_${Date.now()}`,
+        amount: 49900,
+        currency: "INR",
+        simulation: true,
+      })
+    }
+
     // Create Razorpay order for premium upgrade (₹499)
     const order = await razorpay.orders.create({
       amount: 49900, // ₹499 in paise
@@ -36,6 +47,7 @@ export async function POST(req: Request) {
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
+      simulation: false,
     })
   } catch (error) {
     console.error("Create order error:", error)
