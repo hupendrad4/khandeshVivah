@@ -1,0 +1,515 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum MaritalStatus {
+  NEVER_MARRIED
+  DIVORCED
+  WIDOWED
+  AWATTING_DIVORCE
+}
+
+enum UserRole {
+  BRIDE
+  GROOM
+  PARENT
+  ADMIN
+  SUPER_ADMIN
+  MODERATOR
+}
+
+enum MembershipTier {
+  FREE
+  PREMIUM
+  PREMIUM_PLUS
+  VIP
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+  NOT_SUBMITTED
+}
+
+enum FoodPreference {
+  VEGETARIAN
+  NON_VEGETARIAN
+  EGGITARIAN
+  JAIN
+  VEGAN
+}
+
+enum FamilyType {
+  NUCLEAR
+  JOINT
+}
+
+enum FamilyStatus {
+  MIDDLE_CLASS
+  UPPER_MIDDLE_CLASS
+  RICH
+  AFFLUENT
+}
+
+enum Religion {
+  HINDU
+  MUSLIM
+  BUDDHIST
+  JAIN
+  CHRISTIAN
+  SIKH
+  OTHER
+}
+
+enum Caste {
+  LEVA_PATIL
+  MARATHA
+  KUNBI
+  MALI
+  BRAHMIN
+  DHANGAR
+  SUTAR
+  LOHAR
+  SONAR
+  TELI
+  SHIMPI
+  NHAVI
+  PARIT
+  KUMBHAR
+  CHAMBHAR
+  MAHAR
+  MANG
+  DHOBI
+  KOLI
+  BHIL
+  VANJARI
+  GOSAVI
+  GAVALI
+  AHIRE
+  BAGUL
+  PANCHAL
+  WANI
+  LINGAYAT
+  RAJPUT
+  SALVI
+  KASAR
+  BUDDHIST
+  SIKH
+  CHRISTIAN
+  JAIN
+  MUSLIM
+  OTHER
+}
+
+enum Nakshatra {
+  ASHWINI
+  BHARANI
+  KRITTIKA
+  ROHINI
+  MRIGASHIRA
+  ARDRA
+  PUNARVASU
+  PUSHYA
+  ASHLESHA
+  MAGHA
+  PURVA_PHALGUNI
+  UTTARA_PHALGUNI
+  HASTA
+  CHITRA
+  SWATI
+  VISHAKHA
+  ANURADHA
+  JYESHTHA
+  MULA
+  PURVA_ASHADHA
+  UTTARA_ASHADHA
+  SHRAVANA
+  DHANISHTA
+  SHATABHISHA
+  PURVA_BHADRAPADA
+  UTTARA_BHADRAPADA
+  REVATI
+}
+
+enum Raashi {
+  MESH
+  VRISHABH
+  MITHUN
+  KARK
+  SIMHA
+  KANYA
+  TULA
+  VRISHCHIK
+  DHANUSH
+  MAKAR
+  KUMBH
+  MEEN
+}
+
+enum District {
+  JALGAON
+  DHULE
+  NANDURBAR
+  NASHIK_NORTH
+}
+
+enum Taluka {
+  CHOPDA
+  YAVAL
+  RAIVER
+  BHUSAWAL
+  JAMNER
+  ERANDOL
+  AMALNER
+  DHULE
+  SHIRPUR
+  SINDKHEDA
+  NADURBAR
+  NAVAPUR
+  SAKRI
+  TALODA
+  BAGLAN
+  KALWAN
+  SURGANA
+  PETH
+  TRIMBAK
+  IGATPURI
+  NASHIK
+  NIPHAD
+  SINNAR
+  DINDORI
+  CHANDWAD
+  MALEK
+}
+
+model User {
+  id              String             @id @default(cuid())
+  clerkId         String?            @unique
+  email           String?            @unique
+  mobile          String?            @unique
+  password        String?
+  role            UserRole           @default(BRIDE)
+  membershipTier  MembershipTier     @default(FREE)
+  verification    VerificationStatus @default(NOT_SUBMITTED)
+  isVerified      Boolean            @default(false)
+  isPremium       Boolean            @default(false)
+  isActive        Boolean            @default(true)
+  isProfilePublic Boolean            @default(true)
+  isBlocked       Boolean            @default(false)
+  isAdminApproved Boolean            @default(false)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  lastLoginAt     DateTime?
+  profileComplete Int                @default(0)
+  profileViews    Int                @default(0)
+
+  profile        Profile?
+  family         Family?
+  horoscope      Horoscope?
+  lifestyle      Lifestyle?
+  photos         Photo[]
+  documents      Document[]
+  interestsSent  Interest[]          @relation("InterestSender")
+  interestsRecvd Interest[]          @relation("InterestReceiver")
+  messagesSent   Message[]           @relation("MessageSender")
+  messagesRecvd  Message[]           @relation("MessageReceiver")
+  shortlists     Shortlist[]        @relation("ShortlistUser")
+  shortlistedBy  Shortlist[]        @relation("ShortlistTarget")
+  notifications  Notification[]
+  payments       Payment[]
+  reportsMade    Report[]            @relation("ReportReporter")
+  reportsRecvd   Report[]            @relation("ReportReported")
+  blogs          Blog[]
+  successStories SuccessStory[]
+  tickets        SupportTicket[]
+
+  @@map("users")
+}
+
+model Profile {
+  id              String         @id @default(cuid())
+  userId          String         @unique
+  gender          Gender?
+  fullNameMr      String?
+  fullNameEn      String?
+  dateOfBirth     DateTime?
+  height          Int?
+  weight          Int?
+  religion        Religion?
+  caste           Caste?
+  subCaste        String?
+  motherTongue    String?
+  maritalStatus   MaritalStatus?
+  education       String?
+  educationDetail String?
+  occupation      String?
+  occupationDetail String?
+  income          String?
+  address         String?
+  village         String?
+  taluka          Taluka?
+  district        District?
+  state           String?
+  country         String?
+  nativePlace     String?
+  aboutMe         String?
+  expectations    String?
+  isManglik       Boolean?
+  photoPrivacy    Boolean          @default(false)
+  showContact     Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Family {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  fatherName  String?
+  motherName  String?
+  brothers    Int?
+  sisters     Int?
+  familyType  FamilyType?
+  familyStatus FamilyStatus?
+  familyOrigin String?
+  agriculture Boolean?
+  business    Boolean?
+  govEmployee Boolean?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("families")
+}
+
+model Horoscope {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  nakshatra Nakshatra?
+  raashi    Raashi?
+  manglik   Boolean?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("horoscopes")
+}
+
+model Lifestyle {
+  id             String          @id @default(cuid())
+  userId         String          @unique
+  foodPreference FoodPreference?
+  smoking        Boolean?
+  drinking       Boolean?
+  hobbies        String?
+  interests      String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("lifestyles")
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  userId    String
+  url       String
+  isPrimary Boolean  @default(false)
+  isApproved Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("photos")
+}
+
+model Document {
+  id        String             @id @default(cuid())
+  userId    String
+  type      String
+  url       String
+  status    VerificationStatus @default(PENDING)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
+
+model Interest {
+  id          String   @id @default(cuid())
+  senderId    String
+  receiverId  String
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sender   User @relation("InterestSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("InterestReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@map("interests")
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  content    String
+  imageUrl   String?
+  voiceNote  String?
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  sender   User @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("MessageReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Shortlist {
+  id        String   @id @default(cuid())
+  userId    String
+  targetId  String
+  createdAt DateTime @default(now())
+
+  user   User @relation("ShortlistUser", fields: [userId], references: [id], onDelete: Cascade)
+  target User @relation("ShortlistTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, targetId])
+  @@map("shortlists")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  data      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  userId        String
+  amount        Float
+  currency      String   @default("INR")
+  status        String
+  method        String?
+  planType      String?
+  transactionId String?  @unique
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model Report {
+  id          String   @id @default(cuid())
+  reporterId  String
+  reportedId  String
+  reason      String
+  description String?
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+
+  reporter User @relation("ReportReporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reported User @relation("ReportReported", fields: [reportedId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model Blog {
+  id        String   @id @default(cuid())
+  authorId  String
+  title     String
+  content   String
+  imageUrl  String?
+  slug      String   @unique
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("blogs")
+}
+
+model SuccessStory {
+  id          String   @id @default(cuid())
+  userId      String
+  partnerName String?
+  title       String
+  content     String
+  imageUrl    String?
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("success_stories")
+}
+
+model SupportTicket {
+  id        String   @id @default(cuid())
+  userId    String
+  subject   String
+  message   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  responses TicketResponse[]
+
+  @@map("support_tickets")
+}
+
+model TicketResponse {
+  id        String   @id @default(cuid())
+  ticketId  String
+  message   String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@map("ticket_responses")
+}
+
+model OTP {
+  id        String   @id @default(cuid())
+  mobile    String?
+  email     String?
+  otp       String
+  type      String
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("otps")
+}
