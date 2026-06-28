@@ -7,7 +7,8 @@ import { useI18n } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, Sparkles, Star, Shield, Zap, Crown, ChevronLeft } from "lucide-react"
+import { CheckCircle, Sparkles, Star, Shield, Zap, Crown, ChevronLeft, Loader2 } from "lucide-react"
+import { usePaymentGate } from "@/lib/use-payment-gate"
 
 const plans = [
   {
@@ -38,6 +39,14 @@ const plans = [
 
 export default function PremiumPage() {
   const { t, locale } = useI18n()
+  const { executeWithGate, isProcessing } = usePaymentGate()
+
+  const handleSubscribe = async () => {
+    // In simulation mode, activates premium with 1.5s delay and no real payment
+    await executeWithGate(async () => {
+      // Premium is already activated, nothing else needed
+    })
+  }
 
   return (
     <MainLayout>
@@ -89,8 +98,17 @@ export default function PremiumPage() {
                     variant={plan.popular ? "premium" : "outline"}
                     size="lg"
                     className="w-full"
+                    onClick={handleSubscribe}
+                    disabled={isProcessing}
                   >
-                    {t("premium.subscribeNow")}
+                    {isProcessing ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        {t("common.loading") || "Processing..."}
+                      </>
+                    ) : (
+                      t("premium.subscribeNow")
+                    )}
                   </Button>
                 </CardContent>
               </Card>
