@@ -175,7 +175,7 @@ enum Taluka {
   DHULE
   SHIRPUR
   SINDKHEDA
-  NADURBAR
+  NANDURBAR
   NAVAPUR
   SAKRI
   TALODA
@@ -206,9 +206,11 @@ model User {
   isPremium       Boolean            @default(false)
   isActive        Boolean            @default(true)
   isProfilePublic Boolean            @default(true)
-  isBlocked       Boolean            @default(false)
-  isAdminApproved Boolean            @default(false)
-  createdAt       DateTime           @default(now())
+  isBlocked            Boolean?           @default(false)
+  isAdminApproved      Boolean            @default(false)
+  subscriptionEndDate  DateTime?
+  subscriptionStartedAt DateTime?
+  createdAt            DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   lastLoginAt     DateTime?
   profileComplete Int                @default(0)
@@ -230,9 +232,14 @@ model User {
   payments       Payment[]
   reportsMade    Report[]            @relation("ReportReporter")
   reportsRecvd   Report[]            @relation("ReportReported")
-  blogs          Blog[]
-  successStories SuccessStory[]
-  tickets        SupportTicket[]
+  blogs             Blog[]
+  successStories    SuccessStory[]
+  tickets           SupportTicket[]
+  profileViewRecords ProfileView[]       @relation("ProfileViewer")
+  profileViewTargets ProfileView[]       @relation("ProfileTarget")
+  savedSearches      SavedSearch[]
+  blockedUsers       BlockedUser[]       @relation("Blocker")
+  blockedBy          BlockedUser[]       @relation("Blocked")
 
   @@map("users")
 }
@@ -512,4 +519,43 @@ model OTP {
   createdAt DateTime @default(now())
 
   @@map("otps")
+}
+
+model ProfileView {
+  id        String   @id @default(cuid())
+  viewerId  String
+  targetId  String
+  createdAt DateTime @default(now())
+
+  viewer User @relation("ProfileViewer", fields: [viewerId], references: [id], onDelete: Cascade)
+  target User @relation("ProfileTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([viewerId, targetId, createdAt])
+  @@map("profile_views")
+}
+
+model SavedSearch {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  filters   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("saved_searches")
+}
+
+model BlockedUser {
+  id        String   @id @default(cuid())
+  blockerId String
+  blockedId String
+  createdAt DateTime @default(now())
+
+  blocker User @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked User @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+  @@map("blocked_users")
 }

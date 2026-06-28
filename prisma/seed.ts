@@ -482,7 +482,7 @@ async function main() {
       income: "₹8,00,000 - ₹10,00,000",
       address: "Shahada Road, Nandurbar",
       village: "शहादा",
-      taluka: "NADURBAR",
+      taluka: "NANDURBAR",
       district: "NANDURBAR",
       state: "Maharashtra",
       country: "India",

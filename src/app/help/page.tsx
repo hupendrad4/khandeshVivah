@@ -7,7 +7,7 @@ import { useI18n } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { ChevronLeft, Search, HelpCircle, MessageCircle, Phone, Mail, FileText, ChevronRight } from "lucide-react"
+import { ChevronLeft, Search, HelpCircle, MessageCircle, Phone, Mail, ChevronRight } from "lucide-react"
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -27,11 +27,32 @@ export default function HelpPage() {
 
   return (
     <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
+      <div className="relative min-h-[35vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573497620053-e4e2924b8f1f?w=1600&q=80')" }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+        </div>
+        <div className="relative z-10 text-center px-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-white font-label-md mb-4">
+            <HelpCircle className="h-4 w-4" />
+            {locale === "mr" ? "आम्ही मदतीसाठी आहोत" : "We're here to help"}
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-3">{t("nav.help")}</motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="text-white/80 text-lg max-w-xl mx-auto">
+            {locale === "mr" ? "तुमच्या प्रश्नांची उत्तरे आणि सहाय्य" : "Answers and support for your questions"}
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
         <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
-        <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-6 text-2xl font-bold text-[#1b1c1c]">{t("nav.help")}</motion.h1>
 
         <div className="relative mb-8">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#887364]" />
@@ -45,7 +66,7 @@ export default function HelpPage() {
             { icon: Mail, labelMr: "ईमेल सपोर्ट", labelEn: "Email Support", descMr: "support@khandeshvivah.com", descEn: "support@khandeshvivah.com" },
           ].map((item, i) => (
             <motion.div key={i} variants={fadeUp} initial="initial" animate="animate" transition={{ delay: i * 0.1 }}>
-              <Card className="cursor-pointer hover:shadow-elevated">
+              <Card className="bg-surface-container-low border-0 shadow-sm cursor-pointer hover:shadow-elevated">
                 <CardContent className="flex flex-col items-center p-5 text-center">
                   <item.icon className="mb-2 h-8 w-8 text-[#8f4e00]" />
                   <h3 className="font-semibold text-[#1b1c1c]">{locale === "mr" ? item.labelMr : item.labelEn}</h3>
@@ -56,18 +77,24 @@ export default function HelpPage() {
           ))}
         </div>
 
-        <h2 className="mb-4 text-lg font-bold text-[#1b1c1c]">{t("home.faq")}</h2>
+        <div className="relative mb-6">
+          <div className="ornamental-band mb-4" />
+          <h2 className="text-lg font-bold text-[#1b1c1c] flex items-center gap-2">
+            <HelpCircle className="h-5 w-5 text-[#8f4e00]" />
+            {t("home.faq")}
+          </h2>
+        </div>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-              <Card>
+              <Card className="bg-surface-container-low border-0 shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between cursor-pointer">
                     <div>
                       <h3 className="font-medium text-[#1b1c1c]">{locale === "mr" ? faq.qMr : faq.qEn}</h3>
                       <p className="mt-1 text-sm text-[#554336]">{locale === "mr" ? faq.aMr : faq.aEn}</p>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-[#887364]" />
+                    <ChevronRight className="h-5 w-5 text-[#887364] shrink-0 mt-1" />
                   </div>
                 </CardContent>
               </Card>

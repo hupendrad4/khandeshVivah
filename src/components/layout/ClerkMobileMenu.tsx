@@ -13,6 +13,7 @@ export default function ClerkMobileMenu() {
   if (isSignedIn) {
     return (
       <>
+        <Link href="/notifications" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.notifications")}</Link>
         <Link href="/dashboard" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.dashboard")}</Link>
         <Link href="/profile" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.profile")}</Link>
         <Link href="/settings" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.settings")}</Link>

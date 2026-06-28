@@ -26,11 +26,27 @@ export default function ContactPage() {
 
   return (
     <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
+      <div className="relative min-h-[35vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1600&q=80')" }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+        </div>
+        <div className="relative z-10 text-center px-4">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-3">{t("nav.contact")}</motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="text-white/80 text-lg max-w-xl mx-auto">
+            {locale === "mr" ? "आमच्याशी संपर्क साधा. तुमचे प्रश्न ऐकण्यासाठी आम्ही सदैव तयार आहोत." : "Get in touch. We're always ready to hear from you."}
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
         <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
-        <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-6 text-2xl font-bold text-[#1b1c1c]">{t("nav.contact")}</motion.h1>
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4">
@@ -40,9 +56,11 @@ export default function ContactPage() {
               { icon: MapPin, labelMr: "पत्ता", labelEn: "Address", valueMr: "जळगाव, महाराष्ट्र, भारत", valueEn: "Jalgaon, Maharashtra, India" },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} initial="initial" animate="animate" transition={{ delay: i * 0.1 }}>
-                <Card>
+                <Card className="bg-surface-container-low border-0 shadow-sm">
                   <CardContent className="flex items-center gap-3 p-4">
-                    <item.icon className="h-5 w-5 text-[#8f4e00]" />
+                    <div className="rounded-full bg-[#8f4e00]/10 p-2">
+                      <item.icon className="h-5 w-5 text-[#8f4e00]" />
+                    </div>
                     <div>
                       <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? item.labelMr : item.labelEn}</p>
                       <p className="text-xs text-[#887364]">{locale === "mr" && item.valueMr ? item.valueMr : item.valueEn || item.value}</p>
@@ -53,24 +71,24 @@ export default function ContactPage() {
             ))}
           </div>
           <motion.div variants={fadeUp} initial="initial" animate="animate">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label>{t("auth.fullName")}</Label>
-                    <Input placeholder={locale === "mr" ? "तुमचे नाव" : "Your name"} className="bg-[#ffdcc2]" />
+                    <Input placeholder={locale === "mr" ? "तुमचे नाव" : "Your name"} className="bg-[#ffdcc2] border-0" />
                   </div>
                   <div className="space-y-2">
                     <Label>{t("auth.emailAddress")}</Label>
-                    <Input type="email" placeholder="your@email.com" className="bg-[#ffdcc2]" />
+                    <Input type="email" placeholder="your@email.com" className="bg-[#ffdcc2] border-0" />
                   </div>
                   <div className="space-y-2">
                     <Label>{t("auth.mobileNumber")}</Label>
-                    <Input placeholder="+91 98765 43210" className="bg-[#ffdcc2]" />
+                    <Input placeholder="+91 98765 43210" className="bg-[#ffdcc2] border-0" />
                   </div>
                   <div className="space-y-2">
                     <Label>{locale === "mr" ? "संदेश" : "Message"}</Label>
-                    <textarea className="min-h-[120px] w-full rounded-lg border border-[#E4E2E1] bg-[#ffdcc2] p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#8f4e00]" />
+                    <textarea className="min-h-[120px] w-full rounded-lg border-0 bg-[#ffdcc2] p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#8f4e00]" />
                   </div>
                   <Button type="submit" className="w-full gap-2">
                     <Send className="h-4 w-4" /> {t("common.submit")}

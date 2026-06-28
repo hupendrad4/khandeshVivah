@@ -51,24 +51,27 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#E4E2E1] bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-container items-center justify-between px-4 md:px-6 lg:px-10">
+    <header className="sticky top-0 z-40 w-full border-b border-outline-variant/20 bg-surface-white/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-container items-center justify-between px-4 md:px-gutter">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-extrabold text-[#8f4e00] font-heading">खांदेश विवाह</span>
-          <span className="hidden text-xs font-medium text-[#d3ae36] md:block">| Khandesh Vivah</span>
+          <span className="text-xl font-extrabold text-primary font-heading">
+            {locale === "mr" ? "खांदेश विवाह" : "Khandesh Vivah"}
+          </span>
+          <span className="hidden text-xs font-medium text-tertiary md:block">| Khandesh Vivah</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
-          <Link href="/search" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.search")}</Link>
-          <Link href="/matches" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.matches")}</Link>
-          <Link href="/success-stories" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.successStories")}</Link>
-          <Link href="/premium" className="text-sm font-semibold text-[#d3ae36] transition-colors hover:text-[#FFD700]">{t("nav.premium")}</Link>
+          <Link href="/search" className="text-sm font-medium text-on-surface-variant transition-colors hover:text-primary">{t("nav.search")}</Link>
+          <Link href="/matches" className="text-sm font-medium text-on-surface-variant transition-colors hover:text-primary">{t("nav.matches")}</Link>
+          <Link href="/dashboard" className="text-sm font-medium text-on-surface-variant transition-colors hover:text-primary">{t("nav.dashboard")}</Link>
+          <Link href="/success-stories" className="text-sm font-medium text-on-surface-variant transition-colors hover:text-primary">{t("nav.successStories")}</Link>
+          <Link href="/premium" className="text-sm font-semibold text-tertiary transition-colors hover:text-tertiary/80">{t("nav.premium")}</Link>
         </nav>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setLocale(locale === "mr" ? "en" : "mr")}
-            className="flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-[#554336] transition-colors hover:bg-[#F6F3F2]"
+            className="flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-on-surface-variant transition-colors hover:bg-surface-container-low"
           >
             <Globe className="h-3.5 w-3.5" />
             {locale === "mr" ? "EN" : "मराठी"}
@@ -76,7 +79,7 @@ export function Header() {
 
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="rounded-lg p-2 text-[#554336] transition-colors hover:bg-[#F6F3F2]"
+            className="rounded-lg p-2 text-on-surface-variant transition-colors hover:bg-surface-container-low"
           >
             {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
@@ -85,7 +88,7 @@ export function Header() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg p-2 text-[#554336] md:hidden"
+            className="rounded-lg p-2 text-on-surface-variant md:hidden"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -93,12 +96,13 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="border-t border-[#E4E2E1] bg-white px-4 pb-4 pt-2 md:hidden animate-slide-down">
+        <div className="border-t border-outline-variant/20 bg-surface-white px-4 pb-4 pt-2 md:hidden animate-slide-down">
           <nav className="flex flex-col gap-2">
-            <Link href="/search" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.search")}</Link>
-            <Link href="/matches" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.matches")}</Link>
-            <Link href="/success-stories" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.successStories")}</Link>
-            <Link href="/premium" className="rounded-lg px-3 py-2 text-sm font-semibold text-[#d3ae36] hover:bg-[#F6F3F2]">{t("nav.premium")}</Link>
+            <Link href="/search" className="rounded-lg px-3 py-2 text-sm text-on-surface-variant hover:bg-surface-container-low">{t("nav.search")}</Link>
+            <Link href="/matches" className="rounded-lg px-3 py-2 text-sm text-on-surface-variant hover:bg-surface-container-low">{t("nav.matches")}</Link>
+            <Link href="/dashboard" className="rounded-lg px-3 py-2 text-sm text-on-surface-variant hover:bg-surface-container-low">{t("nav.dashboard")}</Link>
+            <Link href="/success-stories" className="rounded-lg px-3 py-2 text-sm text-on-surface-variant hover:bg-surface-container-low">{t("nav.successStories")}</Link>
+            <Link href="/premium" className="rounded-lg px-3 py-2 text-sm font-semibold text-tertiary hover:bg-surface-container-low">{t("nav.premium")}</Link>
             {isClerkConfigured ? <ClerkMobileMenu /> : <PublicMobileMenuItems />}
           </nav>
         </div>

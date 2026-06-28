@@ -16,14 +16,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
     }
 
-    // Verify user exists
-    const user = await prisma.user.findUnique({ where: { id: userId } })
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 })
+    const isSimulation = !isPaymentConfigured()
+
+    // Verify user exists (skip DB check in simulation mode)
+    if (!isSimulation) {
+      const user = await prisma.user.findUnique({ where: { id: userId } })
+      if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 })
+      }
     }
 
     // If Razorpay is not configured, return a simulated order
-    if (!isPaymentConfigured()) {
+    if (isSimulation) {
       return NextResponse.json({
         orderId: `sim_order_${Date.now()}`,
         amount: 49900,

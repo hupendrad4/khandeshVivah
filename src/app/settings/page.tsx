@@ -25,7 +25,8 @@ export default function SettingsPage() {
 
   return (
     <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
+      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
         <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
@@ -33,7 +34,7 @@ export default function SettingsPage() {
 
         <div className="space-y-4">
           <motion.div variants={fadeUp} initial="initial" animate="animate">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
                 <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.language")}</h3>
                 <div className="flex gap-3">
@@ -53,7 +54,7 @@ export default function SettingsPage() {
           </motion.div>
 
           <motion.div variants={fadeUp} initial="initial" animate="animate">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
                 <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.theme")}</h3>
                 <div className="flex gap-3">
@@ -73,7 +74,7 @@ export default function SettingsPage() {
           </motion.div>
 
           <motion.div variants={fadeUp} initial="initial" animate="animate">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="space-y-4 p-5">
                 <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.notifications")}</h3>
                 {[
@@ -95,7 +96,7 @@ export default function SettingsPage() {
           </motion.div>
 
           <motion.div variants={fadeUp} initial="initial" animate="animate">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="space-y-4 p-5">
                 <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.privacy")}</h3>
                 <div className="flex items-center justify-between">

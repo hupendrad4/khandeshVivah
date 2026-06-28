@@ -40,24 +40,44 @@ export async function POST(req: Request) {
       }
     }
 
-    // Upgrade user to premium
-    await prisma.user.update({
-      where: { id: userId },
-      data: { isPremium: true, membershipTier: "PREMIUM" },
-    })
-
-    // Record the payment (with simulated ID if in simulation mode)
-    await prisma.payment.create({
-      data: {
-        userId,
-        amount: 499,
-        currency: "INR",
-        status: "completed",
-        method: isSimulation ? "simulation" : "razorpay",
-        planType: "premium",
-        transactionId: isSimulation ? `sim_pay_${Date.now()}` : razorpay_payment_id,
-      },
-    })
+    // Upgrade user to premium (skip DB in simulation mode if user doesn't exist)
+    if (!isSimulation) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { isPremium: true, membershipTier: "PREMIUM" },
+      })
+      await prisma.payment.create({
+        data: {
+          userId,
+          amount: 499,
+          currency: "INR",
+          status: "completed",
+          method: "razorpay",
+          planType: "premium",
+          transactionId: razorpay_payment_id,
+        },
+      })
+    } else {
+      try {
+        await prisma.user.update({
+          where: { id: userId },
+          data: { isPremium: true, membershipTier: "PREMIUM" },
+        })
+        await prisma.payment.create({
+          data: {
+            userId,
+            amount: 499,
+            currency: "INR",
+            status: "completed",
+            method: "simulation",
+            planType: "premium",
+            transactionId: `sim_pay_${Date.now()}`,
+          },
+        })
+      } catch {
+        // User may not exist in DB (demo mode) — that's fine
+      }
+    }
 
     // If there's a pending action (send interest), execute it
     if (actionType === "send_interest" && targetUserId) {

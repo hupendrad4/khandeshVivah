@@ -170,6 +170,14 @@ export const mr = {
     noResults: "कोणतेही जुळणारे सापडले नाहीत",
     compatibility: "सुसंगतता",
     sendInterest: "आवड पाठवा",
+    religions: {
+      HINDU: "हिंदू",
+      MUSLIM: "मुस्लिम",
+      BUDDHIST: "बौद्ध",
+      JAIN: "जैन",
+      CHRISTIAN: "ख्रिश्चन",
+      SIKH: "शीख",
+    },
   },
   profile: {
     aboutMe: "माझ्याबद्दल",

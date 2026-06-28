@@ -38,6 +38,7 @@ export interface IUser {
   verification: string
   isVerified: boolean
   isPremium: boolean
+  subscriptionEndDate?: string
   isProfilePublic: boolean
   profileComplete: number
   profileViews: number

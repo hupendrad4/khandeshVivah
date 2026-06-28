@@ -170,6 +170,14 @@ export const en = {
     noResults: "No matches found",
     compatibility: "Compatibility",
     sendInterest: "Send Interest",
+    religions: {
+      HINDU: "Hindu",
+      MUSLIM: "Muslim",
+      BUDDHIST: "Buddhist",
+      JAIN: "Jain",
+      CHRISTIAN: "Christian",
+      SIKH: "Sikh",
+    },
   },
   profile: {
     aboutMe: "About Me",

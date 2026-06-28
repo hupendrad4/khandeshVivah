@@ -1,8 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 import { useI18n } from "@/lib/i18n"
 import { usePaymentGate } from "@/lib/use-payment-gate"
+import { MainLayout } from "@/components/layout/MainLayout"
 import toast from "react-hot-toast"
 import { Loader2 } from "lucide-react"
 
@@ -46,23 +48,46 @@ const plans = [
 
 export default function PremiumPage() {
   const { locale } = useI18n()
+  const router = useRouter()
   const { executeWithGate, isProcessing } = usePaymentGate()
 
   return (
-    <>
-      <div className="min-h-screen pb-24 bg-background-cream">
-        <div className="pt-24 px-gutter max-w-container mx-auto">
-          {/* Header */}
-          <header className="text-center mb-12">
-            <h2 className="font-headline-xl text-headline-xl text-primary mb-4">
-              {locale === "mr" ? "प्रीमियम प्लॅन्स निवडा" : "Choose Your Plan"}
-            </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-              {locale === "mr"
-                ? "तुमच्यासाठी योग्य जोडीदार शोधण्यासाठी आमचे खास प्रीमियम प्लॅन्स निवडा आणि आजच प्रवासाची सुरुवात करा."
-                : "Choose our premium plans to find the perfect partner and start your journey today."}
-            </p>
-          </header>
+    <MainLayout>
+      <div className="relative">
+        <button onClick={() => router.back()}
+          className="absolute top-4 left-4 z-20 flex items-center gap-1 text-white/80 hover:text-white transition-colors">
+          <span className="material-symbols-outlined text-[22px]">arrow_back</span>
+          <span className="text-sm font-medium hidden md:inline">{locale === "mr" ? "मागे" : "Back"}</span>
+        </button>
+      </div>
+      <div className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1464699575480-3c0e5c77f6b5?w=1600&q=80')" }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFFEF2]" />
+        </div>
+        <div className="relative z-10 text-center px-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-white font-label-md mb-4">
+            <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>stars</span>
+            {locale === "mr" ? "प्रीमियम सदस्यत्व" : "Premium Membership"}
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-3">
+            {locale === "mr" ? "प्रीमियम प्लॅन्स निवडा" : "Choose Your Plan"}
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="text-white/80 text-lg max-w-2xl mx-auto">
+            {locale === "mr"
+              ? "तुमच्यासाठी योग्य जोडीदार शोधण्यासाठी आमचे खास प्रीमियम प्लॅन्स निवडा आणि आजच प्रवासाची सुरुवात करा."
+              : "Choose our premium plans to find the perfect partner and start your journey today."}
+          </motion.p>
+        </div>
+      </div>
+      <div className="min-h-screen pb-24 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
+        <div className="px-gutter max-w-container mx-auto -mt-8 relative z-20">
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -72,10 +97,10 @@ export default function PremiumPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className={`relative bg-surface-white rounded-2xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
+                className={`relative rounded-2xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
                   plan.popular
-                    ? "scale-105 z-10 shadow-xl border-2 border-transparent"
-                    : "border border-outline-variant/30"
+                    ? "scale-105 z-10 shadow-xl border-2 border-transparent bg-surface-container-low"
+                    : "border border-outline-variant/30 bg-surface-container-low"
                 }`}
                 style={plan.popular ? {
                   borderImage: "linear-gradient(to bottom right, #D4AF37, #FFD700, #B8860B) 1",
@@ -148,6 +173,6 @@ export default function PremiumPage() {
           </section>
         </div>
       </div>
-    </>
+    </MainLayout>
   )
 }

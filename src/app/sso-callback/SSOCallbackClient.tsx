@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { MainLayout } from "@/components/layout/MainLayout"
 
 export default function SSOCallbackClient() {
   const router = useRouter()
@@ -21,11 +22,13 @@ export default function SSOCallbackClient() {
   }, [router])
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#FFFEF2]">
-      <div className="text-center">
-        <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#8f4e00] border-t-transparent" />
-        <p className="text-sm text-[#554336]">Signing in...</p>
+    <MainLayout>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <p className="text-sm text-on-surface-variant">Signing in...</p>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }

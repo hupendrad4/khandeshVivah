@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useI18n } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { MainLayout } from "@/components/layout/MainLayout"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -346,8 +347,9 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen pb-24 pt-8 bg-background-cream">
-      <div className="mx-auto max-w-2xl px-4">
+    <MainLayout>
+      <div className="mx-auto max-w-2xl px-4 pt-24 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
         <Link href="/" className="mb-4 inline-flex items-center gap-1 text-sm text-on-surface-variant hover:text-primary transition-colors">
           <span className="material-symbols-outlined text-[18px]">arrow_back</span>
           {t("common.back")}
@@ -402,7 +404,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Form Card */}
-        <Card className="border border-outline-variant/20 shadow-[0_8px_40px_rgba(0,27,77,0.05)] bg-surface-white rounded-2xl overflow-hidden">
+        <Card className="border-0 shadow-[0_8px_40px_rgba(0,27,77,0.05)] bg-surface-container-low rounded-2xl overflow-hidden">
           <CardContent className="p-6 md:p-8">
             <AnimatePresence mode="wait">
               <motion.div
@@ -1096,6 +1098,6 @@ export default function RegisterPage() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </MainLayout>
   )
 }

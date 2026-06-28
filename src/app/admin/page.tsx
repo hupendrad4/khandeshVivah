@@ -10,9 +10,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
-  Users, UserCheck, Shield, DollarSign, Activity, Settings,
-  TrendingUp, BarChart3, Search, MoreVertical, CheckCircle, X,
-  Star, Clock, FileText, MessageCircle, Bell, AlertTriangle,
+  Users, UserCheck, Shield, Star, Search, MoreVertical, CheckCircle, X,
 } from "lucide-react"
 
 const stats = [
@@ -39,18 +37,35 @@ export default function AdminPage() {
 
   return (
     <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <motion.div variants={fadeUp} initial="initial" animate="animate" className="mb-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-[#1b1c1c]">{t("admin.dashboard")}</h1>
-            <p className="text-sm text-[#554336]">{locale === "mr" ? "खांदेश विवाह अॅडमिन पॅनल" : "Khandesh Vivah Admin Panel"}</p>
-          </div>
-          <Badge variant="premium" className="gap-1"><Shield className="h-3 w-3" /> Super Admin</Badge>
-        </motion.div>
+      <div className="relative min-h-[30vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')" }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+        </div>
+        <div className="relative z-10 text-center px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-white font-label-md mb-4"
+          >
+            <Shield className="h-4 w-4" />
+            Super Admin
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-3">{t("admin.dashboard")}</motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="text-white/80 text-lg">
+            {locale === "mr" ? "खांदेश विवाह अॅडमिन पॅनल" : "Khandesh Vivah Admin Panel"}
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
+        <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
 
         <motion.div variants={fadeUp} initial="initial" animate="animate" className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
           {stats.map((s) => (
-            <Card key={s.label}>
+            <Card key={s.label} className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-4">
                 <div className="mb-2 flex items-center justify-between">
                   <s.icon className={`h-5 w-5 ${s.color}`} />
@@ -73,7 +88,7 @@ export default function AdminPage() {
           </TabsList>
 
           <TabsContent value="users">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="relative flex-1 max-w-sm">
@@ -103,7 +118,7 @@ export default function AdminPage() {
                           <td className="py-3">
                             <div className="flex items-center gap-2">
                               <Avatar className="h-8 w-8">
-                                <AvatarFallback className="text-xs">{u.name[0]}</AvatarFallback>
+                                <AvatarFallback className="text-xs bg-[#8f4e00]/10 text-[#8f4e00]">{u.name[0]}</AvatarFallback>
                               </Avatar>
                               <span className="font-medium text-[#1b1c1c]">{u.name}</span>
                             </div>
@@ -129,7 +144,7 @@ export default function AdminPage() {
           </TabsContent>
 
           <TabsContent value="verification">
-            <Card>
+            <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
                 <div className="space-y-4">
                   {[
@@ -143,10 +158,12 @@ export default function AdminPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="flex items-center justify-between rounded-xl bg-[#F6F3F2] p-4"
+                      className="flex items-center justify-between rounded-xl bg-[#ebe7e4] p-4"
                     >
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10"><AvatarFallback>{item.name[0]}</AvatarFallback></Avatar>
+                        <Avatar className="h-10 w-10">
+                          <AvatarFallback className="bg-[#8f4e00]/10 text-[#8f4e00]">{item.name[0]}</AvatarFallback>
+                        </Avatar>
                         <div>
                           <p className="font-medium text-[#1b1c1c]">{item.name}</p>
                           <p className="text-xs text-[#887364]">{item.doc} | {item.submitted}</p>

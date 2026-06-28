@@ -5,9 +5,17 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const userId = searchParams.get("userId")
+    const targetId = searchParams.get("targetId")
 
     if (!userId) {
       return NextResponse.json({ error: "userId is required" }, { status: 400 })
+    }
+
+    if (targetId) {
+      const existing = await prisma.shortlist.findUnique({
+        where: { userId_targetId: { userId, targetId } },
+      })
+      return NextResponse.json({ success: true, shortlisted: !!existing })
     }
 
     const shortlists = await prisma.shortlist.findMany({
