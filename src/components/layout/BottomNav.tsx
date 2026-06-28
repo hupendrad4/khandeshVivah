@@ -13,7 +13,7 @@ export function BottomNav() {
     { href: "/home", icon: Home, label: t("nav.home") },
     { href: "/search", icon: Search, label: t("nav.search") },
     { href: "/matches", icon: Heart, label: t("nav.matches") },
-    { href: "/chat", icon: MessageCircle, label: t("nav.messages") },
+    { href: "/chat", icon: MessageCircle, label: t("nav.chat") },
     { href: "/profile", icon: User, label: t("nav.profile") },
   ]
 

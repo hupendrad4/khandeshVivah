@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation"
 import { MainLayout } from "@/components/layout/MainLayout"
 import { useI18n } from "@/lib/i18n"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/store/auth-store"
-import { Heart, MessageCircle, Eye, Sparkles, Shield, CheckCheck } from "lucide-react"
+import { Heart, MessageCircle, Eye, Sparkles, Shield, CheckCheck, X } from "lucide-react"
 import toast from "react-hot-toast"
 
 const iconMap: Record<string, any> = {
@@ -46,6 +47,24 @@ export default function NotificationsPage() {
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [user?.id])
+
+  const respondToInterest = async (notification: any, status: "ACCEPTED" | "REJECTED") => {
+    const interestId = notification.data ? JSON.parse(notification.data).interestId : null
+    if (!interestId) return
+    const res = await fetch("/api/interests/respond", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ interestId, status }),
+    })
+    if (res.ok) {
+      setNotifications(prev => prev.filter(n => n.id !== notification.id))
+      toast.success(status === "ACCEPTED"
+        ? (locale === "mr" ? "मान्य केले" : "Accepted")
+        : (locale === "mr" ? "नकार दिला" : "Declined"))
+    } else {
+      toast.error(locale === "mr" ? "कृपया पुन्हा प्रयत्न करा" : "Failed, please try again")
+    }
+  }
 
   const markAllRead = async () => {
     if (!user?.id) return
@@ -134,17 +153,31 @@ export default function NotificationsPage() {
                 return (
                   <motion.div key={n.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                     className={`bg-surface-container-low rounded-2xl border-0 shadow-sm transition-all ${!n.isRead ? 'ring-1 ring-primary/20' : ''}`}>
-                    <CardContent className="p-4 flex items-start gap-4">
-                      <div className={`mt-1 ${color}`}>
-                        <Icon size={20} />
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-4">
+                        <div className={`mt-1 ${color}`}>
+                          <Icon size={20} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-sm ${!n.isRead ? 'font-semibold text-royal-ink' : 'text-on-surface-variant'}`}>
+                            {n.message || n.title}
+                          </p>
+                          <p className="text-xs text-on-surface-variant/60 mt-1">{timeAgo(n.createdAt)}</p>
+                        </div>
+                        {!n.isRead && <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`text-sm ${!n.isRead ? 'font-semibold text-royal-ink' : 'text-on-surface-variant'}`}>
-                          {n.message || n.title}
-                        </p>
-                        <p className="text-xs text-on-surface-variant/60 mt-1">{timeAgo(n.createdAt)}</p>
-                      </div>
-                      {!n.isRead && <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />}
+                      {n.type === "INTEREST" && n.data && JSON.parse(n.data).interestId && (
+                        <div className="flex gap-2 mt-3 ml-9">
+                          <Button size="sm" onClick={() => respondToInterest(n, "ACCEPTED")}
+                            className="bg-[#50C878] hover:bg-[#50C878]/90 text-white gap-1.5">
+                            <Heart size={14} /> {locale === "mr" ? "मान्य" : "Accept"}
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => respondToInterest(n, "REJECTED")}
+                            className="border-[#E57373] text-[#E57373] hover:bg-[#E57373]/10 gap-1.5">
+                            <X size={14} /> {locale === "mr" ? "नकार" : "Decline"}
+                          </Button>
+                        </div>
+                      )}
                     </CardContent>
                   </motion.div>
                 )

@@ -13,19 +13,39 @@ export default function ClerkMobileMenu() {
   if (isSignedIn) {
     return (
       <>
-        <Link href="/notifications" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.notifications")}</Link>
-        <Link href="/dashboard" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.dashboard")}</Link>
-        <Link href="/profile" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.profile")}</Link>
-        <Link href="/settings" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.settings")}</Link>
-        <button onClick={() => signOut()} className="mt-2 w-full rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-[#F6F3F2]">{t("nav.logout")}</button>
+        <Link href="/notifications"
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-[18px]">notifications</span>
+          {t("nav.notifications")}
+        </Link>
+        <Link href="/dashboard"
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-[18px]">dashboard</span>
+          {t("nav.dashboard")}
+        </Link>
+        <Link href="/profile"
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-[18px]">person</span>
+          {t("nav.profile")}
+        </Link>
+        <Link href="/settings"
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-[18px]">settings</span>
+          {t("nav.settings")}
+        </Link>
+        <button onClick={() => signOut()}
+          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-colors mt-1">
+          <span className="material-symbols-outlined text-[18px]">logout</span>
+          {t("nav.logout")}
+        </button>
       </>
     )
   }
 
   return (
-    <>
-      <Link href="/login" className="mt-2"><Button variant="default" className="w-full">{t("nav.login")}</Button></Link>
-      <Link href="/register"><Button variant="secondary" className="w-full">{t("nav.register")}</Button></Link>
-    </>
+    <div className="flex flex-col gap-2 mt-2">
+      <Link href="/login"><Button variant="default" className="w-full bg-primary text-white">{t("nav.login")}</Button></Link>
+      <Link href="/register"><Button variant="outline" className="w-full border-primary text-primary">{t("nav.register")}</Button></Link>
+    </div>
   )
 }

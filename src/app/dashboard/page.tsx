@@ -34,7 +34,8 @@ export default function DashboardPage() {
       fetch(`/api/profile/strength?userId=${uid}`).then(r => r.json()),
       fetch(`/api/dashboard/views?userId=${uid}`).then(r => r.json()),
       fetch(`/api/dashboard/matches?userId=${uid}`).then(r => r.json()),
-    ]).then(([strength, views, matches]) => {
+      fetch(`/api/shortlist?userId=${uid}`).then(r => r.json()),
+    ]).then(([strength, views, matches, shortlist]) => {
       if (strength.success) {
         setProfileScore(strength.score)
         setPendingItems(strength.pendingItems)
@@ -45,6 +46,9 @@ export default function DashboardPage() {
       }
       if (matches.success) {
         setRecommendedMatches(matches.matches)
+      }
+      if (shortlist.success) {
+        setShortlistedIds(new Set((shortlist.profiles || []).map((p: any) => p.id)))
       }
     }).catch(() => {}).finally(() => setLoading(false))
   }, [user?.id])
@@ -238,21 +242,31 @@ export default function DashboardPage() {
                         {m.profile?.village}{m.profile?.district ? `, ${m.profile.district}` : ""}
                       </div>
                       <button
-                        onClick={() => {
-                          if (isShortlisted) {
-                            setShortlistedIds(prev => { const n = new Set(prev); n.delete(m.id); return n })
-                          } else {
-                            setShortlistedIds(prev => new Set(prev).add(m.id))
+                        onClick={async () => {
+                          if (!user?.id) return
+                          const res = await fetch("/api/shortlist/toggle", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ userId: user.id, targetId: m.id }),
+                          })
+                          const data = await res.json()
+                          if (data.success) {
+                            setShortlistedIds(prev => {
+                              const n = new Set(prev)
+                              if (data.shortlisted) n.add(m.id)
+                              else n.delete(m.id)
+                              return n
+                            })
                           }
                         }}
                         className="w-full py-2 bg-primary text-white rounded-lg font-label-md hover:bg-on-primary-container transition-colors active:scale-95 flex justify-center items-center gap-2"
                       >
                         <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: isShortlisted ? "'FILL' 1" : "'FILL' 0" }}>
-                          favorite
+                          bookmark
                         </span>
                         {isShortlisted
-                          ? (locale === "mr" ? "आवड पाठवली" : "Interest Sent")
-                          : (locale === "mr" ? "आवड पाठवा" : "Send Interest")}
+                          ? (locale === "mr" ? "यादीत" : "Shortlisted")
+                          : (locale === "mr" ? "यादीत टाका" : "Shortlist")}
                       </button>
                     </div>
                   </motion.div>

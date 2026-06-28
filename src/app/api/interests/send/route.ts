@@ -17,12 +17,15 @@ export async function POST(req: Request) {
       data: { senderId, receiverId, status: "PENDING" },
     })
 
+    const sender = await prisma.user.findUnique({ where: { id: senderId }, include: { profile: true } })
+
     await prisma.notification.create({
       data: {
         userId: receiverId,
         type: "INTEREST",
         title: "New Interest",
-        message: "Someone has shown interest in your profile",
+        message: `${sender?.profile?.fullNameEn || sender?.profile?.fullNameMr || "Someone"} has shown interest in your profile`,
+        data: JSON.stringify({ interestId: interest.id }),
       },
     })
 

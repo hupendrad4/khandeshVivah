@@ -57,11 +57,15 @@ export default function MatchesPage() {
   const renderShortlistedProfile = (profile: any) => {
     const p = profile?.profile || {}
     const photo = profile?.photos?.[0]?.url
-    const age = p.dateOfBirth ? getAge(p.dateOfBirth) : "?"
+    const age = p?.dateOfBirth ? getAge(p.dateOfBirth) : "?"
+    const name = p?.fullNameEn || p?.fullNameMr || "Profile"
+    const village = p?.village || ""
+    const occupation = p?.occupation || ""
+    const education = p?.education || ""
     return (
       <motion.div key={profile.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm border-0 group hover:shadow-md transition-all duration-300">
-        <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
+        className="bg-surface-container-low rounded-2xl shadow-sm border border-outline/10 group hover:shadow-md transition-all duration-300">
+        <div className="relative h-36 bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
           {photo ? (
             <img src={photo} alt="" className="w-full h-full object-cover" />
           ) : (
@@ -69,23 +73,23 @@ export default function MatchesPage() {
               <span className="material-symbols-outlined text-5xl text-primary/30">person</span>
             </div>
           )}
-          <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="absolute bottom-2 left-3 text-white">
-            <p className="font-bold">{p.fullNameEn ? maskName(p.fullNameEn, false) : "Profile"}</p>
-            <p className="text-xs opacity-80">{age} {locale === "mr" ? "वर्ष" : "yrs"} · {p.village || ""}</p>
+          <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+          <div className="absolute bottom-2 left-3 text-white z-10">
+            <p className="font-bold text-sm drop-shadow-md">{name}</p>
+            <p className="text-xs opacity-90">{age} {locale === "mr" ? "वर्ष" : "yrs"}{village ? ` · ${village}` : ""}</p>
           </div>
         </div>
-        <CardContent className="p-3">
-          <div className="space-y-1.5 text-xs text-on-surface-variant mb-3">
-            {p.occupation && <div className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[14px]">work</span>{p.occupation}</div>}
-            {p.education && <div className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[14px]">school</span>{p.education}</div>}
+        <div className="p-3 space-y-2 bg-surface-container-low">
+          <div className="space-y-1 text-xs text-on-surface-variant min-h-[2rem]">
+            {occupation ? <div className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[14px]">work</span>{occupation}</div> : null}
+            {education ? <div className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[14px]">school</span>{education}</div> : null}
           </div>
           <Button size="sm" onClick={() => router.push(`/profile?userId=${profile.id}`)}
             className="w-full bg-primary text-white text-xs h-8 gap-1">
             <span className="material-symbols-outlined text-[14px]">person</span>
             {locale === "mr" ? "प्रोफाइल पहा" : "View Profile"}
           </Button>
-        </CardContent>
+        </div>
       </motion.div>
     )
   }

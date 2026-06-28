@@ -792,8 +792,8 @@ export default function SearchPage() {
                                   favorite
                                 </span>
                                 {isShortlisted
-                                  ? (locale === "mr" ? "यादीत" : "Saved")
-                                  : (locale === "mr" ? "जतन करा" : "Save")}
+                                  ? (locale === "mr" ? "यादीत" : "Shortlisted")
+                                  : (locale === "mr" ? "यादीत टाका" : "Shortlist")}
                               </button>
                             </div>
                           </div>
