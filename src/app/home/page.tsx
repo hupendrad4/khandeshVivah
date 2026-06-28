@@ -2,361 +2,227 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { MainLayout } from "@/components/layout/MainLayout"
 import { useI18n } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { GlassCard } from "@/components/ui/glass-card"
-import { PremiumCard } from "@/components/ui/premium-card"
-import { FeatureCard } from "@/components/ui/feature-card"
-import { ReusableCarousel } from "@/components/ui/reusable-carousel"
-import {
-  Heart, Search, Shield, Users, Star, ChevronRight, Sparkles,
-  Quote, CheckCircle, MessageCircle, ArrowRight,
-} from "lucide-react"
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
 }
 
-const stagger = {
-  animate: { transition: { staggerChildren: 0.1 } },
-}
-
-function HeroSection() {
-  const { t } = useI18n()
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#FF21A5]/5 via-[#F5C6E4] to-[#002366]/5 pt-16 pb-20 md:pt-24 md:pb-28">
-      <div className="mx-auto max-w-container px-4 md:px-6 lg:px-10">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <motion.div initial="initial" animate="animate" variants={stagger} className="space-y-6">
-            <motion.div variants={fadeUp}>
-              <Badge variant="premium" className="mb-4">
-                <Sparkles className="mr-1 h-3 w-3" /> {t("common.verified")} {t("home.verifiedProfiles")}
-              </Badge>
-            </motion.div>
-            <motion.h1 variants={fadeUp} className="text-4xl font-extrabold leading-tight text-[#1b1c1c] md:text-5xl lg:text-6xl font-heading">
-              {t("home.heroTitle")}
-            </motion.h1>
-            <motion.p variants={fadeUp} className="text-lg text-[#554336] md:text-xl">
-              {t("home.heroSubtitle")}
-            </motion.p>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-              <Link href="/register">
-                <Button size="xl" className="group">
-                  {t("home.joinNow")}
-                  <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link href="/search">
-                <Button variant="outline" size="xl">
-                  {t("nav.search")}
-                </Button>
-              </Link>
-            </motion.div>
-            <motion.div variants={fadeUp} className="flex items-center gap-4 pt-4">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <Avatar key={i} className="border-2 border-white h-10 w-10">
-                    <AvatarImage src={`https://i.pravatar.cc/100?img=${i}`} />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#1b1c1c]">10,000+ {t("home.activeUsers")}</p>
-                <p className="text-xs text-[#887364]">{t("home.latestMembers")}</p>
-              </div>
-            </motion.div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative hidden lg:block"
-          >
-            <GlassCard gradient="pink" hoverEffect="glow" className="mx-auto max-w-sm">
-              <div className="p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <Badge variant="premium">{t("profile.premium")}</Badge>
-                  <div className="flex gap-1">
-                    {[1, 2, 3].map((i) => (
-                      <Star key={i} className="h-4 w-4 fill-[#D4AF37] text-[#D4AF37]" />
-                    ))}
-                  </div>
-                </div>
-                <div className="mb-4 flex justify-center">
-                  <div className="relative">
-                    <Avatar className="h-28 w-28 ring-4 ring-[#FF21A5]/20">
-                      <AvatarImage src="https://i.pravatar.cc/200?img=5" />
-                      <AvatarFallback>P</AvatarFallback>
-                    </Avatar>
-                    <span className="absolute bottom-0 right-0 h-5 w-5 rounded-full bg-[#50C878] border-2 border-white" />
-                  </div>
-                </div>
-                <div className="mb-4 text-center">
-                  <h3 className="text-lg font-bold text-[#1b1c1c]">प्रिया पाटील</h3>
-                  <p className="text-sm text-[#554336]">25 yrs, 5'4", Jalgaon</p>
-                  <p className="text-xs text-[#887364]">B.E. Computer Science | Leva Patil</p>
-                </div>
-                <div className="mb-4 flex justify-center gap-2">
-                  <Button size="sm" variant="default"><Heart className="mr-1 h-4 w-4" />Interest</Button>
-                  <Button size="sm" variant="outline"><MessageCircle className="mr-1 h-4 w-4" />Chat</Button>
-                </div>
-                <div className="rounded-xl bg-[#F5C6E4] p-3">
-                  <div className="flex items-center justify-between text-xs text-[#554336]">
-                    <span>Compatibility <strong className="text-[#50C878]">92%</strong></span>
-                    <span className="flex items-center"><Shield className="mr-1 h-3 w-3 text-[#50C878]" />{t("common.verified")}</span>
-                  </div>
-                </div>
-              </div>
-            </GlassCard>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function StatsSection() {
-  const { t } = useI18n()
-  const stats = [
-    { label: t("home.activeUsers"), value: "10K+", icon: Users },
-    { label: t("home.successCouples"), value: "500+", icon: Heart },
-    { label: t("home.registeredMembers"), value: "25K+", icon: Users },
-    { label: t("home.villagesCovered"), value: "200+", icon: Search },
-  ]
-  return (
-    <section className="relative -mt-10 px-4 md:px-6 lg:px-10">
-      <div className="mx-auto max-w-container">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {stats.map((stat, i) => (
-            <PremiumCard
-              key={stat.label}
-              variant={i === 0 ? "pink" : i === 3 ? "gold" : "royal"}
-              floating={false}
-            >
-              <div className="text-center">
-                <stat.icon className="mx-auto mb-2 h-6 w-6 text-[#FF21A5]" />
-                <p className="text-2xl font-extrabold text-[#002366]">{stat.value}</p>
-                <p className="text-xs text-[#887364]">{stat.label}</p>
-              </div>
-            </PremiumCard>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function HowItWorksSection() {
-  const { t } = useI18n()
-  const steps = [
-    { title: t("home.step1Title"), desc: t("home.step1Desc"), icon: "1" },
-    { title: t("home.step2Title"), desc: t("home.step2Desc"), icon: "2" },
-    { title: t("home.step3Title"), desc: t("home.step3Desc"), icon: "3" },
-  ]
-  return (
-    <section className="py-16 md:py-24">
-      <div className="mx-auto max-w-container px-4 md:px-6 lg:px-10 text-center">
-        <motion.div initial="initial" whileInView="animate" variants={stagger} viewport={{ once: true }}>
-          <motion.h2 variants={fadeUp} className="mb-4 text-3xl font-bold text-[#1b1c1c] md:text-4xl">{t("home.howItWorks")}</motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mb-12 max-w-2xl text-[#554336]">{t("home.heroSubtitle")}</motion.p>
-        </motion.div>
-        <div className="grid gap-8 md:grid-cols-3">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              viewport={{ once: true }}
-            >
-              <GlassCard gradient={i === 0 ? "pink" : i === 1 ? "royal" : "gold"} hoverEffect={i === 1 ? "lift" : "glow"}>
-                <div className="p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#FF21A5] text-2xl font-bold text-white shadow-lg">
-                    {step.icon}
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold text-[#1b1c1c]">{step.title}</h3>
-                  <p className="text-sm text-[#554336]">{step.desc}</p>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function WhyChooseUs() {
-  const { t } = useI18n()
-  const features = [
-    {
-      title: t("home.verifiedProfiles"),
-      desc: t("home.verifiedProfilesDesc"),
-      icon: Shield,
-      imageUrl: "https://images.unsplash.com/photo-1559526324-4bc350d246b6?w=600&h=400&fit=crop&auto=format",
-      imageAlt: "Verified profiles",
-    },
-    {
-      title: t("home.privacyFirst"),
-      desc: t("home.privacyFirstDesc"),
-      icon: Heart,
-      imageUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop&auto=format",
-      imageAlt: "Privacy first",
-    },
-    {
-      title: t("home.communityFocus"),
-      desc: t("home.communityFocusDesc"),
-      icon: Users,
-      imageUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop&auto=format",
-      imageAlt: "Khandesh community",
-    },
-  ]
-  return (
-    <section className="bg-[#F5C6E4] py-16 md:py-24">
-      <div className="mx-auto max-w-container px-4 md:px-6 lg:px-10">
-        <div className="mb-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="mb-4 text-3xl font-bold text-[#1b1c1c] md:text-4xl">{t("home.whyChooseUs")}</h2>
-            <p className="mx-auto max-w-2xl text-[#554336]">{t("app.tagline")}</p>
-          </motion.div>
-        </div>
-         <div className="grid gap-8 md:grid-cols-3">
-          {features.map((f, i) => (
-            <FeatureCard
-              key={f.title}
-              icon={f.icon}
-              iconColor={i === 0 ? "text-[#FF21A5]" : i === 1 ? "text-[#002366]" : "text-[#D4AF37]"}
-              iconBg={i === 0 ? "bg-[#FF21A5]/10" : i === 1 ? "bg-[#002366]/10" : "bg-[#D4AF37]/10"}
-              imageUrl={f.imageUrl}
-              imageAlt={f.imageAlt}
-              delay={i}
-            >
-              <h3 className="mb-2 text-lg font-bold text-[#1b1c1c]">{f.title}</h3>
-              <p className="text-sm leading-relaxed text-[#554336]">{f.desc}</p>
-              <div className="mt-3 flex items-center gap-1 text-xs font-medium text-[#FF21A5] transition-all group-hover:gap-2">
-                {t("home.learnMore")} <ArrowRight className="h-3 w-3" />
-              </div>
-            </FeatureCard>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-function SuccessStoriesPreview() {
-  const { t } = useI18n()
-  const stories = [
-    { name: "राजेश & प्रिया", village: "Chopda, Jalgaon", photo1: "https://i.pravatar.cc/200?img=11", photo2: "https://i.pravatar.cc/200?img=5" },
-    { name: "अमित & स्नेहा", village: "Dhule", photo1: "https://i.pravatar.cc/200?img=12", photo2: "https://i.pravatar.cc/200?img=6" },
-    { name: "निलेश & रुपाली", village: "Nandurbar", photo1: "https://i.pravatar.cc/200?img=13", photo2: "https://i.pravatar.cc/200?img=7" },
-    { name: "संतोष & वैशाली", village: "Baglan, Nashik", photo1: "https://i.pravatar.cc/200?img=14", photo2: "https://i.pravatar.cc/200?img=8" },
-    { name: "दीपक & अर्चना", village: "Shirpur, Dhule", photo1: "https://i.pravatar.cc/200?img=15", photo2: "https://i.pravatar.cc/200?img=9" },
-  ]
-  return (
-    <section className="py-16 md:py-24">
-      <div className="mx-auto max-w-container px-4 md:px-6 lg:px-10">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold text-[#1b1c1c] md:text-4xl">{t("home.successStories")}</h2>
-            <p className="mt-2 text-[#554336]">{t("home.heroSubtitle")}</p>
-          </div>
-          <Link href="/success-stories">
-            <Button variant="ghost" className="gap-1">{t("home.viewAll")}<ChevronRight className="h-4 w-4" /></Button>
-          </Link>
-        </div>
-        <ReusableCarousel
-          autoPlay={true}
-          autoPlayInterval={5000}
-          slidesToShow={1}
-          className="max-w-4xl mx-auto"
-        >
-          {stories.map((story, i) => (
-            <GlassCard key={i} gradient={i % 3 === 0 ? "pink" : i % 3 === 1 ? "royal" : "gold"} hoverEffect="lift">
-              <div className="flex flex-col items-center p-8 text-center md:flex-row md:gap-8 md:text-left">
-                <div className="mb-4 flex shrink-0 md:mb-0">
-                  <div className="flex -space-x-3">
-                    <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
-                      <AvatarImage src={story.photo1} />
-                      <AvatarFallback>{story.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
-                      <AvatarImage src={story.photo2} />
-                      <AvatarFallback>{story.name.split("&")[1]?.trim()[0]}</AvatarFallback>
-                    </Avatar>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <Quote className="mb-2 h-8 w-8 text-[#FF21A5]/20" />
-                  <p className="mb-3 text-lg leading-relaxed italic text-[#554336]">
-                    &ldquo;खांदेश विवाहमुळे आम्हाला आमचा जोडीदार मिळाला. खूप आभारी आहोत!&rdquo;
-                  </p>
-                  <h4 className="text-lg font-bold text-[#1b1c1c]">{story.name}</h4>
-                  <p className="text-sm text-[#887364]">{story.village}</p>
-                  <div className="mt-3 flex items-center justify-center gap-1 text-xs text-[#50C878] md:justify-start">
-                    <CheckCircle className="h-3 w-3" /> {t("common.verified")} {t("home.successCouples")}
-                  </div>
-                </div>
-              </div>
-            </GlassCard>
-          ))}
-        </ReusableCarousel>
-      </div>
-    </section>
-  )
-}
-
 export default function HomePage() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
+
   return (
-    <MainLayout>
-      <HeroSection />
-      <StatsSection />
-      <HowItWorksSection />
-      <WhyChooseUs />
-      <SuccessStoriesPreview />
-
-      <section className="bg-gradient-to-r from-[#FF21A5] to-[#FF2E96] py-16 text-center text-white">
-        <div className="mx-auto max-w-container px-4">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">{t("home.heroTitle")}</h2>
-            <p className="mb-8 text-lg opacity-90">{t("app.tagline")}</p>
-            <Link href="/register">
-              <Button size="xl" variant="secondary" className="bg-white text-[#FF21A5] hover:bg-white/90">
-                {t("home.getStarted")}
-              </Button>
-            </Link>
-          </motion.div>
+    <>
+      {/* Hero */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-16">
+        <div className="absolute inset-0 z-0">
+          <div className="w-full h-full bg-gradient-to-br from-[#8f4e00]/10 via-[#ffdcc2] to-[#435b9f]/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FFFEF2]/0 to-[#FFFEF2]" />
         </div>
-      </section>
-
-      <section className="px-4 py-16 md:px-6 lg:px-10">
-        <div className="mx-auto max-w-container">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-8 text-2xl font-bold text-[#1b1c1c]">{t("home.faq")}</h2>
-            <div className="space-y-4 text-left">
-                {[
-                  { q: "खांदेश विवाह म्हणजे काय?", a: "खांदेश विवाह हा खांदेश समाजासाठी समर्पित विवाह मंच आहे, जिथे आपण आपल्या समाजातील पडताळणी केलेल्या वर-वधूंशी संपर्क साधू शकता." },
-                  { q: "नोंदणी कशी करावी?", a: "मोबाइल नंबर किंवा ईमेलद्वारे सहज नोंदणी करा. ओटीपी पडताळणीनंतर आपले प्रोफाइल तयार करा." },
-                  { q: "प्रीमियम सदस्यत्वाचे फायदे काय आहेत?", a: "अमर्यादित आवडी, संदेश, संपर्क तपशील, प्राधान्य यादी, एआय शिफारसी आणि बरेच काही." },
-                ].map((faq, i) => (
-                  <PremiumCard key={i} variant={i === 0 ? "pink" : i === 1 ? "royal" : "gold"} floating={false}>
-                    <h3 className="font-semibold text-[#1b1c1c]">{faq.q}</h3>
-                    <p className="mt-2 text-sm text-[#554336]">{faq.a}</p>
-                  </PremiumCard>
-                ))}
+        <div className="relative z-10 w-full max-w-container mx-auto px-gutter grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-12">
+          <div className="md:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 bg-primary-container/20 px-4 py-1.5 rounded-full text-on-primary-container font-label-md">
+              <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+              {locale === "mr" ? "खांदेशातील #१ वैवाहिक संस्था" : "#1 Matrimonial Platform in Khandesh"}
+            </div>
+            <h2 className="font-headline-xl text-headline-xl text-royal-ink md:leading-tight">
+              {locale === "mr" ? (
+                <>तुमचा जीवनाचा जोडीदार आता <br /><span className="text-primary">खांदेशातच शोधा!</span></>
+              ) : (
+                <>Find your life partner <br /><span className="text-primary">right here in Khandesh!</span></>
+              )}
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+              {locale === "mr"
+                ? "लेवा पाटील, मराठा, गुजर आणि खांदेशातील सर्व समाजातील उपवर-वधूंचा विश्वासार्ह संगम. संस्कृती जपणाऱ्या मनांचे मिलन."
+                : "A trusted platform for Leva Patil, Maratha, Gujar and all Khandesh communities. Where traditions meet hearts."}
+            </p>
+          </div>
+          {/* Search Widget */}
+          <div className="md:col-span-5">
+            <div className="bg-surface-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-primary/10">
+              <h3 className="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2">
+                <span className="material-symbols-outlined">search_check</span>
+                {locale === "mr" ? "त्वरित शोध" : "Quick Search"}
+              </h3>
+              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <div>
+                  <label className="block font-label-md text-on-surface-variant mb-2">
+                    {locale === "mr" ? "मी शोधत आहे" : "I'm looking for"}
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button type="button" className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary bg-primary/5 text-primary font-bold">
+                      <span className="material-symbols-outlined text-[20px]">female</span> {locale === "mr" ? "मुलगी" : "Bride"}
+                    </button>
+                    <button type="button" className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-outline-variant text-on-surface-variant hover:border-primary/50 transition-all">
+                      <span className="material-symbols-outlined text-[20px]">male</span> {locale === "mr" ? "मुलगा" : "Groom"}
+                    </button>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-label-md text-on-surface-variant mb-2">{locale === "mr" ? "वय (Age)" : "Age"}</label>
+                    <select className="w-full bg-background-cream border-none rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                      <option>{locale === "mr" ? "१८ ते २५" : "18 to 25"}</option>
+                      <option>{locale === "mr" ? "२६ ते ३२" : "26 to 32"}</option>
+                      <option>33+</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block font-label-md text-on-surface-variant mb-2">{locale === "mr" ? "जात (Caste)" : "Caste"}</label>
+                    <select className="w-full bg-background-cream border-none rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                      <option>{locale === "mr" ? "सर्व जाती" : "All Castes"}</option>
+                      <option>लेवा पाटील</option>
+                      <option>मराठा</option>
+                      <option>गुजर</option>
+                    </select>
+                  </div>
+                </div>
+                <Link href="/search">
+                  <button type="button" className="w-full bg-primary hover:bg-on-primary-container text-white py-4 rounded-xl font-headline-md shadow-lg shadow-primary/20 transition-all active:scale-[0.98] mt-4">
+                    {locale === "mr" ? "जोडीदार शोधा" : "Find Partner"}
+                  </button>
+                </Link>
+              </form>
             </div>
           </div>
         </div>
       </section>
-    </MainLayout>
+
+      {/* Features */}
+      <section className="py-20 bg-surface">
+        <div className="max-w-container mx-auto px-gutter">
+          <div className="text-center mb-16">
+            <h2 className="font-headline-lg text-headline-lg text-royal-ink mb-4">
+              {locale === "mr" ? "का निवडावे?" : "Why Choose Us?"}
+            </h2>
+            <div className="w-24 h-1 bg-primary-container mx-auto rounded-full" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: "verified_user",
+                title: locale === "mr" ? "१००% पडताळणी" : "100% Verified",
+                desc: locale === "mr" ? "प्रत्येक प्रोफाईलचे आधार आणि फोनद्वारे व्हेरिफिकेशन केले जाते." : "Every profile is verified via Aadhaar and phone for authentic matches.",
+                color: "bg-primary/10 text-primary",
+              },
+              {
+                icon: "groups",
+                title: locale === "mr" ? "स्थानिक समुदाय" : "Local Community",
+                desc: locale === "mr" ? "खांदेशातील जळगाव, भुसावळ, अमळनेर आणि धुळे परिसरातील हजारो स्थळे." : "Thousands of profiles from Jalgaon, Bhusawal, Amalner, and Dhule regions.",
+                color: "bg-tertiary/10 text-tertiary",
+              },
+              {
+                icon: "lock",
+                title: locale === "mr" ? "सुरक्षित चॅट" : "Secure Chat",
+                desc: locale === "mr" ? "तुमची गोपनीयता आमची प्राथमिकता आहे. सुरक्षित प्लॅटफॉर्मवर थेट संवाद साधा." : "Your privacy is our priority. Connect securely on our platform.",
+                color: "bg-emerald-growth/10 text-emerald-growth",
+              },
+            ].map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.15 }}
+                viewport={{ once: true }}
+                className="bg-surface-white p-8 rounded-2xl border border-outline-variant/30 hover:shadow-lg transition-shadow group text-center"
+              >
+                <div className={`w-16 h-16 ${f.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform`}>
+                  <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>{f.icon}</span>
+                </div>
+                <h3 className="font-headline-md text-headline-md mb-4">{f.title}</h3>
+                <p className="text-on-surface-variant">{f.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Bento */}
+      <section className="py-20 bg-background-cream overflow-hidden">
+        <div className="max-w-container mx-auto px-gutter">
+          <div className="flex justify-between items-end mb-12">
+            <div>
+              <h2 className="font-headline-lg text-headline-lg text-royal-ink">
+                {locale === "mr" ? "खांदेशातील यशस्वी कथा" : "Success Stories from Khandesh"}
+              </h2>
+              <p className="text-on-surface-variant mt-2 font-body-lg">
+                {locale === "mr" ? "ज्यांनी आपला जोडीदार आमच्या माध्यमातून शोधला." : "Those who found their partner through us."}
+              </p>
+            </div>
+            <Link href="/success-stories" className="hidden md:flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+              {locale === "mr" ? "सर्व कथा पहा" : "View All"} <span className="material-symbols-outlined">arrow_forward</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+            {/* Main Story */}
+            <div className="md:col-span-8 md:row-span-2 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#8f4e00]/20 to-[#435b9f]/20">
+              <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center p-8 text-white relative z-10">
+                  <div className="flex gap-1 justify-center mb-2">
+                    {[1,2,3,4,5].map(i => (
+                      <span key={i} className="material-symbols-outlined text-marigold-light" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                    ))}
+                  </div>
+                  <h3 className="font-headline-lg text-headline-lg">{locale === "mr" ? "महेश आणि स्नेहल (जळगाव)" : "Mahesh & Snehal (Jalgaon)"}</h3>
+                  <p className="max-w-lg mt-2 font-body-md opacity-90 mx-auto">
+                    &ldquo;{locale === "mr" ? "खांदेश विवाह मुळे आम्हाला आमचा परफेक्ट जोडीदार मिळाला." : "Khandesh Vivah helped us find our perfect match."}&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Small Story 1 */}
+            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#d3ae36]/20 to-[#8f4e00]/20">
+              <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 text-white">
+                <h4 className="font-headline-md text-headline-md">{locale === "mr" ? "रोहन आणि प्रियांका" : "Rohan & Priyanka"}</h4>
+                <p className="text-sm opacity-80">{locale === "mr" ? "धुळे • २०२३" : "Dhule • 2023"}</p>
+              </div>
+            </div>
+            {/* Small Story 2 */}
+            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#435b9f]/20 to-[#8f4e00]/20">
+              <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 text-white">
+                <h4 className="font-headline-md text-headline-md">{locale === "mr" ? "अमित आणि नेहा" : "Amit & Neha"}</h4>
+                <p className="text-sm opacity-80">{locale === "mr" ? "भुसावळ • २०२४" : "Bhusawal • 2024"}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16">
+        <div className="max-w-container mx-auto px-gutter">
+          <div className="relative bg-primary rounded-[40px] p-8 md:p-16 overflow-hidden text-center text-white">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-marigold-light/20 rounded-full -ml-32 -mb-32 blur-3xl" />
+            <h2 className="relative z-10 font-headline-xl text-headline-xl mb-6">
+              {locale === "mr" ? "आजच नोंदणी करा!" : "Register Today!"}
+            </h2>
+            <p className="relative z-10 font-body-lg text-body-lg mb-10 max-w-2xl mx-auto opacity-90">
+              {locale === "mr"
+                ? "तुमच्या स्वप्नातील जोडीदार शोधण्याची पहिली पायरी आजच उचला. नोंदणी पूर्णपणे मोफत आहे."
+                : "Take the first step towards finding your dream partner. Registration is completely free."}
+            </p>
+            <div className="relative z-10 flex flex-col md:flex-row gap-4 justify-center">
+              <Link href="/register">
+                <button className="bg-white text-primary px-10 py-4 rounded-xl font-bold font-headline-md hover:bg-primary-container hover:text-white transition-all shadow-xl">
+                  {locale === "mr" ? "मोफत नोंदणी" : "Free Registration"}
+                </button>
+              </Link>
+              <Link href="/about">
+                <button className="bg-transparent border-2 border-white/40 text-white px-10 py-4 rounded-xl font-bold font-headline-md hover:bg-white/10 transition-all">
+                  {locale === "mr" ? "अधिक माहिती" : "Learn More"}
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

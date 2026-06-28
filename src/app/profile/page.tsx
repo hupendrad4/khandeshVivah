@@ -37,12 +37,12 @@ export default function ProfilePage() {
           <div className="lg:col-span-1">
             <Card>
               <CardContent className="p-0">
-                <div className="relative h-48 rounded-t-xl bg-gradient-to-br from-[#FF21A5]/20 to-[#002366]/20">
+                <div className="relative h-48 rounded-t-xl bg-gradient-to-br from-[#8f4e00]/20 to-[#435b9f]/20">
                   {gallery[0] ? (
                     <img src={gallery[0].url} alt="" className="h-full w-full rounded-t-xl object-cover" />
                   ) : (
                     <div className="flex h-full items-center justify-center">
-                      <Camera className="h-12 w-12 text-[#FF21A5]/40" />
+                      <Camera className="h-12 w-12 text-[#8f4e00]/40" />
                     </div>
                   )}
                 </div>
@@ -52,8 +52,8 @@ export default function ProfilePage() {
                       {gallery[0] ? (
                         <img src={gallery[0].url} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <div className="flex h-full items-center justify-center bg-[#FF21A5]/10">
-                          <Camera className="h-8 w-8 text-[#FF21A5]" />
+                        <div className="flex h-full items-center justify-center bg-[#8f4e00]/10">
+                          <Camera className="h-8 w-8 text-[#8f4e00]" />
                         </div>
                       )}
                     </div>
@@ -71,8 +71,8 @@ export default function ProfilePage() {
                   </div>
 
                   {!isViewerPremium && !isProfileOwner && (
-                    <div className="mt-3 rounded-lg bg-[#F0ADD6] border border-[#FF21A5]/20 p-3 text-center">
-                      <Lock className="mx-auto mb-1 h-4 w-4 text-[#FF21A5]" />
+                    <div className="mt-3 rounded-lg bg-[#F0ADD6] border border-[#8f4e00]/20 p-3 text-center">
+                      <Lock className="mx-auto mb-1 h-4 w-4 text-[#8f4e00]" />
                       <p className="text-xs text-[#554336]">
                         {locale === "mr"
                           ? "प्रीमियम सबस्क्रिप्शनवर संपूर्ण प्रोफाइल दिसेल"
@@ -250,7 +250,7 @@ export default function ProfilePage() {
                           }
                           className={`absolute left-1 top-1 rounded-full p-1 transition-all ${
                             photo.isPrimary
-                              ? "bg-[#FF21A5] text-white shadow-md"
+                              ? "bg-[#8f4e00] text-white shadow-md"
                               : "bg-black/40 text-white/70 opacity-0 group-hover:opacity-100"
                           }`}
                         >
@@ -313,7 +313,7 @@ export default function ProfilePage() {
                         {photo.isPrimary && (
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-1.5">
                             <span className="flex items-center gap-1 text-[10px] font-semibold text-white">
-                              <Star className="h-2.5 w-2.5 fill-[#FF21A5] text-[#FF21A5]" />
+                              <Star className="h-2.5 w-2.5 fill-[#8f4e00] text-[#8f4e00]" />
                               Primary
                             </span>
                           </div>

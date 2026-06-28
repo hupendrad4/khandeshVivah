@@ -162,18 +162,18 @@ export function FileUpload({
         {...getRootProps()}
         className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-colors ${
           isDragActive
-            ? "border-[#FF21A5] bg-[#FF21A5]/5"
+            ? "border-[#8f4e00] bg-[#8f4e00]/5"
             : allItems >= maxFiles
               ? "border-gray-200 bg-gray-50 opacity-50"
-              : "border-[#E4E2E1] hover:border-[#FF21A5] hover:bg-[#FF21A5]/5"
+              : "border-[#E4E2E1] hover:border-[#8f4e00] hover:bg-[#8f4e00]/5"
         }`}
       >
         <input {...getInputProps()} />
-        <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-[#FF21A5]/10">
-          <Upload className="h-6 w-6 text-[#FF21A5]" />
+        <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-[#8f4e00]/10">
+          <Upload className="h-6 w-6 text-[#8f4e00]" />
         </div>
         {isDragActive ? (
-          <p className="font-medium text-[#FF21A5]">{t("profile.dropActive")}</p>
+          <p className="font-medium text-[#8f4e00]">{t("profile.dropActive")}</p>
         ) : (
           <>
             <p className="font-semibold text-[#1b1c1c]">
@@ -200,7 +200,7 @@ export function FileUpload({
               onDragEnter={() => handleDragEnter(i)}
               onDragEnd={handleDragEnd}
               onDragOver={(e) => e.preventDefault()}
-              className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#F5C6E4] transition-shadow hover:shadow-md"
+              className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#ffdcc2] transition-shadow hover:shadow-md"
             >
               <img
                 src={photo.thumbUrl || photo.url}
@@ -219,7 +219,7 @@ export function FileUpload({
                 }
                 className={`absolute left-1 top-1 rounded-full p-1 transition-all ${
                   photo.isPrimary
-                    ? "bg-[#FF21A5] text-white shadow-md"
+                    ? "bg-[#8f4e00] text-white shadow-md"
                     : "bg-black/40 text-white/70 opacity-0 group-hover:opacity-100"
                 }`}
               >
@@ -270,7 +270,7 @@ export function FileUpload({
               {photo.isPrimary && (
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-1.5">
                   <span className="flex items-center gap-1 text-[10px] font-semibold text-white">
-                    <Star className="h-2.5 w-2.5 fill-[#FF21A5] text-[#FF21A5]" />
+                    <Star className="h-2.5 w-2.5 fill-[#8f4e00] text-[#8f4e00]" />
                     Primary
                   </span>
                 </div>
@@ -282,7 +282,7 @@ export function FileUpload({
           {uploadingFiles.map((f, i) => (
             <div
               key={f.preview}
-              className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#F5C6E4]"
+              className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#ffdcc2]"
             >
               <img
                 src={f.preview}

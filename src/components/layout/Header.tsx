@@ -54,15 +54,15 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b border-[#E4E2E1] bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-container items-center justify-between px-4 md:px-6 lg:px-10">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-extrabold text-[#FF21A5] font-heading">खांदेश विवाह</span>
-          <span className="hidden text-xs font-medium text-[#D4AF37] md:block">| Khandesh Vivah</span>
+          <span className="text-xl font-extrabold text-[#8f4e00] font-heading">खांदेश विवाह</span>
+          <span className="hidden text-xs font-medium text-[#d3ae36] md:block">| Khandesh Vivah</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
-          <Link href="/search" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#FF21A5]">{t("nav.search")}</Link>
-          <Link href="/matches" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#FF21A5]">{t("nav.matches")}</Link>
-          <Link href="/success-stories" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#FF21A5]">{t("nav.successStories")}</Link>
-          <Link href="/premium" className="text-sm font-semibold text-[#D4AF37] transition-colors hover:text-[#FFD700]">{t("nav.premium")}</Link>
+          <Link href="/search" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.search")}</Link>
+          <Link href="/matches" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.matches")}</Link>
+          <Link href="/success-stories" className="text-sm font-medium text-[#554336] transition-colors hover:text-[#8f4e00]">{t("nav.successStories")}</Link>
+          <Link href="/premium" className="text-sm font-semibold text-[#d3ae36] transition-colors hover:text-[#FFD700]">{t("nav.premium")}</Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ export function Header() {
             <Link href="/search" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.search")}</Link>
             <Link href="/matches" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.matches")}</Link>
             <Link href="/success-stories" className="rounded-lg px-3 py-2 text-sm text-[#554336] hover:bg-[#F6F3F2]">{t("nav.successStories")}</Link>
-            <Link href="/premium" className="rounded-lg px-3 py-2 text-sm font-semibold text-[#D4AF37] hover:bg-[#F6F3F2]">{t("nav.premium")}</Link>
+            <Link href="/premium" className="rounded-lg px-3 py-2 text-sm font-semibold text-[#d3ae36] hover:bg-[#F6F3F2]">{t("nav.premium")}</Link>
             {isClerkConfigured ? <ClerkMobileMenu /> : <PublicMobileMenuItems />}
           </nav>
         </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Hind:wght@400;500;600;700&family=Anek+Devanagari:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Hind:wght@400;500;600;700&family=Anek+Devanagari:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,19 +12,19 @@
     --card-foreground: 0 0% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 11%;
-    --primary: 328 100% 56%;
+    --primary: 33 100% 28%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 225 100% 20%;
+    --secondary: 224 41% 44%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 45 65% 52%;
+    --muted: 30 20% 96%;
+    --muted-foreground: 24 12% 45%;
+    --accent: 46 64% 52%;
     --accent-foreground: 0 0% 11%;
     --destructive: 0 77% 41%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 89%;
-    --input: 0 0% 89%;
-    --ring: 328 100% 56%;
+    --border: 24 12% 85%;
+    --input: 24 12% 85%;
+    --ring: 33 100% 28%;
     --radius: 0.75rem;
   }
 }
@@ -32,7 +32,7 @@
 @layer base {
   * { @apply border-border; }
   body {
-    @apply bg-[#FCF4F8] text-[#1b1c1c] font-body antialiased;
+    @apply bg-[#FFFEF2] text-[#1b1c1c] font-body antialiased;
   }
   h1, h2, h3, h4, h5, h6 { @apply font-heading; }
 }
@@ -44,74 +44,65 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .bg-glass { @apply bg-white/70 backdrop-blur-xl border border-white/20; }
   .text-gradient {
-    @apply bg-gradient-to-r from-[#FF21A5] via-[#FF2E96] to-[#D4AF37] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#8f4e00] via-[#ff9933] to-[#d3ae36] bg-clip-text text-transparent;
   }
 
   /* ── Rich Indian Ornamental Mandala Background ── */
   .bg-mandala-ornamental {
-    background-color: #FCF4F8;
+    background-color: #FFFEF2;
     background-image:
-      /* Large central mandala glow */
       radial-gradient(ellipse 1000px 600px at 50% 30%,
-        rgba(255, 33, 165, 0.07) 0%,
-        rgba(255, 46, 150, 0.04) 30%,
-        rgba(212, 175, 55, 0.02) 55%,
+        rgba(143, 78, 0, 0.06) 0%,
+        rgba(255, 153, 51, 0.04) 30%,
+        rgba(211, 174, 54, 0.02) 55%,
         transparent 75%
       ),
-      /* Warm golden glow at bottom */
       radial-gradient(ellipse 800px 300px at 50% 100%,
-        rgba(212, 175, 55, 0.06) 0%,
-        rgba(212, 175, 55, 0.03) 35%,
+        rgba(211, 174, 54, 0.06) 0%,
+        rgba(211, 174, 54, 0.03) 35%,
         transparent 65%
       ),
-      /* Top-left corner lotus petal motif */
       radial-gradient(circle 180px at 5% 12%,
-        rgba(255, 33, 165, 0.04) 0%,
+        rgba(143, 78, 0, 0.04) 0%,
         transparent 70%
       ),
       radial-gradient(circle 120px at 8% 8%,
-        rgba(230, 74, 158, 0.04) 0%,
+        rgba(255, 153, 51, 0.04) 0%,
         transparent 65%
       ),
-      /* Bottom-right corner accent */
       radial-gradient(circle 180px at 95% 90%,
-        rgba(212, 175, 55, 0.04) 0%,
+        rgba(211, 174, 54, 0.04) 0%,
         transparent 70%
       ),
-      /* Top-right royal blue accent */
       radial-gradient(circle 200px at 93% 10%,
-        rgba(0, 35, 102, 0.03) 0%,
+        rgba(67, 91, 159, 0.03) 0%,
         transparent 70%
       ),
-      /* Bottom-left subtle glow */
       radial-gradient(circle 150px at 10% 92%,
-        rgba(255, 33, 165, 0.03) 0%,
+        rgba(143, 78, 0, 0.03) 0%,
         transparent 65%
       ),
-      /* Secondary center glow - smaller, tighter */
       radial-gradient(ellipse 500px 300px at 50% 40%,
-        rgba(255, 33, 165, 0.03) 0%,
+        rgba(255, 153, 51, 0.03) 0%,
         transparent 60%
       ),
-      /* ── Decorative diamond grid ── */
       repeating-linear-gradient(45deg,
         transparent 0px,
         transparent 44px,
-        rgba(255, 33, 165, 0.015) 44px,
-        rgba(255, 33, 165, 0.015) 45px
+        rgba(143, 78, 0, 0.015) 44px,
+        rgba(143, 78, 0, 0.015) 45px
       ),
       repeating-linear-gradient(-45deg,
         transparent 0px,
         transparent 44px,
-        rgba(212, 175, 55, 0.015) 44px,
-        rgba(212, 175, 55, 0.015) 45px
+        rgba(211, 174, 54, 0.015) 44px,
+        rgba(211, 174, 54, 0.015) 45px
       ),
-      /* ── Floral petal decorative dots ── */
       repeating-conic-gradient(
         from 0deg at 50% 20%,
         transparent 0deg,
         transparent 10deg,
-        rgba(255, 33, 165, 0.008) 10deg,
+        rgba(143, 78, 0, 0.008) 10deg,
         transparent 11deg
       );
   }
@@ -123,11 +114,11 @@
     width: 100%;
     background: linear-gradient(90deg,
       transparent 3%,
-      #FF21A5 12%,
-      #D4AF37 25%,
-      #002366 45%,
-      #D4AF37 55%,
-      #FF21A5 70%,
+      #ff9933 12%,
+      #d3ae36 25%,
+      #8f4e00 45%,
+      #d3ae36 55%,
+      #ff9933 70%,
       transparent 97%
     );
   }
@@ -140,9 +131,9 @@
     height: 2px;
     background: linear-gradient(90deg,
       transparent 8%,
-      rgba(212, 175, 55, 0.4) 20%,
-      rgba(255, 33, 165, 0.3) 50%,
-      rgba(212, 175, 55, 0.4) 80%,
+      rgba(211, 174, 54, 0.4) 20%,
+      rgba(143, 78, 0, 0.3) 50%,
+      rgba(211, 174, 54, 0.4) 80%,
       transparent 92%
     );
   }
@@ -155,9 +146,9 @@
     height: 1px;
     background: linear-gradient(90deg,
       transparent 10%,
-      rgba(255, 33, 165, 0.25) 30%,
-      rgba(255, 33, 165, 0.45) 50%,
-      rgba(255, 33, 165, 0.25) 70%,
+      rgba(143, 78, 0, 0.25) 30%,
+      rgba(143, 78, 0, 0.45) 50%,
+      rgba(143, 78, 0, 0.25) 70%,
       transparent 90%
     );
   }
@@ -173,12 +164,12 @@
     z-index: 0;
     background:
       radial-gradient(circle at 0 0,
-        rgba(255, 33, 165, 0.10) 0%,
-        rgba(255, 46, 150, 0.05) 25%,
+        rgba(143, 78, 0, 0.10) 0%,
+        rgba(255, 153, 51, 0.05) 25%,
         transparent 70%
       ),
       radial-gradient(circle at 15px 15px,
-        rgba(212, 175, 55, 0.06) 0%,
+        rgba(211, 174, 54, 0.06) 0%,
         transparent 50%
       );
   }
@@ -189,8 +180,8 @@
     left: 8px;
     width: 40px;
     height: 40px;
-    border-top: 2px solid rgba(255, 33, 165, 0.12);
-    border-left: 2px solid rgba(255, 33, 165, 0.12);
+    border-top: 2px solid rgba(143, 78, 0, 0.12);
+    border-left: 2px solid rgba(143, 78, 0, 0.12);
     border-radius: 4px 0 0 0;
   }
 
@@ -204,15 +195,31 @@
     z-index: 0;
     background:
       radial-gradient(circle at 100% 100%,
-        rgba(212, 175, 55, 0.10) 0%,
-        rgba(212, 175, 55, 0.05) 25%,
+        rgba(211, 174, 54, 0.10) 0%,
+        rgba(211, 174, 54, 0.05) 25%,
         transparent 70%
       ),
       radial-gradient(circle at calc(100% - 15px) calc(100% - 15px),
-        rgba(255, 33, 165, 0.05) 0%,
+        rgba(143, 78, 0, 0.05) 0%,
         transparent 50%
       );
   }
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
   .ornamental-corner-br::after {
     content: '';
     position: absolute;
@@ -220,8 +227,8 @@
     right: 8px;
     width: 50px;
     height: 50px;
-    border-bottom: 2px solid rgba(212, 175, 55, 0.12);
-    border-right: 2px solid rgba(212, 175, 55, 0.12);
+    border-bottom: 2px solid rgba(211, 174, 54, 0.12);
+    border-right: 2px solid rgba(211, 174, 54, 0.12);
     border-radius: 0 0 4px 0;
   }
 }

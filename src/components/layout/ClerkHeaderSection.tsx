@@ -30,7 +30,7 @@ export default function ClerkHeaderSection() {
       <Link href="/notifications">
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-4 w-4" />
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#FF21A5]" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#8f4e00]" />
         </Button>
       </Link>
 
@@ -39,7 +39,7 @@ export default function ClerkHeaderSection() {
           <Button variant="ghost" size="sm" className="gap-2">
             <Avatar className="h-7 w-7">
               <AvatarImage src={user?.imageUrl} />
-              <AvatarFallback className="bg-[#FF21A5]/10 text-xs text-[#FF21A5]">
+              <AvatarFallback className="bg-[#8f4e00]/10 text-xs text-[#8f4e00]">
                 {user?.firstName?.[0] || "U"}
               </AvatarFallback>
             </Avatar>

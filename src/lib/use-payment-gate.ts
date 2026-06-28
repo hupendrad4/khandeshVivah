@@ -98,7 +98,7 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
                   email: user?.email || "",
                 },
                 theme: {
-                  color: "#FF21A5",
+                  color: "#8f4e00",
                 },
                 handler: function (response: any) {
                   resolve({

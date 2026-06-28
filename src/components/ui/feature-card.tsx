@@ -16,7 +16,7 @@ interface FeatureCardProps {
 }
 
 const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
-  ({ className, children, icon: Icon, iconColor = "text-[#FF21A5]", iconBg = "bg-[#FF21A5]/10", imageUrl, imageAlt = "", delay = 0 }, ref) => {
+  ({ className, children, icon: Icon, iconColor = "text-[#8f4e00]", iconBg = "bg-[#8f4e00]/10", imageUrl, imageAlt = "", delay = 0 }, ref) => {
     return (
       <motion.div
         ref={ref}
@@ -44,7 +44,7 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
               "absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 backdrop-blur-sm shadow-lg",
               "transition-all duration-300 group-hover:scale-110",
             )}>
-              <Icon className="h-5 w-5" style={{ color: iconColor.match(/#[a-fA-F0-9]{6}/)?.[0] || '#FF21A5' }} />
+              <Icon className="h-5 w-5" style={{ color: iconColor.match(/#[a-fA-F0-9]{6}/)?.[0] || '#8f4e00' }} />
             </div>
           </div>
         )}

@@ -47,7 +47,7 @@ export default function SuccessStoriesPage() {
   return (
     <MainLayout>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#FF21A5]">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
 
@@ -69,7 +69,7 @@ export default function SuccessStoriesPage() {
               transition={{ delay: i * 0.1 }}
             >
               <Card className="overflow-hidden">
-                <div className="relative h-32 bg-gradient-to-r from-[#FF21A5]/10 via-[#FF2E96]/5 to-[#D4AF37]/10">
+                <div className="relative h-32 bg-gradient-to-r from-[#8f4e00]/10 via-[#ff9933]/5 to-[#d3ae36]/10">
                   <div className="absolute -bottom-8 left-6 flex">
                     <Avatar className="h-16 w-16 border-4 border-white shadow-md">
                       <AvatarImage src={story.photos[0]} />
@@ -80,7 +80,7 @@ export default function SuccessStoriesPage() {
                       <AvatarFallback>{story.couple.split("&")[1]?.trim()[0]}</AvatarFallback>
                     </Avatar>
                   </div>
-                  <Quote className="absolute right-4 top-4 h-8 w-8 text-[#D4AF37]/20" />
+                  <Quote className="absolute right-4 top-4 h-8 w-8 text-[#d3ae36]/20" />
                 </div>
                 <CardContent className="pt-10">
                   <h3 className="text-lg font-bold text-[#1b1c1c]">{story.couple}</h3>

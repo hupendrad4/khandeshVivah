@@ -16,10 +16,10 @@ import {
 } from "lucide-react"
 
 const stats = [
-  { label: "admin.totalUsers", value: "25,847", icon: Users, change: "+12%", color: "text-[#002366]" },
+  { label: "admin.totalUsers", value: "25,847", icon: Users, change: "+12%", color: "text-[#435b9f]" },
   { label: "admin.activeUsers", value: "8,234", icon: UserCheck, change: "+8%", color: "text-[#50C878]" },
-  { label: "admin.premiumUsers", value: "1,847", icon: Star, change: "+23%", color: "text-[#D4AF37]" },
-  { label: "admin.pendingVerifications", value: "342", icon: Shield, change: "-5%", color: "text-[#FF21A5]" },
+  { label: "admin.premiumUsers", value: "1,847", icon: Star, change: "+23%", color: "text-[#d3ae36]" },
+  { label: "admin.pendingVerifications", value: "342", icon: Shield, change: "-5%", color: "text-[#8f4e00]" },
 ]
 
 const recentUsers = [

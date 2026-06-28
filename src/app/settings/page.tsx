@@ -26,7 +26,7 @@ export default function SettingsPage() {
   return (
     <MainLayout>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#FF21A5]">
+        <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
         <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-6 text-2xl font-bold text-[#1b1c1c]">{t("nav.settings")}</motion.h1>
@@ -35,7 +35,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card>
               <CardContent className="p-5">
-                <h3 className="mb-4 font-semibold text-[#002366]">{t("common.language")}</h3>
+                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.language")}</h3>
                 <div className="flex gap-3">
                   <Button
                     variant={locale === "mr" ? "default" : "outline"}
@@ -55,7 +55,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card>
               <CardContent className="p-5">
-                <h3 className="mb-4 font-semibold text-[#002366]">{t("common.theme")}</h3>
+                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.theme")}</h3>
                 <div className="flex gap-3">
                   <Button
                     variant={theme === "light" ? "default" : "outline"}
@@ -75,7 +75,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card>
               <CardContent className="space-y-4 p-5">
-                <h3 className="mb-4 font-semibold text-[#002366]">{t("common.notifications")}</h3>
+                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.notifications")}</h3>
                 {[
                   { labelKey: "nav.notifications", icon: Bell },
                   { labelKey: "nav.notifications", icon: Smartphone },
@@ -97,7 +97,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card>
               <CardContent className="space-y-4 p-5">
-                <h3 className="mb-4 font-semibold text-[#002366]">{t("common.privacy")}</h3>
+                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.privacy")}</h3>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? "माझे प्रोफाइल सर्वांना दिसावे" : "Show my profile to everyone"}</p>

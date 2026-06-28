@@ -28,7 +28,7 @@ export default function HelpPage() {
   return (
     <MainLayout>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#FF21A5]">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
         <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-6 text-2xl font-bold text-[#1b1c1c]">{t("nav.help")}</motion.h1>
@@ -47,7 +47,7 @@ export default function HelpPage() {
             <motion.div key={i} variants={fadeUp} initial="initial" animate="animate" transition={{ delay: i * 0.1 }}>
               <Card className="cursor-pointer hover:shadow-elevated">
                 <CardContent className="flex flex-col items-center p-5 text-center">
-                  <item.icon className="mb-2 h-8 w-8 text-[#FF21A5]" />
+                  <item.icon className="mb-2 h-8 w-8 text-[#8f4e00]" />
                   <h3 className="font-semibold text-[#1b1c1c]">{locale === "mr" ? item.labelMr : item.labelEn}</h3>
                   <p className="text-xs text-[#887364]">{locale === "mr" ? item.descMr : item.descEn}</p>
                 </CardContent>

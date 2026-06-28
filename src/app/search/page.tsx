@@ -2,23 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { MainLayout } from "@/components/layout/MainLayout"
 import { useI18n } from "@/lib/i18n"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Search, SlidersHorizontal, Heart, MessageCircle, MapPin,
-  Shield, Star, X, Filter, Sparkles, ChevronDown, Lock, Bookmark,
-} from "lucide-react"
-import { maskName } from "@/lib/utils"
 import { usePaymentGate } from "@/lib/use-payment-gate"
 import { useAuthStore } from "@/store/auth-store"
+import { maskName } from "@/lib/utils"
 import toast from "react-hot-toast"
 
 interface DistrictOption { id: string; en: string; mr: string }
@@ -28,29 +15,36 @@ interface CasteOption {
 }
 
 const sampleResults = [
-  { name: "प्रिया पाटील", age: 25, height: "5'4\"", caste: "Leva Patil", education: "B.E. Computer", occupation: "Software Engineer", district: "Jalgaon", village: "Chopda", score: 92, verified: true, premium: true, photo: "https://i.pravatar.cc/200?img=5" },
-  { name: "स्नेहा जाधव", age: 24, height: "5'2\"", caste: "Maratha", education: "M.Sc. Botany", occupation: "Teacher", district: "Dhule", village: "Shirpur", score: 88, verified: true, premium: false, photo: "https://i.pravatar.cc/200?img=6" },
-  { name: "रुपाली महाजन", age: 26, height: "5'6\"", caste: "Kunbi", education: "MBA", occupation: "Bank Manager", district: "Nandurbar", village: "Navapur", score: 85, verified: false, premium: true, photo: "https://i.pravatar.cc/200?img=7" },
-  { name: "अर्चना पवार", age: 23, height: "5'3\"", caste: "Mali", education: "B.A. History", occupation: "Govt Employee", district: "Jalgaon", village: "Bhusawal", score: 80, verified: true, premium: false, photo: "https://i.pravatar.cc/200?img=8" },
-  { name: "वैशाली सोनवणे", age: 27, height: "5'5\"", caste: "Leva Patil", education: "B.Sc. Nursing", occupation: "Staff Nurse", district: "Nashik", village: "Baglan", score: 78, verified: false, premium: false, photo: "https://i.pravatar.cc/200?img=9" },
-  { name: "दीपाली बागुल", age: 25, height: "5'4\"", caste: "Maratha", education: "LLB", occupation: "Lawyer", district: "Dhule", village: "Sindkheda", score: 75, verified: true, premium: true, photo: "https://i.pravatar.cc/200?img=10" },
+  { id: "1", name: "प्रिया पाटील", age: 25, height: "5'4\"", caste: "लेवा पाटील", education: "M.E. (Computer)", occupation: "सॉफ्टवेअर इंजिनिअर", district: "जळगाव", village: "चोपडा", score: 92, verified: true, premium: false },
+  { id: "2", name: "अमोल चौधरी", age: 28, height: "5'11\"", caste: "मराठा", education: "MBA (Finance)", occupation: "बँक मॅनेजर", district: "धुळे", village: "शिरपूर", score: 88, verified: true, premium: true },
+  { id: "3", name: "स्नेहा पाटील", age: 26, height: "5'5\"", caste: "लेवा पाटील", education: "MBBS", occupation: "डॉक्टर", district: "नाशिक", village: "बागलाण", score: 85, verified: true, premium: false },
+  { id: "4", name: "रुपाली महाजन", age: 24, height: "5'2\"", caste: "कुणबी", education: "M.Sc. Botany", occupation: "शिक्षिका", district: "नंदुरबार", village: "नवापूर", score: 82, verified: false, premium: true },
+  { id: "5", name: "अर्चना पवार", age: 23, height: "5'3\"", caste: "माळी", education: "B.A. History", occupation: "सरकारी कर्मचारी", district: "जळगाव", village: "भुसावळ", score: 80, verified: true, premium: false },
+  { id: "6", name: "वैशाली सोनवणे", age: 27, height: "5'6\"", caste: "लेवा पाटील", education: "B.Sc. Nursing", occupation: "परिचारिका", district: "जळगाव", village: "पाचोरा", score: 78, verified: false, premium: false },
 ]
 
 export default function SearchPage() {
   const { t, locale } = useI18n()
-  const [showFilters, setShowFilters] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-
+  const [selectedDistrict, setSelectedDistrict] = useState("")
+  const [shortlistedIds, setShortlistedIds] = useState<Set<string>>(new Set())
   const [districts, setDistricts] = useState<DistrictOption[]>([])
   const [castes, setCastes] = useState<CasteOption[]>([])
   const [talukas, setTalukas] = useState<TalukaOption[]>([])
-  const [selectedDistrict, setSelectedDistrict] = useState("")
-  const { executeWithGate, isProcessing } = usePaymentGate()
-  const { user } = useAuthStore()
-  const [shortlistedIds, setShortlistedIds] = useState<Set<string>>(new Set())
   const [loadingDistricts, setLoadingDistricts] = useState(true)
   const [loadingCastes, setLoadingCastes] = useState(true)
   const [loadingTalukas, setLoadingTalukas] = useState(false)
+  const { executeWithGate, isProcessing } = usePaymentGate()
+  const { user } = useAuthStore()
+
+  const profileImages = [
+    "https://i.pravatar.cc/400?img=5",
+    "https://i.pravatar.cc/400?img=11",
+    "https://i.pravatar.cc/400?img=9",
+    "https://i.pravatar.cc/400?img=7",
+    "https://i.pravatar.cc/400?img=8",
+    "https://i.pravatar.cc/400?img=10",
+  ]
 
   useEffect(() => {
     Promise.all([
@@ -81,271 +75,258 @@ export default function SearchPage() {
   }, [selectedDistrict])
 
   return (
-    <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-6 md:px-6 lg:px-10 bg-gradient-warm">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gradient-pink">{t("search.searchMatches")}</h1>
-          <div className="divider-pink mt-1 mb-2" />
-          <p className="text-sm text-[#554336]">{t("home.heroSubtitle")}</p>
-        </div>
+    <>
+      <div className="min-h-screen bg-background-cream pt-20 pb-24">
+        <div className="mx-auto max-w-container px-4 md:px-gutter grid grid-cols-1 md:grid-cols-12 gap-6 relative">
+          <div className="absolute inset-0 pointer-events-none" style={{
+            backgroundImage: "radial-gradient(circle at 2px 2px, #d3ae36 1px, transparent 0)",
+            backgroundSize: "24px 24px",
+            opacity: 0.05,
+          }} />
 
-        <div className="mb-6 flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#887364]" />
-            <Input
-              placeholder={t("home.searchPlaceholder")}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9"
-            />
-          </div>
-          <Button
-            variant={showFilters ? "default" : "outline"}
-            onClick={() => setShowFilters(!showFilters)}
-            className="gap-2"
-          >
-            <Filter className="h-4 w-4" />
-            <span className="hidden md:inline">{t("common.filter")}</span>
-          </Button>
-        </div>
+          {/* Filters Sidebar */}
+          <aside className="md:col-span-3 h-fit sticky top-24 space-y-4">
+            <div className="bg-surface-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,27,77,0.05)] border border-outline-variant/20">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-headline-md text-headline-md text-royal-ink">
+                  {locale === "mr" ? "फिल्टर निवडा" : "Select Filters"}
+                </h2>
+                <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 0, 'wght' 400" }}>tune</span>
+              </div>
 
-        {showFilters && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 card-premium p-5"
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-semibold text-gradient-pink">{t("search.advancedSearch")}</h3>
-              <Button variant="ghost" size="sm" onClick={() => setShowFilters(false)}>
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-              <div className="space-y-2">
-                <Label className="text-xs">{t("search.ageRange")}</Label>
-                <div className="flex gap-2">
-                  <Input type="number" placeholder="18" className="text-center" />
-                  <span className="flex items-center text-[#887364]">-</span>
-                  <Input type="number" placeholder="45" className="text-center" />
+              <div className="space-y-6 max-h-[618px] overflow-y-auto pr-2" style={{ scrollbarWidth: "thin", scrollbarColor: "#8f4e00 #f1f1f1" }}>
+                {/* Search */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={locale === "mr" ? "नाव किंवा आयडी शोधा..." : "Search by name or ID..."}
+                    className="w-full pl-10 pr-4 py-3 bg-background-cream border-none rounded-xl focus:ring-2 focus:ring-primary text-body-md outline-none"
+                  />
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                </div>
+
+                {/* District */}
+                <div>
+                  <label className="block font-label-md text-royal-ink mb-3 uppercase tracking-wider">
+                    {locale === "mr" ? "जिल्हा" : "District"}
+                  </label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {loadingDistricts ? (
+                      <p className="text-sm text-on-surface-variant">{t("common.loading")}</p>
+                    ) : districts.length > 0 ? districts.map((d) => (
+                      <label key={d.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-container/10 transition-colors cursor-pointer">
+                        <input type="checkbox" className="rounded border-outline-variant text-primary focus:ring-primary" />
+                        <span className="text-body-md">{locale === "mr" ? d.mr : d.en}</span>
+                      </label>
+                    )) : (
+                      <>
+                        <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-container/10 transition-colors cursor-pointer">
+                          <input type="checkbox" defaultChecked className="rounded border-outline-variant text-primary focus:ring-primary" />
+                          <span className="text-body-md">जळगाव (Jalgaon)</span>
+                        </label>
+                        <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-container/10 transition-colors cursor-pointer">
+                          <input type="checkbox" className="rounded border-outline-variant text-primary focus:ring-primary" />
+                          <span className="text-body-md">धुळे (Dhule)</span>
+                        </label>
+                        <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-container/10 transition-colors cursor-pointer">
+                          <input type="checkbox" className="rounded border-outline-variant text-primary focus:ring-primary" />
+                          <span className="text-body-md">नंदुरबार (Nandurbar)</span>
+                        </label>
+                        <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-container/10 transition-colors cursor-pointer">
+                          <input type="checkbox" className="rounded border-outline-variant text-primary focus:ring-primary" />
+                          <span className="text-body-md">नाशिक (Nashik)</span>
+                        </label>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Taluka */}
+                <div>
+                  <label className="block font-label-md text-royal-ink mb-2">
+                    {locale === "mr" ? "तालुका" : "Taluka"}
+                  </label>
+                  <select className="w-full bg-background-cream border-none rounded-xl p-3 text-body-md focus:ring-2 focus:ring-primary outline-none">
+                    <option value="">{locale === "mr" ? "सर्व तालुके" : "All Talukas"}</option>
+                    {loadingTalukas ? (
+                      <option disabled>{t("common.loading")}</option>
+                    ) : (
+                      talukas.map((t) => (
+                        <option key={t.id} value={t.id}>{locale === "mr" ? t.mr : t.en}</option>
+                      ))
+                    )}
+                  </select>
+                </div>
+
+                {/* Caste */}
+                <div>
+                  <label className="block font-label-md text-royal-ink mb-3">
+                    {locale === "mr" ? "जात (Caste)" : "Caste"}
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {["लेवा पाटील", "मराठा", "माळी", "कुणबी"].map((caste) => (
+                      <span key={caste} className="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-caption cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        {caste}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Education */}
+                <div>
+                  <label className="block font-label-md text-royal-ink mb-2">
+                    {locale === "mr" ? "शिक्षण" : "Education"}
+                  </label>
+                  <select className="w-full bg-background-cream border-none rounded-xl p-3 text-body-md focus:ring-2 focus:ring-primary outline-none">
+                    <option value="">{locale === "mr" ? "शिक्षण निवडा" : "Select Education"}</option>
+                    <option value="engineering">{locale === "mr" ? "इंजिनिअरिंग" : "Engineering"}</option>
+                    <option value="medical">{locale === "mr" ? "वैद्यकीय (Medical)" : "Medical"}</option>
+                    <option value="graduate">{locale === "mr" ? "पदवीधर (Graduate)" : "Graduate"}</option>
+                    <option value="postgraduate">{locale === "mr" ? "पदव्युत्तर (Post Graduate)" : "Post Graduate"}</option>
+                  </select>
+                </div>
+
+                {/* Village */}
+                <div>
+                  <label className="block font-label-md text-royal-ink mb-2">
+                    {locale === "mr" ? "मूळ गाव" : "Native Village"}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder={locale === "mr" ? "गावाचे नाव टाका" : "Enter village name"}
+                    className="w-full bg-background-cream border-none rounded-xl p-3 text-body-md focus:ring-2 focus:ring-primary outline-none"
+                  />
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label className="text-xs">{t("search.district")}</Label>                        <Select onValueChange={(v) => setSelectedDistrict(v === "all" ? "" : v)}>
-                          <SelectTrigger><SelectValue placeholder={t("registration.district")} /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">{t("common.all")}</SelectItem>
-                            {loadingDistricts ? (
-                              <SelectItem value="loading" disabled>{t("common.loading")}</SelectItem>
-                            ) : (
-                              districts.map((d) => (
-                                <SelectItem key={d.id} value={d.id}>{locale === "mr" ? d.mr : d.en}</SelectItem>
-                              ))
-                            )}
-                          </SelectContent>
-                        </Select>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs">{t("search.taluka")}</Label>                        <Select disabled={!selectedDistrict}>
-                          <SelectTrigger><SelectValue placeholder={t("registration.taluka")} /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">{t("common.all")}</SelectItem>
-                            {loadingTalukas ? (
-                              <SelectItem value="loading" disabled>{t("common.loading")}</SelectItem>
-                            ) : (
-                              talukas.map((t) => (
-                                <SelectItem key={t.id} value={t.id}>{locale === "mr" ? t.mr : t.en}</SelectItem>
-                              ))
-                            )}
-                          </SelectContent>
-                        </Select>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs">{t("registration.caste")}</Label>                        <Select>
-                          <SelectTrigger><SelectValue placeholder={t("registration.caste")} /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">{t("common.all")}</SelectItem>
-                            {loadingCastes ? (
-                              <SelectItem value="loading" disabled>{t("common.loading")}</SelectItem>
-                            ) : (
-                              castes.map((c) => (
-                                <SelectItem key={c.id} value={c.id}>{locale === "mr" ? c.mr : c.en}</SelectItem>
-                              ))
-                            )}
-                          </SelectContent>
-                        </Select>
-              </div>
-            </div>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="photo" className="rounded border-[#E4E2E1]" />
-                <label htmlFor="photo" className="text-sm text-[#554336]">{t("search.photoAvailable")}</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="verified" className="rounded border-[#E4E2E1]" />
-                <label htmlFor="verified" className="text-sm text-[#554336]">{t("search.verifiedOnly")}</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="premium" className="rounded border-[#E4E2E1]" />
-                <label htmlFor="premium" className="text-sm text-[#554336]">{t("search.premiumOnly")}</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="online" className="rounded border-[#E4E2E1]" />
-                <label htmlFor="online" className="text-sm text-[#554336]">{t("search.onlineNow")}</label>
-              </div>
-            </div>
-            <div className="mt-4 flex justify-end gap-3">
-              <Button variant="outline" size="sm">{t("search.resetFilters")}</Button>
-              <Button size="sm">{t("search.applyFilters")}</Button>
-              <Button variant="gold" size="sm">{t("search.saveSearch")}</Button>
-            </div>
-          </motion.div>
-        )}
 
-        <Tabs defaultValue="all">
-          <TabsList className="mb-6">
-            <TabsTrigger value="all">{t("common.all")}</TabsTrigger>
-            <TabsTrigger value="brides">{t("registration.female")}</TabsTrigger>
-            <TabsTrigger value="grooms">{t("registration.male")}</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all">
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm text-[#887364]">{sampleResults.length} {t("search.searchResults")}</p>
-              <Select defaultValue="compatibility">
-                <SelectTrigger className="w-36">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="compatibility">{t("search.compatibility")}</SelectItem>
-                  <SelectItem value="newest">{t("search.recentlyJoined")}</SelectItem>
-                </SelectContent>
-              </Select>
+              <button className="w-full mt-6 bg-primary text-white font-bold py-3 rounded-xl shadow-lg hover:bg-on-primary-container transition-all active:scale-95">
+                {locale === "mr" ? "फिल्टर लागू करा" : "Apply Filters"}
+              </button>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {sampleResults.map((profile, i) => {
-              const displayName = profile.premium ? profile.name : maskName(profile.name, false)
-              return (
+          </aside>
+
+          {/* Main Content */}
+          <div className="md:col-span-9 space-y-6">
+            {/* Results Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-surface-white p-4 rounded-2xl shadow-sm border border-outline-variant/10">
+              <div>
+                <h2 className="font-headline-md text-headline-md text-royal-ink">
+                  {sampleResults.length}{locale === "mr" ? "+ सामने सापडले" : "+ matches found"}
+                </h2>
+                <p className="text-caption text-on-surface-variant">
+                  {locale === "mr" ? "तुमच्या निवडीनुसार उत्तम स्थळे" : "Best matches based on your preferences"}
+                </p>
+              </div>
+              <div className="flex items-center gap-3 w-full md:w-auto">
+                <span className="text-label-md text-on-surface-variant whitespace-nowrap">
+                  {locale === "mr" ? "क्रमवारी:" : "Sort:"}
+                </span>
+                <select className="bg-background border-none text-label-md rounded-lg p-2 focus:ring-1 focus:ring-primary w-full md:w-40 outline-none">
+                  <option value="newest">{locale === "mr" ? "नवीन नोंदणी" : "Newest Registration"}</option>
+                  <option value="age">{locale === "mr" ? "वय: कमी ते जास्त" : "Age: Low to High"}</option>
+                  <option value="education">{locale === "mr" ? "शिक्षणानुसार" : "By Education"}</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Profile Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {sampleResults.map((profile, i) => (
                 <motion.div
-                  key={profile.name}
+                  key={profile.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
+                  className="bg-surface-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,27,77,0.05)] border border-outline-variant/20 group hover:shadow-xl transition-all duration-300"
                 >
-                  <Card className="overflow-hidden cursor-pointer shadow-premium hover:shadow-luxury transition-all group">
-                    <div className="relative h-28 bg-gradient-to-br from-[#FF21A5]/10 to-[#002366]/10">
-                      <Avatar className="absolute -bottom-8 left-4 h-16 w-16 border-4 border-white shadow-md">
-                        <AvatarImage src={profile.photo} />
-                        <AvatarFallback>{displayName[0]}</AvatarFallback>
-                      </Avatar>
-                      <div className="absolute right-3 top-3 flex gap-1">
-                        {profile.verified && <Badge variant="verified"><Shield className="mr-1 h-3 w-3" />{t("common.verified")}</Badge>}
-                        {profile.premium && <Badge variant="premium"><Star className="mr-1 h-3 w-3" />Premium</Badge>}
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={profileImages[i]}
+                      alt={profile.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {profile.verified && (
+                      <div className="absolute top-3 left-3 bg-emerald-growth/90 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest backdrop-blur-sm">
+                        Verified
                       </div>
+                    )}
+                    {profile.premium && (
+                      <div className="absolute top-3 right-3 bg-tertiary-container/90 text-on-tertiary-container text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest backdrop-blur-sm">
+                        Premium
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-3 left-3 text-white">
+                      <p className="font-bold text-lg">{profile.premium ? profile.name : maskName(profile.name, false)}</p>
+                      <p className="text-xs opacity-90">{profile.age} {locale === "mr" ? "वर्ष" : "yrs"} • {profile.height}</p>
                     </div>
-                    <CardContent className="pt-10">
-                      <div className="mb-2 flex items-center justify-between">
-                        <div>
-                          <h3 className="font-bold text-[#1b1c1c]">
-                            {displayName}
-                            {!profile.premium && (
-                              <Lock className="ml-1 inline h-3 w-3 text-[#887364]" />
-                            )}
-                          </h3>
-                          <p className="text-xs text-[#887364]">{profile.age} yrs, {profile.height} | {profile.caste}</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="flex items-center gap-1 text-sm font-bold text-[#50C878]">
-                            <Sparkles className="h-3 w-3" />{profile.score}%
-                          </div>
-                          <p className="text-xs text-[#887364]">{t("search.compatibility")}</p>
-                        </div>
-                      </div>
-                      {!profile.premium && (
-                        <div className="mb-2 rounded-lg bg-[#F0ADD6] p-2 text-center">
-                          <p className="text-[10px] text-[#887364]">
-                            <Lock className="mr-1 inline h-3 w-3" />
-                            {t("privacy.subscribeToView")}
-                          </p>
-                        </div>
-                      )}
-                      <div className="divider-gold my-2" />
-                      <div className="mb-2 flex items-center gap-1 text-xs text-[#887364]">
-                        <MapPin className="h-3 w-3" /> {profile.village}, {profile.district}
-                      </div>
-                      <div className="mb-3 flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-[10px]">{profile.education}</Badge>
-                        <Badge variant="outline" className="text-[10px]">{profile.occupation}</Badge>
-                      </div>
-                      <div className="divider-gold my-2" />
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="default"
-                          className="flex-1"
-                          disabled={isProcessing}
-                          onClick={() => {
-                            executeWithGate(
-                              async () => {
-                                toast.success(t("profile.interestSent"))
-                              },
-                              "send_interest",
-                              undefined,
-                            )
-                          }}
-                        ><Heart className="mr-1 h-3 w-3" />{t("profile.sendInterest")}</Button>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={async () => {
-                            if (!user?.id) {
-                              toast.error(locale === "mr" ? "कृपया प्रथम लॉगिन करा" : "Please login first")
-                              return
-                            }
-                            const res = await fetch("/api/shortlist/toggle", {
-                              method: "POST",
-                              headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ userId: user.id, targetId: profile.name }),
-                            })
-                            const data = await res.json()
-                            if (data.success) {
-                              setShortlistedIds((prev) => {
-                                const next = new Set(prev)
-                                if (data.shortlisted) next.add(profile.name)
-                                else next.delete(profile.name)
-                                return next
-                              })
-                              toast.success(data.shortlisted ? t("profile.shortlistAdded") : t("profile.shortlistRemoved"))
-                            }
-                          }}
-                        >
-                          <Bookmark className={`mr-1 h-3 w-3 ${shortlistedIds.has(profile.name) ? "fill-[#FF21A5] text-[#FF21A5]" : ""}`} />{t("profile.shortlist")}
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="flex-1"
-                          disabled={isProcessing}
-                          onClick={() => {
-                            executeWithGate(
-                              async () => {
-                                toast.success(t("profile.chat") + " coming soon")
-                              },
-                              "send_message",
-                              undefined,
-                            )
-                          }}
-                        ><MessageCircle className="mr-1 h-3 w-3" />{t("profile.chat")}</Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  </div>
+
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-center gap-2 text-on-surface-variant">
+                      <span className="material-symbols-outlined text-[18px]">school</span>
+                      <span className="text-caption">{profile.education}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-on-surface-variant">
+                      <span className="material-symbols-outlined text-[18px]">location_on</span>
+                      <span className="text-caption">{profile.village}, {profile.district}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-on-surface-variant">
+                      <span className="material-symbols-outlined text-[18px]">work</span>
+                      <span className="text-caption">{profile.occupation}</span>
+                    </div>
+
+                    <div className="pt-3 border-t border-outline-variant/20 flex justify-between items-center">
+                      <button
+                        onClick={() => {
+                          if (shortlistedIds.has(profile.id)) {
+                            setShortlistedIds(prev => { const n = new Set(prev); n.delete(profile.id); return n })
+                          } else {
+                            setShortlistedIds(prev => new Set(prev).add(profile.id))
+                          }
+                        }}
+                        className="flex items-center gap-1 text-primary hover:text-on-primary-container transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: shortlistedIds.has(profile.id) ? "'FILL' 1" : "'FILL' 0" }}>
+                          favorite
+                        </span>
+                        <span className="font-label-md">
+                          {shortlistedIds.has(profile.id)
+                            ? (locale === "mr" ? "शॉर्टलिस्ट केले" : "Shortlisted")
+                            : (locale === "mr" ? "शॉर्टलिस्ट" : "Shortlist")}
+                        </span>
+                      </button>
+                      <button
+                        disabled={isProcessing}
+                        onClick={() => {
+                          executeWithGate(
+                            async () => { toast.success(locale === "mr" ? "चॅट लवकरच उपलब्ध" : "Chat coming soon") },
+                            "send_message",
+                            undefined,
+                          )
+                        }}
+                        className="bg-primary text-white px-4 py-2 rounded-lg font-label-md flex items-center gap-2 active:scale-95 transition-transform"
+                      >
+                        <span className="material-symbols-outlined text-[18px]">chat</span>
+                        {locale === "mr" ? "चॅट करा" : "Chat"}
+                      </button>
+                    </div>
+                  </div>
                 </motion.div>
-              )
-            })}
+              ))}
             </div>
-          </TabsContent>
-        </Tabs>
+
+            {/* Load More */}
+            <div className="flex justify-center pt-8">
+              <button className="px-8 py-3 bg-surface-white border border-primary text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all shadow-sm">
+                {locale === "mr" ? "आणखी पहा" : "Load More"}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </MainLayout>
+    </>
   )
 }

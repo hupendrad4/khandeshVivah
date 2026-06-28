@@ -115,7 +115,7 @@ export function ReusableCarousel({
               className={cn(
                 "h-2 rounded-full transition-all duration-300",
                 i === selectedIndex
-                  ? "w-8 bg-gradient-to-r from-[#FF21A5] to-[#FF2E96]"
+                  ? "w-8 bg-gradient-to-r from-[#8f4e00] to-[#ff9933]"
                   : "w-2 bg-[#E4E2E1] hover:bg-[#887364]",
               )}
               aria-label={`Go to slide ${i + 1}`}

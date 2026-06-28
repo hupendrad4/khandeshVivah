@@ -27,10 +27,10 @@ export function BottomNav() {
               key={href}
               href={href}
               className={`flex flex-col items-center gap-0.5 px-3 py-1 transition-colors ${
-                isActive ? "text-[#FF21A5]" : "text-[#887364]"
+                isActive ? "text-[#8f4e00]" : "text-[#887364]"
               }`}
             >
-              <Icon className={`h-5 w-5 ${isActive ? "fill-[#FF21A5]/20" : ""}`} />
+              <Icon className={`h-5 w-5 ${isActive ? "fill-[#8f4e00]/20" : ""}`} />
               <span className="text-[10px] font-medium">{label}</span>
             </Link>
           )

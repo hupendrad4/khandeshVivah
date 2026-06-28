@@ -1,144 +1,153 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Link from "next/link"
-import { MainLayout } from "@/components/layout/MainLayout"
 import { useI18n } from "@/lib/i18n"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, Sparkles, Star, Shield, Zap, Crown, ChevronLeft, Loader2 } from "lucide-react"
 import { usePaymentGate } from "@/lib/use-payment-gate"
+import toast from "react-hot-toast"
+import { Loader2 } from "lucide-react"
 
 const plans = [
   {
-    name: "मासिक",
-    nameEn: "Monthly",
-    price: "₹499",
-    period: "/month",
-    popular: false,
-    features: ["unlimitedInterests", "unlimitedMessages", "contactDetails", "verifiedBadge", "whoViewedMe"],
+    name: "Silver", price: "₹१,५००", period: "/ ३ महिने", popular: false,
+    features: [
+      { mr: "अमर्यादित मेसेज पाठवा", en: "Unlimited messages" },
+      { mr: "५० संपर्कांचे तपशील पहा", en: "View 50 contact details" },
+      { mr: "प्रोफाईल बूस्ट (महिन्यातून १ वेळा)", en: "Profile boost (1x/month)" },
+    ],
+    disabled: [false, false, false, true, true],
+    extra: [
+      { mr: "पर्सनलाइज्ड मॅचमेकर", en: "Personalized matchmaker" },
+    ],
   },
   {
-    name: "त्रैमासिक",
-    nameEn: "Quarterly",
-    price: "₹999",
-    period: "/3 months",
-    popular: true,
-    features: ["unlimitedInterests", "unlimitedMessages", "contactDetails", "verifiedBadge", "whoViewedMe", "priorityListing", "profileBoost"],
+    name: "Gold", price: "₹३,५००", period: "/ ६ महिने", popular: true,
+    features: [
+      { mr: "अमर्यादित मेसेज आणि चॅट", en: "Unlimited messages & chat" },
+      { mr: "१५० संपर्कांचे तपशील पहा", en: "View 150 contact details" },
+      { mr: "प्रोफाईल बूस्ट (दर आठवड्याला)", en: "Profile boost (weekly)" },
+      { mr: "प्राधान्य शोध (Priority Search)", en: "Priority search" },
+      { mr: "कुंडली मॅचिंग रिपोर्ट", en: "Kundali matching report" },
+    ],
+    disabled: [],
+    extra: [],
   },
   {
-    name: "वार्षिक",
-    nameEn: "Yearly",
-    price: "₹2,499",
-    period: "/year",
-    popular: false,
-    features: ["unlimitedInterests", "unlimitedMessages", "contactDetails", "verifiedBadge", "whoViewedMe", "priorityListing", "profileBoost", "aiRecommendations", "incognitoMode", "advancedFilters", "prioritySupport"],
+    name: "Platinum", price: "₹६,०००", period: "/ १ वर्ष", popular: false,
+    features: [
+      { mr: "सर्व काही अमर्यादित", en: "Everything unlimited" },
+      { mr: "पर्सनलाइज्ड मॅचमेकर असिस्टन्स", en: "Personalized matchmaker" },
+      { mr: "प्रोफाईल हायलाईट (टॉप रिझल्ट)", en: "Profile highlight (top result)" },
+      { mr: "मॅरेज कौन्सिलिंग सेशन", en: "Marriage counseling session" },
+    ],
+    disabled: [],
+    extra: [],
   },
 ]
 
 export default function PremiumPage() {
-  const { t, locale } = useI18n()
+  const { locale } = useI18n()
   const { executeWithGate, isProcessing } = usePaymentGate()
 
-  const handleSubscribe = async () => {
-    // In simulation mode, activates premium with 1.5s delay and no real payment
-    await executeWithGate(async () => {
-      // Premium is already activated, nothing else needed
-    })
-  }
-
   return (
-    <MainLayout>
-      <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#FF21A5]">
-          <ChevronLeft className="h-3 w-3" /> {t("common.back")}
-        </Link>
+    <>
+      <div className="min-h-screen pb-24 bg-background-cream">
+        <div className="pt-24 px-gutter max-w-container mx-auto">
+          {/* Header */}
+          <header className="text-center mb-12">
+            <h2 className="font-headline-xl text-headline-xl text-primary mb-4">
+              {locale === "mr" ? "प्रीमियम प्लॅन्स निवडा" : "Choose Your Plan"}
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+              {locale === "mr"
+                ? "तुमच्यासाठी योग्य जोडीदार शोधण्यासाठी आमचे खास प्रीमियम प्लॅन्स निवडा आणि आजच प्रवासाची सुरुवात करा."
+                : "Choose our premium plans to find the perfect partner and start your journey today."}
+            </p>
+          </header>
 
-        <div className="mb-10 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <Badge variant="premium" className="mb-4"><Sparkles className="mr-1 h-4 w-4" />{t("premium.premiumBenefits")}</Badge>
-            <h1 className="mb-4 text-3xl font-bold text-[#1b1c1c] md:text-4xl">{t("premium.becomePremium")}</h1>
-            <p className="mx-auto max-w-2xl text-[#554336]">{t("app.tagline")}</p>
-          </motion.div>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {plans.map((plan, i) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="relative"
-            >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2">
-                  <Badge variant="premium" className="px-4 py-1 text-sm"><Crown className="mr-1 h-4 w-4" />{t("premium.mostPopular")}</Badge>
-                </div>
-              )}
-              <Card className={`h-full ${plan.popular ? "border-[#D4AF37] ring-2 ring-[#D4AF37]/20 shadow-elevated" : ""}`}>
-                <CardContent className="flex h-full flex-col p-6">
-                  <div className="mb-6 text-center">
-                    <h3 className="text-xl font-bold text-[#1b1c1c]">{locale === "mr" ? plan.name : plan.nameEn}</h3>
-                    <div className="mt-3 flex items-baseline justify-center gap-1">
-                      <span className="text-4xl font-extrabold text-[#002366]">{plan.price}</span>
-                      <span className="text-sm text-[#887364]">{plan.period}</span>
-                    </div>
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {plans.map((plan, i) => (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className={`relative bg-surface-white rounded-2xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
+                  plan.popular
+                    ? "scale-105 z-10 shadow-xl border-2 border-transparent"
+                    : "border border-outline-variant/30"
+                }`}
+                style={plan.popular ? {
+                  borderImage: "linear-gradient(to bottom right, #D4AF37, #FFD700, #B8860B) 1",
+                } : {}}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FF9933] text-white px-6 py-1 rounded-full text-label-md font-bold shadow-md whitespace-nowrap">
+                    {locale === "mr" ? "शिफारस केलेले" : "Recommended"}
                   </div>
-                  <div className="mb-8 flex-1 space-y-3">
-                    {plan.features.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-sm text-[#554336]">
-                        <CheckCircle className="h-4 w-4 text-[#50C878]" />
-                        {t(`premium.${f}` as any)}
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    variant={plan.popular ? "premium" : "outline"}
-                    size="lg"
-                    className="w-full"
-                    onClick={handleSubscribe}
-                    disabled={isProcessing}
-                  >
-                    {isProcessing ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {t("common.loading") || "Processing..."}
-                      </>
-                    ) : (
-                      t("premium.subscribeNow")
+                )}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className={`font-headline-md text-headline-md ${plan.popular ? "text-primary" : "text-on-surface-variant"}`}>
+                      {plan.name}
+                    </h3>
+                    {plan.popular && (
+                      <span className="material-symbols-outlined text-tertiary-container" style={{ fontVariationSettings: "'FILL' 1" }}>stars</span>
                     )}
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-12">
-          <div className="mx-auto max-w-2xl">
-            <Card className="bg-gradient-to-r from-[#002366]/5 to-[#002366]/10 border-none">
-              <CardContent className="p-6">
-                <h3 className="mb-4 text-center text-lg font-bold text-[#002366]">✨ {t("premium.premiumBenefits")}</h3>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                  {[
-                    { label: "unlimitedInterests", icon: Star },
-                    { label: "unlimitedMessages", icon: Zap },
-                    { label: "contactDetails", icon: Crown },
-                    { label: "whoViewedMe", icon: Shield },
-                  ].map((b) => (
-                    <div key={b.label} className="rounded-xl bg-white p-3 text-center shadow-sm">
-                      <b.icon className="mx-auto mb-1 h-5 w-5 text-[#D4AF37]" />
-                      <p className="text-xs font-medium text-[#554336]">{t(`premium.${b.label}` as any)}</p>
+                  </div>
+                  <div className="mt-4 flex items-baseline gap-1">
+                    <span className={`text-headline-lg font-bold ${plan.popular ? "text-primary" : "text-secondary"}`}>{plan.price}</span>
+                    <span className="text-caption text-on-surface-variant">{plan.period}</span>
+                  </div>
+                </div>
+                <div className="space-y-4 flex-grow mb-8">
+                  {plan.features.map((f, fi) => (
+                    <div key={fi} className="flex items-start gap-3">
+                      <span className="material-symbols-outlined text-emerald-growth text-[20px]">check_circle</span>
+                      <p className="font-body-md text-body-md text-on-surface">{locale === "mr" ? f.mr : f.en}</p>
+                    </div>
+                  ))}
+                  {plan.extra.map((f, fi) => (
+                    <div key={`extra-${fi}`} className="flex items-start gap-3 opacity-40">
+                      <span className="material-symbols-outlined text-[20px]">block</span>
+                      <p className="font-body-md text-body-md text-on-surface">{locale === "mr" ? f.mr : f.en}</p>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+                <button
+                  onClick={() => executeWithGate(async () => { toast.success("Premium activated!") })}
+                  disabled={isProcessing}
+                  className={`w-full py-3 px-6 rounded-lg font-bold transition-all active:scale-95 flex items-center justify-center gap-2 ${
+                    plan.popular
+                      ? "bg-primary-container text-on-primary-container shadow-lg shadow-primary-container/30 hover:brightness-110"
+                      : "border-2 border-secondary text-secondary hover:bg-secondary hover:text-white"
+                  }`}
+                >
+                  {isProcessing ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                  {locale === "mr" ? "खरेदी करा" : "Buy Now"}
+                </button>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Trust Badges */}
+          <section className="bg-surface-container-low rounded-3xl p-10 relative overflow-hidden">
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              {[
+                { icon: "verified_user", title: locale === "mr" ? "१००% सुरक्षित" : "100% Secure", desc: locale === "mr" ? "तुमची माहिती पूर्णपणे सुरक्षित आहे." : "Your information is completely secure." },
+                { icon: "groups", title: locale === "mr" ? "मोठी कम्युनिटी" : "Large Community", desc: locale === "mr" ? "खानदेशातील हजारो स्थळे उपलब्ध." : "Thousands of profiles from Khandesh." },
+                { icon: "support_agent", title: locale === "mr" ? "२४/७ सपोर्ट" : "24/7 Support", desc: locale === "mr" ? "आम्ही तुमच्या मदतीसाठी नेहमी उपलब्ध आहोत." : "We're always here to help." },
+              ].map((b, i) => (
+                <div key={i}>
+                  <span className="material-symbols-outlined text-primary text-[48px] mb-4">{b.icon}</span>
+                  <h4 className="font-headline-md text-headline-md text-primary mb-2">{b.title}</h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant">{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
-    </MainLayout>
+    </>
   )
 }

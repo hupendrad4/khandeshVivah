@@ -10,10 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Bell, Heart, MessageCircle, Eye, Star, Sparkles, Shield, CheckCircle } from "lucide-react"
 
 const notifications = [
-  { type: "interest", titleKey: "app.name", messageMr: "राजेश पाटील ने तुमच्या प्रोफाइलमध्ये रस दाखवला आहे", messageEn: "Rajesh Patil has shown interest in your profile", time: "2m ago", read: false, icon: Heart, color: "text-[#FF21A5]" },
-  { type: "message", titleKey: "nav.chat", messageMr: "अमित जाधव ने तुम्हाला संदेश पाठवला आहे", messageEn: "Amit Jadhav has sent you a message", time: "1h ago", read: false, icon: MessageCircle, color: "text-[#FF21A5]" },
-  { type: "view", titleKey: "profile.profileViews", messageMr: "या आठवड्यात १२ जणांनी तुमचे प्रोफाइल पाहिले", messageEn: "12 people viewed your profile this week", time: "3h ago", read: true, icon: Eye, color: "text-[#002366]" },
-  { type: "premium", titleKey: "premium.premium", messageMr: "प्रीमियम सदस्यत्वावर ५०% सूट! आजच सबस्क्राइब करा", messageEn: "50% off on Premium membership! Subscribe today", time: "1d ago", read: true, icon: Sparkles, color: "text-[#D4AF37]" },
+  { type: "interest", titleKey: "app.name", messageMr: "राजेश पाटील ने तुमच्या प्रोफाइलमध्ये रस दाखवला आहे", messageEn: "Rajesh Patil has shown interest in your profile", time: "2m ago", read: false, icon: Heart, color: "text-[#8f4e00]" },
+  { type: "message", titleKey: "nav.chat", messageMr: "अमित जाधव ने तुम्हाला संदेश पाठवला आहे", messageEn: "Amit Jadhav has sent you a message", time: "1h ago", read: false, icon: MessageCircle, color: "text-[#8f4e00]" },
+  { type: "view", titleKey: "profile.profileViews", messageMr: "या आठवड्यात १२ जणांनी तुमचे प्रोफाइल पाहिले", messageEn: "12 people viewed your profile this week", time: "3h ago", read: true, icon: Eye, color: "text-[#435b9f]" },
+  { type: "premium", titleKey: "premium.premium", messageMr: "प्रीमियम सदस्यत्वावर ५०% सूट! आजच सबस्क्राइब करा", messageEn: "50% off on Premium membership! Subscribe today", time: "1d ago", read: true, icon: Sparkles, color: "text-[#d3ae36]" },
   { type: "verification", titleKey: "common.verified", messageMr: "तुमचे प्रोफाइल यशस्वीरित्या पडताळले गेले आहे", messageEn: "Your profile has been verified successfully", time: "2d ago", read: true, icon: Shield, color: "text-[#50C878]" },
 ]
 
@@ -38,9 +38,9 @@ export default function NotificationsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
             >
-              <Card className={`${!n.read ? "border-[#FF21A5]/30 bg-[#FF21A5]/5" : ""}`}>
+              <Card className={`${!n.read ? "border-[#8f4e00]/30 bg-[#8f4e00]/5" : ""}`}>
                 <CardContent className="flex items-start gap-3 p-4">
-                  <div className={`rounded-full p-2 ${!n.read ? "bg-[#FF21A5]/10" : "bg-[#F6F3F2]"}`}>
+                  <div className={`rounded-full p-2 ${!n.read ? "bg-[#8f4e00]/10" : "bg-[#F6F3F2]"}`}>
                     <n.icon className={`h-5 w-5 ${n.color}`} />
                   </div>
                   <div className="flex-1">
@@ -49,7 +49,7 @@ export default function NotificationsPage() {
                         <p className="font-semibold text-[#1b1c1c]">{t(n.titleKey as any)}</p>
                         <p className="text-sm text-[#554336]">{locale === "mr" ? n.messageMr : n.messageEn}</p>
                       </div>
-                      {!n.read && <span className="mt-1 h-2 w-2 rounded-full bg-[#FF21A5]" />}
+                      {!n.read && <span className="mt-1 h-2 w-2 rounded-full bg-[#8f4e00]" />}
                     </div>
                     <p className="mt-1 text-xs text-[#887364]">{n.time}</p>
                   </div>

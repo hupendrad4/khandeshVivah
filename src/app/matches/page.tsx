@@ -136,7 +136,7 @@ export default function MatchesPage() {
           <TabsContent value="shortlisted" className="mt-4">
             {loadingShortlisted ? (
               <div className="flex justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#FF21A5] border-t-transparent" />
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8f4e00] border-t-transparent" />
               </div>
             ) : shortlisted.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -151,7 +151,7 @@ export default function MatchesPage() {
                       transition={{ delay: i * 0.05 }}
                     >
                       <Card className="overflow-hidden card-premium">
-                        <div className="relative h-28 bg-gradient-to-br from-[#FF21A5]/10 to-[#002366]/10">
+                        <div className="relative h-28 bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
                           <Avatar className="absolute -bottom-8 left-4 h-16 w-16 border-4 border-white shadow-md">
                             <AvatarImage src={photo} />
                             <AvatarFallback>{displayName[0]}</AvatarFallback>
@@ -175,7 +175,7 @@ export default function MatchesPage() {
                             </div>
                           </div>
                           <div className="mb-2 flex items-center gap-1 text-xs text-[#887364]">
-                            <Bookmark className="h-3 w-3 text-[#FF21A5]" />
+                            <Bookmark className="h-3 w-3 text-[#8f4e00]" />
                             {locale === "mr" ? "आवडीत टाकले" : "Shortlisted"} · {new Date(profile.shortlistedAt).toLocaleDateString()}
                           </div>
                           <div className="flex gap-2">
