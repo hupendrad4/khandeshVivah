@@ -10,13 +10,17 @@ const razorpay = new Razorpay({
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await req.json()
+    const { userId, planAmount, planType } = await req.json()
 
     if (!userId) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
     }
 
     const isSimulation = !isPaymentConfigured()
+
+    // Use the provided plan amount or default to ₹499 (min premium)
+    const amount = planAmount || 49900
+    const planName = planType || "PREMIUM"
 
     // Verify user exists (skip DB check in simulation mode)
     if (!isSimulation) {
@@ -30,20 +34,20 @@ export async function POST(req: Request) {
     if (isSimulation) {
       return NextResponse.json({
         orderId: `sim_order_${Date.now()}`,
-        amount: 49900,
+        amount,
         currency: "INR",
         simulation: true,
       })
     }
 
-    // Create Razorpay order for premium upgrade (₹499)
+    // Create Razorpay order with the actual plan amount
     const order = await razorpay.orders.create({
-      amount: 49900, // ₹499 in paise
+      amount,
       currency: "INR",
-      receipt: `premium_${userId}_${Date.now()}`,
+      receipt: `${planName}_${userId}_${Date.now()}`,
       notes: {
         userId,
-        type: "premium_upgrade",
+        type: planName,
       },
     })
 

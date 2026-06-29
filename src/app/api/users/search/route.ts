@@ -62,8 +62,8 @@ export async function POST(req: Request) {
 
     let orderBy: any = { createdAt: "desc" }
     if (sortBy === "oldest") orderBy = { createdAt: "asc" }
-    else if (sortBy === "name_asc") orderBy = { profile: { name: "asc" } }
-    else if (sortBy === "name_desc") orderBy = { profile: { name: "desc" } }
+    else if (sortBy === "name_asc") orderBy = { profile: { fullNameEn: "asc" } }
+    else if (sortBy === "name_desc") orderBy = { profile: { fullNameEn: "desc" } }
     else if (sortBy === "age_asc") orderBy = { profile: { dateOfBirth: "desc" } }
     else if (sortBy === "age_desc") orderBy = { profile: { dateOfBirth: "asc" } }
 

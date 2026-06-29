@@ -57,7 +57,7 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
         const orderRes = await fetch("/api/payments/create-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: currentUser?.id }),
+          body: JSON.stringify({ userId: currentUser?.id, planAmount: options.amount || 49900, planType: "PREMIUM" }),
         })
 
         if (!orderRes.ok) {
@@ -125,6 +125,8 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
             actionType,
             targetUserId,
             simulation,
+            planAmount: options.amount || 49900,
+            planType: "PREMIUM",
           }),
         })
 

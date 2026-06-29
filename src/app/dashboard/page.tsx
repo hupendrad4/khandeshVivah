@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useI18n } from "@/lib/i18n"
-import { usePaymentGate } from "@/lib/use-payment-gate"
 import { useAuthStore } from "@/store/auth-store"
 import { ExpiryReminderBanner } from "@/components/ExpiryReminderBanner"
 import { MainLayout } from "@/components/layout/MainLayout"
@@ -15,7 +14,6 @@ import { maskName, getAge } from "@/lib/utils"
 export default function DashboardPage() {
   const { t, locale } = useI18n()
   const router = useRouter()
-  const { executeWithGate, isProcessing } = usePaymentGate()
   const { user } = useAuthStore()
   const [shortlistedIds, setShortlistedIds] = useState<Set<string>>(new Set())
   const [profileScore, setProfileScore] = useState(0)
@@ -50,17 +48,17 @@ export default function DashboardPage() {
       if (shortlist.success) {
         setShortlistedIds(new Set((shortlist.profiles || []).map((p: any) => p.id)))
       }
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(e => console.error("Failed to load dashboard data:", e)).finally(() => setLoading(false))
   }, [user?.id])
 
   useEffect(() => {
     if (!user?.id) return
     fetch(`/api/messages/count?userId=${user.id}`).then(r => r.json()).then(d => {
       if (d.count !== undefined) setMessageCount(d.count)
-    }).catch(() => {})
+    }).catch(e => console.error("Failed to load message count:", e))
     fetch(`/api/interests/count?userId=${user.id}`).then(r => r.json()).then(d => {
       if (d.count !== undefined) setMatchCount(d.count)
-    }).catch(() => {})
+    }).catch(e => console.error("Failed to load interests count:", e))
   }, [user?.id])
 
   const getScoreColor = (score: number) => {

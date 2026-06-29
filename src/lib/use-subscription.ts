@@ -145,7 +145,7 @@ export function useSubscription() {
       const orderRes = await fetch("/api/payments/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentUser.id }),
+        body: JSON.stringify({ userId: currentUser.id, planAmount: plan.pricePaise, planType: plan.name.toUpperCase() }),
       })
 
       if (!orderRes.ok) {
@@ -218,6 +218,8 @@ export function useSubscription() {
           actionType: "subscribe",
           targetUserId: null,
           simulation,
+          planAmount: plan.pricePaise,
+          planType: plan.name.toUpperCase(),
         }),
       })
 

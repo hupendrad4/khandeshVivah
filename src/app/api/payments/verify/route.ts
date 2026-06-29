@@ -14,6 +14,8 @@ export async function POST(req: Request) {
       targetUserId,
       messageContent,
       simulation,
+      planAmount,
+      planType,
     } = await req.json()
 
     if (!userId) {
@@ -21,6 +23,8 @@ export async function POST(req: Request) {
     }
 
     const isSimulation = simulation || !isPaymentConfigured()
+    const membershipTier = planType || "PREMIUM"
+    const amount = planAmount ? Math.round(planAmount / 100) : 499
 
     if (!isSimulation) {
       // Real payment verification
@@ -44,16 +48,16 @@ export async function POST(req: Request) {
     if (!isSimulation) {
       await prisma.user.update({
         where: { id: userId },
-        data: { isPremium: true, membershipTier: "PREMIUM" },
+        data: { isPremium: true, membershipTier },
       })
       await prisma.payment.create({
         data: {
           userId,
-          amount: 499,
+          amount,
           currency: "INR",
           status: "completed",
           method: "razorpay",
-          planType: "premium",
+          planType: membershipTier,
           transactionId: razorpay_payment_id,
         },
       })
@@ -61,16 +65,16 @@ export async function POST(req: Request) {
       try {
         await prisma.user.update({
           where: { id: userId },
-          data: { isPremium: true, membershipTier: "PREMIUM" },
+          data: { isPremium: true, membershipTier },
         })
         await prisma.payment.create({
           data: {
             userId,
-            amount: 499,
+            amount,
             currency: "INR",
             status: "completed",
             method: "simulation",
-            planType: "premium",
+            planType: membershipTier,
             transactionId: `sim_pay_${Date.now()}`,
           },
         })

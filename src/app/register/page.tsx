@@ -89,7 +89,7 @@ export default function RegisterPage() {
     ]).then(([d, c]) => {
       setDistricts(d.data || [])
       setCastes(c.data || [])
-    }).catch(() => {}).finally(() => {
+    }).catch(e => console.error("Failed to load districts/castes:", e)).finally(() => {
       setLoadingDistricts(false)
       setLoadingCastes(false)
     })
@@ -102,7 +102,7 @@ export default function RegisterPage() {
       fetch(`/api/locations?type=talukas&districtId=${form.district}`)
         .then(r => r.json()).then(d => {
           setTalukas(d.data || [])
-        }).catch(() => {}).finally(() => {
+        }).catch(e => console.error("Failed to load talukas:", e)).finally(() => {
           setLoadingTalukas(false)
         })
     } else {
@@ -115,7 +115,7 @@ export default function RegisterPage() {
       setLoadingVillages(true)
       fetch(`/api/locations?type=villages&districtId=${form.district}&talukaId=${form.taluka}`)
         .then(r => r.json()).then(d => setVillages(d.data || []))
-        .catch(() => {}).finally(() => {
+        .catch(e => console.error("Failed to load villages:", e)).finally(() => {
           setLoadingVillages(false)
         })
     } else {
@@ -490,7 +490,7 @@ export default function RegisterPage() {
                             <SelectItem value="NEVER_MARRIED">कधीही विवाह केलेला नाही</SelectItem>
                             <SelectItem value="DIVORCED">घटस्फोटित</SelectItem>
                             <SelectItem value="WIDOWED">विधवा/विधुर</SelectItem>
-                            <SelectItem value="AWATTING_DIVORCE">घटस्फोट प्रतीक्षेत</SelectItem>
+                            <SelectItem value="AWAITING_DIVORCE">घटस्फोट प्रतीक्षेत</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

@@ -16,7 +16,7 @@ enum MaritalStatus {
   NEVER_MARRIED
   DIVORCED
   WIDOWED
-  AWATTING_DIVORCE
+  AWAITING_DIVORCE
 }
 
 enum UserRole {

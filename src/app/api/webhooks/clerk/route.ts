@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Webhook } from "svix"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import { prisma } from "@/lib/prisma"
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET || ""
 

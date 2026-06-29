@@ -81,16 +81,14 @@ export default function ProfilePage() {
 
   const handleInterest = async () => {
     if (!user?.id || !targetUserId) return
-    executeWithGate(async () => {
-      const res = await fetch("/api/interests/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ senderId: user.id, receiverId: targetUserId }),
-      })
-      const data = await res.json()
-      if (data.success) toast.success(t("profile.interestSent"))
-      else toast.error(data.error || "Failed")
-    }, "send_interest")
+    const res = await fetch("/api/interests/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ senderId: user.id, receiverId: targetUserId }),
+    })
+    const data = await res.json()
+    if (data.success) toast.success(t("profile.interestSent"))
+    else toast.error(data.error || "Failed")
   }
 
   const handleShortlist = async () => {
@@ -234,7 +232,7 @@ export default function ProfilePage() {
                   {!isProfileOwner && (
                     <div className="mt-4 flex flex-col gap-2">
                       <div className="flex gap-2">
-                        <Button size="sm" className="flex-1 gap-1" disabled={isProcessing} onClick={handleInterest}>
+                        <Button size="sm" className="flex-1 gap-1" onClick={handleInterest}>
                           <span className="material-symbols-outlined text-[16px]">favorite</span>
                           {t("profile.sendInterest")}
                         </Button>

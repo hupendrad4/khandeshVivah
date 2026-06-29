@@ -87,20 +87,20 @@ export default function SearchPage() {
   }, [])
 
   useEffect(() => {
-    fetch("/api/locations?type=districts").then(r => r.json()).then(d => setDistricts(d.data || [])).catch(() => {})
+    fetch("/api/locations?type=districts").then(r => r.json()).then(d => setDistricts(d.data || [])).catch(e => console.error("Failed to load districts:", e))
   }, [])
 
   useEffect(() => {
     if (selectedDistricts.length > 0) {
       fetch(`/api/locations?type=talukas&districtId=${selectedDistricts[0]}`)
-        .then(r => r.json()).then(d => setTalukas(d.data || [])).catch(() => setTalukas([]))
+        .then(r => r.json()).then(d => setTalukas(d.data || [])).catch(e => { console.error("Failed to load talukas:", e); setTalukas([]); })
     } else { setTalukas([]) }
   }, [selectedDistricts])
 
   useEffect(() => {
     if (selectedDistricts.length > 0 && selectedTaluka && selectedTaluka !== OTHER_VALUE) {
       fetch(`/api/locations?type=villages&districtId=${selectedDistricts[0]}&talukaId=${selectedTaluka}`)
-        .then(r => r.json()).then(d => setVillages(d.data || [])).catch(() => setVillages([]))
+        .then(r => r.json()).then(d => setVillages(d.data || [])).catch(e => { console.error("Failed to load villages:", e); setVillages([]); })
     } else { setVillages([]) }
   }, [selectedDistricts, selectedTaluka])
 
@@ -108,10 +108,10 @@ export default function SearchPage() {
     if (user?.id) {
       fetch(`/api/saved-searches?userId=${user.id}`).then(r => r.json()).then(d => {
         if (d.success) setSavedSearches(d.savedSearches)
-      }).catch(() => {})
+      }).catch(e => console.error("Failed to load saved searches:", e))
       fetch(`/api/shortlist?userId=${user.id}`).then(r => r.json()).then(d => {
         if (d.success && d.profiles) setShortlistedIds(new Set(d.profiles.map((p: any) => p.id)))
-      }).catch(() => {})
+      }).catch(e => console.error("Failed to load shortlist:", e))
     }
   }, [user?.id])
 
@@ -172,12 +172,16 @@ export default function SearchPage() {
         .then(res => res.json()).then(d => {
           if (d.status === "PENDING") setInterestSent(prev => new Set(prev).add(r.id))
           else if (d.status === "ACCEPTED") setInterestAccepted(prev => new Set(prev).add(r.id))
-        }).catch(() => {})
+        }).catch(e => console.error("Failed to check interest status:", e))
     })
   }, [results, user?.id])
 
-  const toggleShortlist = async (targetId: string) => {
-    if (!user?.id) return
+  const toggleShortlist = async (targetId: string, targetName: string) => {
+    if (!user?.id) {
+      toast.error(locale === "mr" ? "कृपया प्रथम लॉगिन करा" : "Please login first")
+      router.push("/login")
+      return
+    }
     const res = await fetch("/api/shortlist/toggle", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -192,15 +196,19 @@ export default function SearchPage() {
         return n
       })
       toast.success(data.shortlisted
-        ? (locale === "mr" ? "शॉर्टलिस्ट केले!" : "Shortlisted!")
-        : (locale === "mr" ? "शॉर्टलिस्ट काढले" : "Removed from shortlist"))
+        ? (locale === "mr" ? `${targetName} यांना शॉर्टलिस्ट केले!` : `${targetName} shortlisted!`)
+        : (locale === "mr" ? `${targetName} यांना शॉर्टलिस्टमधून काढले` : `Removed ${targetName} from shortlist`))
     } else {
       toast.error(data.error || (locale === "mr" ? "अयशस्वी" : "Failed"))
     }
   }
 
-  const sendInterest = async (targetId: string) => {
-    if (!user?.id) return
+  const sendInterest = async (targetId: string, targetName: string) => {
+    if (!user?.id) {
+      toast.error(locale === "mr" ? "कृपया प्रथम लॉगिन करा" : "Please login first")
+      router.push("/login")
+      return
+    }
     const res = await fetch("/api/interests/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -209,7 +217,7 @@ export default function SearchPage() {
     const data = await res.json()
     if (data.success) {
       setInterestSent(prev => new Set(prev).add(targetId))
-      toast.success(locale === "mr" ? "आवड पाठवली!" : "Interest sent!")
+      toast.success(locale === "mr" ? `${targetName} यांना आवड पाठवली!` : `Interest sent to ${targetName}!`)
     } else {
       toast.error(data.error || (locale === "mr" ? "अयशस्वी" : "Failed"))
     }
@@ -357,7 +365,7 @@ export default function SearchPage() {
           {/* Filter Sidebar */}
           {filterOpen && <div className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm md:hidden" onClick={() => setFilterOpen(false)} />}
           <AnimatePresence>
-            {(filterOpen || window.innerWidth >= 768 ? true : false) && (
+            {(filterOpen) && (
               <motion.aside
                 initial={false}
                 animate={{ opacity: 1, y: 0 }}
@@ -470,7 +478,7 @@ export default function SearchPage() {
                                 {locale === "mr" ? d.mr : d.en}
                               </ChipButton>
                             )) : (
-                              ["JALGAON", "DHULE", "NANDURBAR", "NASHIK"].map(d => (
+                              ["JALGAON", "DHULE", "NANDURBAR", "NASHIK_NORTH"].map(d => (
                                 <ChipButton key={d} active={selectedDistricts.includes(d)}
                                   onClick={() => toggleDistrict(d)}>
                                   {d.charAt(0) + d.slice(1).toLowerCase()}
@@ -701,12 +709,13 @@ export default function SearchPage() {
                   const photo = profile.photos?.[0]?.url
                   const isShortlisted = shortlistedIds.has(profile.id)
                   const age = p.dateOfBirth ? getAge(p.dateOfBirth) : "?"
+                  const displayName = profile.isPremium ? (p.fullNameEn || p.fullNameMr) : maskName(p.fullNameEn || p.fullNameMr, false)
                   return (
                     <motion.div key={profile.id} initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }}
-                      className="bg-surface-container-low rounded-xl shadow-[0_2px_12px_rgba(0,27,77,0.04)] border-0 hover:shadow-md transition-all duration-300">
+                      className="bg-surface-container-low rounded-xl shadow-[0_2px_12px_rgba(0,27,77,0.04)] border-0 hover:shadow-md transition-all duration-300 relative">
                       <div className="flex items-center">
-                        <Link href={`/profile?userId=${profile.id}`} className="shrink-0">
+                        <Link href={`/profile?userId=${profile.id}`} className="shrink-0 block relative" style={{ zIndex: 1 }}>
                           <div className="relative w-32 h-full min-h-[160px] overflow-hidden bg-gradient-primary/10 rounded-l-xl">
                             {photo ? (
                               <img src={photo} alt="" className="w-full h-full object-cover" />
@@ -717,55 +726,57 @@ export default function SearchPage() {
                             )}
                           </div>
                         </Link>
-                        <Link href={`/profile?userId=${profile.id}`} className="flex-1 flex min-w-0">
+                        <div className="flex-1 flex min-w-0">
                           <div className="flex-1 p-4 space-y-2">
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="min-w-0 flex-1">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="font-bold text-sm text-royal-ink truncate">
-                                    {profile.isPremium ? (p.fullNameEn || p.fullNameMr) : maskName(p.fullNameEn || p.fullNameMr, false)}
-                                  </h3>
-                                  {profile.isPremium && (
-                                    <span className="material-symbols-outlined text-[14px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>crown</span>
-                                  )}
-                                  {profile.isVerified && (
-                                    <span className="material-symbols-outlined text-[14px] text-emerald-growth" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                                  )}
+                            <Link href={`/profile?userId=${profile.id}`} className="block" style={{ zIndex: 1 }}>
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-2">
+                                    <h3 className="font-bold text-sm text-royal-ink truncate">
+                                      {displayName}
+                                    </h3>
+                                    {profile.isPremium && (
+                                      <span className="material-symbols-outlined text-[14px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>crown</span>
+                                    )}
+                                    {profile.isVerified && (
+                                      <span className="material-symbols-outlined text-[14px] text-emerald-growth" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                                    )}
+                                  </div>
+                                  <p className="text-xs text-on-surface-variant mt-0.5">
+                                    {age} {locale === "mr" ? "वर्ष" : "yrs"}
+                                    {p.height ? ` · ${p.height} cm` : ""}
+                                    {p.village ? ` · ${p.village}` : ""}
+                                    {p.district ? `, ${p.district}` : ""}
+                                  </p>
                                 </div>
-                                <p className="text-xs text-on-surface-variant mt-0.5">
-                                  {age} {locale === "mr" ? "वर्ष" : "yrs"}
-                                  {p.height ? ` · ${p.height} cm` : ""}
-                                  {p.village ? ` · ${p.village}` : ""}
-                                  {p.district ? `, ${p.district}` : ""}
-                                </p>
                               </div>
-                            </div>
-                            <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-on-surface-variant/80">
-                              {p.education && (
-                                <span className="flex items-center gap-1.5">
-                                  <span className="material-symbols-outlined text-[13px] text-primary/50">school</span>
-                                  <span className="truncate max-w-[220px]">{p.education}</span>
-                                </span>
-                              )}
-                              {p.occupation && (
-                                <span className="flex items-center gap-1.5">
-                                  <span className="material-symbols-outlined text-[13px] text-primary/50">work</span>
-                                  <span className="truncate max-w-[220px]">{p.occupation}</span>
-                                </span>
-                              )}
-                              {p.religion && (
-                                <span className="flex items-center gap-1.5">
-                                  <span className="material-symbols-outlined text-[13px] text-primary/50">people</span>
-                                  <span>{p.religion}</span>
-                                </span>
-                              )}
-                            </div>
-                            <div className="pt-2 flex gap-2">
+                              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-on-surface-variant/80">
+                                {p.education && (
+                                  <span className="flex items-center gap-1.5">
+                                    <span className="material-symbols-outlined text-[13px] text-primary/50">school</span>
+                                    <span className="truncate max-w-[220px]">{p.education}</span>
+                                  </span>
+                                )}
+                                {p.occupation && (
+                                  <span className="flex items-center gap-1.5">
+                                    <span className="material-symbols-outlined text-[13px] text-primary/50">work</span>
+                                    <span className="truncate max-w-[220px]">{p.occupation}</span>
+                                  </span>
+                                )}
+                                {p.religion && (
+                                  <span className="flex items-center gap-1.5">
+                                    <span className="material-symbols-outlined text-[13px] text-primary/50">people</span>
+                                    <span>{p.religion}</span>
+                                  </span>
+                                )}
+                              </div>
+                            </Link>
+                            <div className="pt-2 flex gap-2 relative" style={{ zIndex: 10, position: 'relative' }}>
                               {interestAccepted.has(profile.id) ? (
-                                <button onClick={(e) => { e.preventDefault(); subscription.requireSubscription(() => {
+                                <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); subscription.requireSubscription(() => {
                                   window.location.href = `/chat?userId=${profile.id}`
                                 }) }}
-                                  className="bg-success text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-transform shadow-sm">
+                                  className="bg-success text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-transform shadow-sm cursor-pointer">
                                   <span className="material-symbols-outlined text-[15px]">chat</span>
                                   {locale === "mr" ? "चॅट" : "Chat"}
                                 </button>
@@ -775,14 +786,14 @@ export default function SearchPage() {
                                   {locale === "mr" ? "पाठवले" : "Sent"}
                                 </div>
                               ) : (
-                                <button onClick={(e) => { e.preventDefault(); sendInterest(profile.id) }}
-                                  className="bg-primary text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-transform hover:brightness-110 shadow-sm">
+                                <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); sendInterest(profile.id, displayName) }}
+                                  className="bg-primary text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-transform hover:brightness-110 shadow-sm cursor-pointer">
                                   <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
                                   {locale === "mr" ? "आवड पाठवा" : "Send Interest"}
                                 </button>
                               )}
-                              <button onClick={(e) => { e.preventDefault(); toggleShortlist(profile.id) }}
-                                className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border ${
+                              <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleShortlist(profile.id, displayName) }}
+                                className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all border cursor-pointer ${
                                   isShortlisted
                                     ? "border-primary text-primary bg-primary/10"
                                     : "border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
@@ -797,7 +808,7 @@ export default function SearchPage() {
                               </button>
                             </div>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </motion.div>
                   )
