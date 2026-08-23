@@ -107,15 +107,15 @@ export default function LoginPage() {
   return (
     <MainLayout>
       <div className="flex min-h-[calc(100vh-4rem)]">
-        <div className="relative hidden w-1/2 items-center justify-center overflow-hidden bg-gradient-to-br from-[#8f4e00]/10 via-[#ffdcc2] to-[#435b9f]/10 p-12 lg:flex">
+        <div className="relative hidden w-1/2 items-center justify-center overflow-hidden bg-gradient-to-br from-[#9B1B30]/10 via-[#FDE8EA] to-[#D4AF37]/10 p-12 lg:flex">
           <div className="absolute inset-0 bg-mandala-ornamental opacity-30" />
           <div className="relative z-10 max-w-md text-center">
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}>
-              <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8f4e00] to-[#ff9933] shadow-lg shadow-[#8f4e00]/30">
+              <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#9B1B30] to-[#D4AF37] shadow-lg shadow-[#9B1B30]/30">
                 <Heart className="h-10 w-10 text-white" />
               </div>
               <h2 className="mb-3 text-3xl font-bold font-heading text-[#1b1c1c]">{t("app.name")}</h2>
-              <p className="mb-8 text-lg text-[#554336]">{t("app.tagline")}</p>
+              <p className="mb-8 text-lg text-[#5C4B4D]">{t("app.tagline")}</p>
             </motion.div>
 
             <div className="space-y-4">
@@ -131,8 +131,8 @@ export default function LoginPage() {
                   transition={{ delay: 0.3 + i * 0.1 }}
                   className="flex items-center gap-3 rounded-xl bg-white/80 backdrop-blur-sm px-5 py-3 shadow-sm"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#8f4e00]/10">
-                    <item.icon className="h-5 w-5 text-[#8f4e00]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#9B1B30]/10">
+                    <item.icon className="h-5 w-5 text-[#9B1B30]" />
                   </div>
                   <span className="text-sm font-medium text-[#1b1c1c]">{item.text}</span>
                 </motion.div>
@@ -143,7 +143,7 @@ export default function LoginPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="mt-8 text-xs text-[#887364]"
+              className="mt-8 text-xs text-[#C4A0A3]"
             >
               Join 10,000+ Khandesh families already connected
             </motion.p>
@@ -153,11 +153,11 @@ export default function LoginPage() {
         <div className="flex w-full items-center justify-center px-4 py-12 lg:w-1/2">
           <div className="w-full max-w-sm">
             <motion.div {...fadeUp} className="mb-8 text-center lg:hidden">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8f4e00] to-[#ff9933] shadow-lg shadow-[#8f4e00]/30">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#9B1B30] to-[#D4AF37] shadow-lg shadow-[#9B1B30]/30">
                 <Heart className="h-7 w-7 text-white" />
               </div>
               <h1 className="text-xl font-bold text-[#1b1c1c]">{t("app.name")}</h1>
-              <p className="text-xs text-[#887364]">{t("app.tagline")}</p>
+              <p className="text-xs text-[#C4A0A3]">{t("app.tagline")}</p>
             </motion.div>
 
             <motion.div {...fadeUp} transition={{ delay: 0.1 }}>
@@ -167,7 +167,7 @@ export default function LoginPage() {
                     <h2 className="text-xl font-bold text-[#1b1c1c]">
                       {step === "phone" ? t("nav.login") : t("login.verifyOtp")}
                     </h2>
-                    <p className="mt-1 text-sm text-[#554336]">
+                    <p className="mt-1 text-sm text-[#5C4B4D]">
                       {step === "phone" ? t("login.enterPhone") : t("login.enterOtp")}
                     </p>
                   </div>
@@ -175,16 +175,16 @@ export default function LoginPage() {
                   {step === "phone" ? (
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-[#554336]">{t("common.mobile")}</label>
-                        <div className="flex items-center gap-3 rounded-xl border-2 border-[#E4E2E1] bg-[#ffdcc2] px-4 py-3 transition-all focus-within:border-[#8f4e00] focus-within:shadow-sm focus-within:shadow-[#8f4e00]/10">
-                          <Phone className="h-4 w-4 text-[#887364]" />
-                          <span className="text-sm font-medium text-[#887364]">+91</span>
+                        <label className="text-sm font-medium text-[#5C4B4D]">{t("common.mobile")}</label>
+                        <div className="flex items-center gap-3 rounded-xl border-2 border-[#E8B8BC] bg-[#FFF5F5] px-4 py-3 transition-all focus-within:border-[#9B1B30] focus-within:shadow-sm focus-within:shadow-[#9B1B30]/10">
+                          <Phone className="h-4 w-4 text-[#C4A0A3]" />
+                          <span className="text-sm font-medium text-[#C4A0A3]">+91</span>
                           <input
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                             placeholder={t("login.phonePlaceholder")}
-                            className="flex-1 bg-transparent outline-none text-sm text-[#1b1c1c] placeholder:text-[#887364]"
+                            className="flex-1 bg-transparent outline-none text-sm text-[#1b1c1c] placeholder:text-[#C4A0A3]"
                             maxLength={10}
                           />
                         </div>
@@ -206,10 +206,10 @@ export default function LoginPage() {
 
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center">
-                          <div className="w-full border-t border-[#E4E2E1]" />
+                          <div className="w-full border-t border-[#E8B8BC]" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                          <span className="bg-white/90 px-2 text-[#887364]">{t("common.or")}</span>
+                          <span className="bg-white/90 px-2 text-[#C4A0A3]">{t("common.or")}</span>
                         </div>
                       </div>
 
@@ -230,7 +230,7 @@ export default function LoginPage() {
                     </div>
                   ) : step === "otp" ? (
                     <div className="space-y-5">
-                      <div className="text-center text-sm text-[#554336]">
+                      <div className="text-center text-sm text-[#5C4B4D]">
                         {t("auth.enterOtp", { identifier: `+91 ${phone}` })}
                       </div>
                       <div className="flex justify-center gap-3">
@@ -248,7 +248,7 @@ export default function LoginPage() {
                               if (val && i < 5) document.getElementById(`otp-${i + 1}`)?.focus()
                             }}
                             id={`otp-${i}`}
-                            className="h-14 w-12 rounded-xl border-2 border-[#E4E2E1] bg-[#ffdcc2] text-center text-xl font-bold text-[#1b1c1c] outline-none transition-all focus:border-[#8f4e00] focus:bg-white focus:shadow-md focus:shadow-[#8f4e00]/10"
+                            className="h-14 w-12 rounded-xl border-2 border-[#E8B8BC] bg-[#FFF5F5] text-center text-xl font-bold text-[#1b1c1c] outline-none transition-all focus:border-[#9B1B30] focus:bg-white focus:shadow-md focus:shadow-[#9B1B30]/10"
                           />
                         ))}
                       </div>
@@ -270,19 +270,19 @@ export default function LoginPage() {
                       <div className="flex items-center justify-between">
                         <button
                           onClick={() => { setStep("phone"); setOtp(["","","","","",""]); setOtpSent(false) }}
-                          className="text-sm font-medium text-[#8f4e00] transition-colors hover:text-[#6d3a00]"
+                          className="text-sm font-medium text-[#9B1B30] transition-colors hover:text-[#7A0E20]"
                         >
                           {t("login.changeNumber")}
                         </button>
                         {resendTimer > 0 ? (
-                          <span className="text-sm text-[#887364]">
+                          <span className="text-sm text-[#C4A0A3]">
                             {resendTimer}{locale === "mr" ? " सेकंद" : "s"}
                           </span>
                         ) : (
                           <button
                             onClick={handleSendOtp}
                             disabled={sendingOtp}
-                            className="text-sm font-medium text-[#8f4e00] transition-colors hover:text-[#6d3a00]"
+                            className="text-sm font-medium text-[#9B1B30] transition-colors hover:text-[#7A0E20]"
                           >
                             {locale === "mr" ? "पुन्हा पाठवा" : "Resend OTP"}
                           </button>
@@ -292,23 +292,23 @@ export default function LoginPage() {
                   ) : (
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label className="text-sm font-medium text-[#554336]">{t("auth.emailAddress")}</Label>
+                        <Label className="text-sm font-medium text-[#5C4B4D]">{t("auth.emailAddress")}</Label>
                         <Input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="user@example.com"
-                          className="w-full rounded-xl border-2 border-[#E4E2E1] bg-[#ffdcc2] px-4 py-3 text-sm"
+                          className="w-full rounded-xl border-2 border-[#E8B8BC] bg-[#FFF5F5] px-4 py-3 text-sm"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-sm font-medium text-[#554336]">{t("auth.password")}</Label>
+                        <Label className="text-sm font-medium text-[#5C4B4D]">{t("auth.password")}</Label>
                         <Input
                           type="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="••••••••"
-                          className="w-full rounded-xl border-2 border-[#E4E2E1] bg-[#ffdcc2] px-4 py-3 text-sm"
+                          className="w-full rounded-xl border-2 border-[#E8B8BC] bg-[#FFF5F5] px-4 py-3 text-sm"
                         />
                       </div>
                       <Button
@@ -326,7 +326,7 @@ export default function LoginPage() {
                       </Button>
                       <button
                         onClick={() => setStep("phone")}
-                        className="w-full text-center text-sm font-medium text-[#8f4e00] transition-colors hover:text-[#6d3a00]"
+                        className="w-full text-center text-sm font-medium text-[#9B1B30] transition-colors hover:text-[#7A0E20]"
                       >
                         {t("auth.loginWithMobile")}
                       </button>
@@ -340,7 +340,7 @@ export default function LoginPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mt-5 flex items-center justify-center gap-4 text-xs text-[#887364]"
+              className="mt-5 flex items-center justify-center gap-4 text-xs text-[#C4A0A3]"
             >
               <span className="flex items-center gap-1"><Shield className="h-3.5 w-3.5" /> {t("login.secure")}</span>
               <span className="flex items-center gap-1"><Sparkles className="h-3.5 w-3.5" /> {t("login.private")}</span>
@@ -350,10 +350,10 @@ export default function LoginPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="mt-6 text-center text-sm text-[#887364]"
+              className="mt-6 text-center text-sm text-[#C4A0A3]"
             >
               {t("login.noAccount")}{" "}
-              <Link href="/register" className="font-semibold text-[#8f4e00] transition-colors hover:text-[#6d3a00]">
+              <Link href="/register" className="font-semibold text-[#9B1B30] transition-colors hover:text-[#7A0E20]">
                 {t("nav.register")} <ArrowRight className="inline h-3.5 w-3.5" />
               </Link>
             </motion.p>

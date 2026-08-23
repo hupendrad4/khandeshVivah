@@ -9,9 +9,9 @@ interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const gradientMap = {
-  pink: "before:bg-gradient-to-br before:from-[#8f4e00] before:to-[#ff9933]",
-  royal: "before:bg-gradient-to-br before:from-[#435b9f] before:to-[#435b9f]",
-  gold: "before:bg-gradient-to-br before:from-[#d3ae36] before:to-[#FFD700]",
+  pink: "before:bg-gradient-to-br before:from-[#9B1B30] before:to-[#D4AF37]",
+  royal: "before:bg-gradient-to-br before:from-[#D4AF37] before:to-[#FFD700]",
+  gold: "before:bg-gradient-to-br before:from-[#D4AF37] before:to-[#FFD700]",
   none: "before:bg-transparent",
 }
 

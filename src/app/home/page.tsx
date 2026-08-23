@@ -28,8 +28,8 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.squarespace-cdn.com/content/57f8e2bd6a496306c8308fe0/1478702578891-QW5T6QR68GI0V5TRY29H/khandala-maharashtrian-wedding-into-candid-photography-pa-0511.jpg?format=2500w')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/70 via-[#435b9f]/60 to-[#001B4D]/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFFEF2]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/70 via-[#D4AF37]/30 to-[#7A0E20]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFFAFA]" />
         </div>
         <div className="relative z-10 w-full max-w-container mx-auto px-gutter grid grid-cols-1 md:grid-cols-12 gap-8 items-center pt-4 pb-4">
           <div className="md:col-span-7 space-y-6">
@@ -192,7 +192,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
             {/* Main Story */}
-            <div className="md:col-span-8 md:row-span-2 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#8f4e00]/20 to-[#435b9f]/20">
+            <div className="md:col-span-8 md:row-span-2 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#9B1B30]/20 to-[#D4AF37]/20">
               <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center p-8 text-white relative z-10">
@@ -209,7 +209,7 @@ export default function HomePage() {
               </div>
             </div>
             {/* Small Story 1 */}
-            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#d3ae36]/20 to-[#8f4e00]/20">
+            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#D4AF37]/20 to-[#9B1B30]/20">
               <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 p-6 text-white">
                 <h4 className="font-headline-md text-headline-md">{locale === "mr" ? "रोहन आणि प्रियांका" : "Rohan & Priyanka"}</h4>
@@ -217,7 +217,7 @@ export default function HomePage() {
               </div>
             </div>
             {/* Small Story 2 */}
-            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#435b9f]/20 to-[#8f4e00]/20">
+            <div className="md:col-span-4 md:row-span-1 relative group overflow-hidden rounded-3xl cursor-pointer bg-gradient-to-br from-[#D4AF37]/20 to-[#9B1B30]/20">
               <div className="absolute inset-0 bg-gradient-to-t from-royal-ink/80 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 p-6 text-white">
                 <h4 className="font-headline-md text-headline-md">{locale === "mr" ? "अमित आणि नेहा" : "Amit & Neha"}</h4>

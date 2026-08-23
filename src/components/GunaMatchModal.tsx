@@ -88,7 +88,7 @@ export function GunaMatchModal({ open, onClose, userId1, userId2 }: GunaMatchMod
                     <div className="relative inline-flex items-center justify-center">
                       <svg className="w-28 h-28 -rotate-90" viewBox="0 0 36 36">
                         <circle cx="18" cy="18" r="15.5" fill="none" stroke="#f1f1f1" strokeWidth="3" />
-                        <circle cx="18" cy="18" r="15.5" fill="none" stroke={result.result.percentage >= 60 ? "#50C878" : result.result.percentage >= 40 ? "#d3ae36" : "#ef4444"} strokeWidth="3"
+                        <circle cx="18" cy="18" r="15.5" fill="none" stroke={result.result.percentage >= 60 ? "#50C878" : result.result.percentage >= 40 ? "#D4AF37" : "#ef4444"} strokeWidth="3"
                           strokeDasharray={`${result.result.percentage}, 100`} strokeLinecap="round" />
                       </svg>
                       <span className="absolute text-2xl font-bold text-royal-ink">{result.result.total}/36</span>

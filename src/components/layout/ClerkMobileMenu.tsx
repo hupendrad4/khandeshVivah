@@ -14,28 +14,28 @@ export default function ClerkMobileMenu() {
     return (
       <>
         <Link href="/notifications"
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-[18px]">notifications</span>
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-on-surface-variant hover:bg-primary/5 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-xl">notifications</span>
           {t("nav.notifications")}
         </Link>
         <Link href="/dashboard"
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-[18px]">dashboard</span>
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-on-surface-variant hover:bg-primary/5 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-xl">dashboard</span>
           {t("nav.dashboard")}
         </Link>
         <Link href="/profile"
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-[18px]">person</span>
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-on-surface-variant hover:bg-primary/5 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-xl">person</span>
           {t("nav.profile")}
         </Link>
         <Link href="/settings"
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-[18px]">settings</span>
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-on-surface-variant hover:bg-primary/5 hover:text-primary transition-colors">
+          <span className="material-symbols-outlined text-xl">settings</span>
           {t("nav.settings")}
         </Link>
         <button onClick={() => signOut()}
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-on-surface-variant hover:bg-red-50 hover:text-red-600 transition-colors mt-1">
-          <span className="material-symbols-outlined text-[18px]">logout</span>
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-outline hover:bg-red-50 hover:text-red-600 transition-colors mt-1 w-full text-left">
+          <span className="material-symbols-outlined text-xl">logout</span>
           {t("nav.logout")}
         </button>
       </>
@@ -44,8 +44,8 @@ export default function ClerkMobileMenu() {
 
   return (
     <div className="flex flex-col gap-2 mt-2">
-      <Link href="/login"><Button variant="default" className="w-full bg-primary text-white">{t("nav.login")}</Button></Link>
-      <Link href="/register"><Button variant="outline" className="w-full border-primary text-primary">{t("nav.register")}</Button></Link>
+      <Link href="/login"><Button variant="default" className="w-full text-base py-3">{t("nav.login")}</Button></Link>
+      <Link href="/register"><Button variant="outline" className="w-full border-primary text-primary text-base py-3">{t("nav.register")}</Button></Link>
     </div>
   )
 }

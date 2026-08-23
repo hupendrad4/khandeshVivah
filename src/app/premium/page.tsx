@@ -64,8 +64,8 @@ export default function PremiumPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1464699575480-3c0e5c77f6b5?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFFEF2]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFFAFA]" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ export default function PremiumPage() {
                 } : {}}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FF9933] text-white px-6 py-1 rounded-full text-label-md font-bold shadow-md whitespace-nowrap">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#D4AF37] text-white px-6 py-1 rounded-full text-label-md font-bold shadow-md whitespace-nowrap">
                     {locale === "mr" ? "शिफारस केलेले" : "Recommended"}
                   </div>
                 )}

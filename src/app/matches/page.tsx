@@ -65,7 +65,7 @@ export default function MatchesPage() {
     return (
       <motion.div key={profile.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         className="bg-surface-container-low rounded-2xl shadow-sm border border-outline/10 group hover:shadow-md transition-all duration-300">
-        <div className="relative h-36 bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
+        <div className="relative h-36 bg-gradient-to-br from-[#9B1B30]/10 to-[#D4AF37]/10">
           {photo ? (
             <img src={photo} alt="" className="w-full h-full object-cover" />
           ) : (
@@ -104,7 +104,7 @@ export default function MatchesPage() {
     return (
       <motion.div key={interest.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         className="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm border-0 group hover:shadow-md transition-all duration-300">
-        <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
+        <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#9B1B30]/10 to-[#D4AF37]/10">
           {photo ? (
             <img src={photo} alt="" className="w-full h-full object-cover" />
           ) : (
@@ -207,7 +207,7 @@ export default function MatchesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[1,2,3,4,5,6].map(i => (
                 <div key={i} className="bg-surface-container-low rounded-2xl overflow-hidden animate-pulse border-0 shadow-sm">
-                  <div className="h-36 bg-gradient-to-br from-[#8f4e00]/5 to-[#435b9f]/5" />
+                  <div className="h-36 bg-gradient-to-br from-[#9B1B30]/5 to-[#D4AF37]/5" />
                   <div className="p-4 space-y-3"><div className="h-3 bg-surface-container-low rounded w-2/3" /><div className="h-3 bg-surface-container-low rounded w-1/2" /></div>
                 </div>
               ))}

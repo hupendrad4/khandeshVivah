@@ -27,7 +27,7 @@ export default function SettingsPage() {
     <MainLayout>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
         <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
-        <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
+        <Link href="/dashboard" className="mb-4 inline-flex items-center gap-1 text-xs text-[#C4A0A3] hover:text-[#9B1B30]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
         <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-6 text-2xl font-bold text-[#1b1c1c]">{t("nav.settings")}</motion.h1>
@@ -36,7 +36,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
-                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.language")}</h3>
+                <h3 className="mb-4 font-semibold text-[#D4AF37]">{t("common.language")}</h3>
                 <div className="flex gap-3">
                   <Button
                     variant={locale === "mr" ? "default" : "outline"}
@@ -56,7 +56,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-5">
-                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.theme")}</h3>
+                <h3 className="mb-4 font-semibold text-[#D4AF37]">{t("common.theme")}</h3>
                 <div className="flex gap-3">
                   <Button
                     variant={theme === "light" ? "default" : "outline"}
@@ -76,7 +76,7 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="space-y-4 p-5">
-                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.notifications")}</h3>
+                <h3 className="mb-4 font-semibold text-[#D4AF37]">{t("common.notifications")}</h3>
                 {[
                   { labelKey: "nav.notifications", icon: Bell },
                   { labelKey: "nav.notifications", icon: Smartphone },
@@ -85,8 +85,8 @@ export default function SettingsPage() {
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <item.icon className="h-4 w-4 text-[#887364]" />
-                      <span className="text-sm text-[#554336]">{t(`${item.labelKey}`)} {idx + 1}</span>
+                      <item.icon className="h-4 w-4 text-[#C4A0A3]" />
+                      <span className="text-sm text-[#5C4B4D]">{t(`${item.labelKey}`)} {idx + 1}</span>
                     </div>
                     <Switch defaultChecked />
                   </div>
@@ -98,32 +98,32 @@ export default function SettingsPage() {
           <motion.div variants={fadeUp} initial="initial" animate="animate">
             <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="space-y-4 p-5">
-                <h3 className="mb-4 font-semibold text-[#435b9f]">{t("common.privacy")}</h3>
+                <h3 className="mb-4 font-semibold text-[#D4AF37]">{t("common.privacy")}</h3>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? "माझे प्रोफाइल सर्वांना दिसावे" : "Show my profile to everyone"}</p>
-                    <p className="text-xs text-[#887364]">{locale === "mr" ? "तुमचे प्रोफाइल शोध निकालात दिसेल" : "Your profile will be visible in search results"}</p>
+                    <p className="text-xs text-[#C4A0A3]">{locale === "mr" ? "तुमचे प्रोफाइल शोध निकालात दिसेल" : "Your profile will be visible in search results"}</p>
                   </div>
                   <Switch defaultChecked />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? "फक्त जुळलेल्यांना फोटो दिसावेत" : "Show photo to matches only"}</p>
-                    <p className="text-xs text-[#887364]">{locale === "mr" ? "फक्त स्वीकृत जोडीदारांनाच तुमचे फोटो दिसतील" : "Only accepted matches can see your photos"}</p>
+                    <p className="text-xs text-[#C4A0A3]">{locale === "mr" ? "फक्त स्वीकृत जोडीदारांनाच तुमचे फोटो दिसतील" : "Only accepted matches can see your photos"}</p>
                   </div>
                   <Switch />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? "प्रीमियम सदस्यांना संपर्क दिसावा" : "Show contact info to premium"}</p>
-                    <p className="text-xs text-[#887364]">{locale === "mr" ? "फक्त प्रीमियम सदस्यांनाच संपर्क तपशील दिसतील" : "Only premium members can see contact details"}</p>
+                    <p className="text-xs text-[#C4A0A3]">{locale === "mr" ? "फक्त प्रीमियम सदस्यांनाच संपर्क तपशील दिसतील" : "Only premium members can see contact details"}</p>
                   </div>
                   <Switch />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-[#1b1c1c]">{locale === "mr" ? "इनकॉग्निटो मोड" : "Incognito mode"}</p>
-                    <p className="text-xs text-[#887364]">{locale === "mr" ? "तुम्ही कोणालाही न दिसता प्रोफाइल ब्राउझ करा" : "Browse profiles without being seen"}</p>
+                    <p className="text-xs text-[#C4A0A3]">{locale === "mr" ? "तुम्ही कोणालाही न दिसता प्रोफाइल ब्राउझ करा" : "Browse profiles without being seen"}</p>
                   </div>
                   <Switch />
                 </div>

@@ -781,31 +781,31 @@ async function main() {
 
   const photoUrls = {
     bride1: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride1.jpg",
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride1b.jpg",
+      "https://randomuser.me/api/portraits/women/1.jpg",
+      "https://randomuser.me/api/portraits/women/2.jpg",
     ],
     bride2: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride2.jpg",
+      "https://randomuser.me/api/portraits/women/3.jpg",
     ],
     bride3: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride3.jpg",
+      "https://randomuser.me/api/portraits/women/4.jpg",
     ],
     bride4: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride4.jpg",
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/bride4b.jpg",
+      "https://randomuser.me/api/portraits/women/5.jpg",
+      "https://randomuser.me/api/portraits/women/6.jpg",
     ],
     groom1: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/groom1.jpg",
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/groom1b.jpg",
+      "https://randomuser.me/api/portraits/men/1.jpg",
+      "https://randomuser.me/api/portraits/men/2.jpg",
     ],
     groom2: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/groom2.jpg",
+      "https://randomuser.me/api/portraits/men/3.jpg",
     ],
     groom3: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/groom3.jpg",
+      "https://randomuser.me/api/portraits/men/4.jpg",
     ],
     groom4: [
-      "https://res.cloudinary.com/demo/image/upload/w_400,h_500,c_fill/samples/people/groom4.jpg",
+      "https://randomuser.me/api/portraits/men/5.jpg",
     ],
   };
 
@@ -1113,7 +1113,7 @@ async function main() {
       slug: "khandesh-vivah-parampara",
       published: true,
       imageUrl:
-        "https://res.cloudinary.com/demo/image/upload/w_800,h_400,c_fill/samples/wedding/tradition.jpg",
+        "https://picsum.photos/seed/tradition/800/400",
     },
   });
 
@@ -1125,7 +1125,7 @@ async function main() {
       slug: "yogya-jodidar-kasa-shodhava",
       published: true,
       imageUrl:
-        "https://res.cloudinary.com/demo/image/upload/w_800,h_400,c_fill/samples/wedding/search.jpg",
+        "https://picsum.photos/seed/search/800/400",
     },
   });
 
@@ -1149,7 +1149,7 @@ async function main() {
       content:
         "आमची ओळख खान्देश विवाह वरून झाली. दोन महिने ऑनलाइन बोलल्यानंतर आम्ही भेटलो. आज आम्हाला लग्नाला एक वर्ष पूर्ण झाले. खान्देश विवाह मुळेच आमचे आयुष्य बदलले.",
       imageUrl:
-        "https://res.cloudinary.com/demo/image/upload/w_600,h_400,c_fill/samples/wedding/couple1.jpg",
+        "https://picsum.photos/seed/couple1/600/400",
       approved: true,
     },
   });
@@ -1162,7 +1162,7 @@ async function main() {
       content:
         "सुरुवातीला ऑनलाइन प्लॅटफॉर्म वरून जोडीदार शोधण्याची मला खूप शंका होती. पण खान्देश विवाह ने माझा विश्वास जिंकला. आता मी सुखी वैवाहिक जीवन जगत आहे.",
       imageUrl:
-        "https://res.cloudinary.com/demo/image/upload/w_600,h_400,c_fill/samples/wedding/couple2.jpg",
+        "https://picsum.photos/seed/couple2/600/400",
       approved: true,
     },
   });
@@ -1175,7 +1175,7 @@ async function main() {
       content:
         "आम्ही दोघेही धुळ्याचे. पण कधी भेटलो नव्हतो. खान्देश विवाह वर प्रोफाइल बघून एकमेकांना संपर्क केला. आज आम्ही आयुष्यभराचे साथीदार झालो आहोत.",
       imageUrl:
-        "https://res.cloudinary.com/demo/image/upload/w_600,h_400,c_fill/samples/wedding/couple3.jpg",
+        "https://picsum.photos/seed/couple3/600/400",
       approved: true,
     },
   });

@@ -22,11 +22,11 @@ const iconMap: Record<string, any> = {
 }
 
 const colorMap: Record<string, string> = {
-  INTEREST: "text-[#8f4e00]",
+  INTEREST: "text-[#9B1B30]",
   INTEREST_ACCEPTED: "text-[#50C878]",
-  MESSAGE: "text-[#435b9f]",
-  VIEW: "text-[#435b9f]",
-  PREMIUM: "text-[#d3ae36]",
+  MESSAGE: "text-[#D4AF37]",
+  VIEW: "text-[#D4AF37]",
+  PREMIUM: "text-[#D4AF37]",
   VERIFICATION: "text-[#50C878]",
 }
 
@@ -100,7 +100,7 @@ export default function NotificationsPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1555243896-c709bfa0b564?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}

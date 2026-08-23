@@ -21,7 +21,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -35,12 +35,12 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
         <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
-        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#C4A0A3] hover:text-[#9B1B30]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
 
         <motion.div variants={fadeUp} initial="initial" animate="animate" className="mb-8 rounded-2xl bg-surface-container-low p-6 shadow-sm border-0">
-          <p className="leading-relaxed text-[#554336]">
+          <p className="leading-relaxed text-[#5C4B4D]">
             {locale === "mr"
               ? "खांदेश विवाह म्हणजे तुमच्यासाठी. तुम्ही जळगावचे असाल, धुळ्याचे, नंदुरबारचे किंवा नाशिकचे — इथे तुम्हाला तुमच्याच समाजातील, तुमच्याच भागातील पडताळणी केलेली स्थळं मिळतील. तुमची माहिती सुरक्षित, तुमचं प्रोफाइल तुमच्या नियंत्रणात. इतकंच."
               : "Khandesh Vivah is built for you. Whether you're from Jalgaon, Dhule, Nandurbar, or Nashik — find verified profiles from your own community, your own region. Your data stays safe, your profile stays in your control. That's it."}
@@ -62,9 +62,9 @@ export default function AboutPage() {
             >
               <Card className="bg-surface-container-low border-0 shadow-sm">
                 <CardContent className="p-5">
-                  <item.icon className="mb-3 h-8 w-8 text-[#8f4e00]" />
+                  <item.icon className="mb-3 h-8 w-8 text-[#9B1B30]" />
                   <h3 className="mb-1 font-bold text-[#1b1c1c]">{locale === "mr" ? item.titleMr : item.titleEn}</h3>
-                  <p className="text-sm text-[#554336]">{locale === "mr" ? item.descMr : item.descEn}</p>
+                  <p className="text-sm text-[#5C4B4D]">{locale === "mr" ? item.descMr : item.descEn}</p>
                 </CardContent>
               </Card>
             </motion.div>

@@ -12,25 +12,25 @@ interface PremiumCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const variantStyles = {
   pink: {
-    border: "border-[#8f4e00]/20",
-    gradient: "from-[#8f4e00]/5 via-white to-[#ff9933]/5",
-    shadow: "shadow-[#8f4e00]/10",
-    badgeClass: "bg-[#8f4e00] text-white",
-    accent: "text-[#8f4e00]",
+    border: "border-[#9B1B30]/20",
+    gradient: "from-[#9B1B30]/5 via-white to-[#D4AF37]/5",
+    shadow: "shadow-[#9B1B30]/10",
+    badgeClass: "bg-[#9B1B30] text-white",
+    accent: "text-[#9B1B30]",
   },
   royal: {
-    border: "border-[#435b9f]/20",
-    gradient: "from-[#435b9f]/5 via-white to-[#435b9f]/5",
-    shadow: "shadow-[#435b9f]/10",
-    badgeClass: "bg-[#435b9f] text-white",
-    accent: "text-[#435b9f]",
+    border: "border-[#D4AF37]/20",
+    gradient: "from-[#D4AF37]/5 via-white to-[#D4AF37]/5",
+    shadow: "shadow-[#D4AF37]/10",
+    badgeClass: "bg-[#D4AF37] text-white",
+    accent: "text-[#D4AF37]",
   },
   gold: {
-    border: "border-[#d3ae36]/20",
-    gradient: "from-[#d3ae36]/5 via-white to-[#FFD700]/5",
-    shadow: "shadow-[#d3ae36]/10",
-    badgeClass: "bg-gradient-to-r from-[#d3ae36] to-[#FFD700] text-[#1B1C1C]",
-    accent: "text-[#d3ae36]",
+    border: "border-[#D4AF37]/20",
+    gradient: "from-[#D4AF37]/5 via-white to-[#FFD700]/5",
+    shadow: "shadow-[#D4AF37]/10",
+    badgeClass: "bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-[#1B1C1C]",
+    accent: "text-[#D4AF37]",
   },
 }
 

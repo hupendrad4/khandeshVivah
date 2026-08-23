@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    --background: 36 33% 97%;
+    --background: 0 100% 99%;
     --foreground: 0 0% 11%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 11%;
-    --primary: 33 100% 28%;
+    --primary: 348 72% 34%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 224 41% 44%;
+    --secondary: 43 65% 52%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 30 20% 96%;
-    --muted-foreground: 24 12% 45%;
-    --accent: 46 64% 52%;
-    --accent-foreground: 0 0% 11%;
+    --muted: 0 20% 97%;
+    --muted-foreground: 348 8% 35%;
+    --accent: 348 60% 95%;
+    --accent-foreground: 348 72% 34%;
     --destructive: 0 77% 41%;
     --destructive-foreground: 0 0% 100%;
-    --border: 24 12% 85%;
-    --input: 24 12% 85%;
-    --ring: 33 100% 28%;
+    --border: 348 15% 85%;
+    --input: 348 15% 85%;
+    --ring: 348 72% 34%;
     --radius: 0.75rem;
   }
 }
@@ -32,7 +32,7 @@
 @layer base {
   * { @apply border-border; }
   body {
-    @apply bg-[#FFFEF2] text-[#1b1c1c] font-body antialiased;
+    @apply bg-[#FFFAFA] text-[#1b1c1c] font-body antialiased;
   }
   h1, h2, h3, h4, h5, h6 { @apply font-heading; }
 }
@@ -44,81 +44,81 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .bg-glass { @apply bg-white/70 backdrop-blur-xl border border-white/20; }
   .text-gradient {
-    @apply bg-gradient-to-r from-[#8f4e00] via-[#ff9933] to-[#d3ae36] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#9B1B30] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent;
   }
 
-  /* ── Rich Indian Ornamental Mandala Background ── */
+  /* ── Rich Ornamental Mandala Background ── */
   .bg-mandala-ornamental {
-    background-color: #FFFEF2;
+    background-color: #FFFAFA;
     background-image:
       radial-gradient(ellipse 1000px 600px at 50% 30%,
-        rgba(143, 78, 0, 0.06) 0%,
-        rgba(255, 153, 51, 0.04) 30%,
-        rgba(211, 174, 54, 0.02) 55%,
+        rgba(155, 27, 48, 0.06) 0%,
+        rgba(212, 175, 55, 0.04) 30%,
+        rgba(212, 175, 55, 0.02) 55%,
         transparent 75%
       ),
       radial-gradient(ellipse 800px 300px at 50% 100%,
-        rgba(211, 174, 54, 0.06) 0%,
-        rgba(211, 174, 54, 0.03) 35%,
+        rgba(212, 175, 55, 0.06) 0%,
+        rgba(212, 175, 55, 0.03) 35%,
         transparent 65%
       ),
       radial-gradient(circle 180px at 5% 12%,
-        rgba(143, 78, 0, 0.04) 0%,
+        rgba(155, 27, 48, 0.04) 0%,
         transparent 70%
       ),
       radial-gradient(circle 120px at 8% 8%,
-        rgba(255, 153, 51, 0.04) 0%,
+        rgba(212, 175, 55, 0.04) 0%,
         transparent 65%
       ),
       radial-gradient(circle 180px at 95% 90%,
-        rgba(211, 174, 54, 0.04) 0%,
+        rgba(212, 175, 55, 0.04) 0%,
         transparent 70%
       ),
       radial-gradient(circle 200px at 93% 10%,
-        rgba(67, 91, 159, 0.03) 0%,
+        rgba(155, 27, 48, 0.03) 0%,
         transparent 70%
       ),
       radial-gradient(circle 150px at 10% 92%,
-        rgba(143, 78, 0, 0.03) 0%,
+        rgba(155, 27, 48, 0.03) 0%,
         transparent 65%
       ),
       radial-gradient(ellipse 500px 300px at 50% 40%,
-        rgba(255, 153, 51, 0.03) 0%,
+        rgba(212, 175, 55, 0.03) 0%,
         transparent 60%
       ),
       repeating-linear-gradient(45deg,
         transparent 0px,
         transparent 44px,
-        rgba(143, 78, 0, 0.015) 44px,
-        rgba(143, 78, 0, 0.015) 45px
+        rgba(155, 27, 48, 0.015) 44px,
+        rgba(155, 27, 48, 0.015) 45px
       ),
       repeating-linear-gradient(-45deg,
         transparent 0px,
         transparent 44px,
-        rgba(211, 174, 54, 0.015) 44px,
-        rgba(211, 174, 54, 0.015) 45px
+        rgba(212, 175, 55, 0.015) 44px,
+        rgba(212, 175, 55, 0.015) 45px
       ),
       repeating-conic-gradient(
         from 0deg at 50% 20%,
         transparent 0deg,
         transparent 10deg,
-        rgba(143, 78, 0, 0.008) 10deg,
+        rgba(155, 27, 48, 0.008) 10deg,
         transparent 11deg
       );
   }
 
-  /* Decorative top ornamental band with Indian motif */
+  /* Decorative top ornamental band */
   .ornamental-band {
     position: relative;
     height: 8px;
     width: 100%;
     background: linear-gradient(90deg,
       transparent 3%,
-      #ff9933 12%,
-      #d3ae36 25%,
-      #8f4e00 45%,
-      #d3ae36 55%,
-      #ff9933 70%,
+      #D4AF37 12%,
+      #FFD700 25%,
+      #9B1B30 45%,
+      #FFD700 55%,
+      #D4AF37 70%,
       transparent 97%
     );
   }
@@ -131,9 +131,9 @@
     height: 2px;
     background: linear-gradient(90deg,
       transparent 8%,
-      rgba(211, 174, 54, 0.4) 20%,
-      rgba(143, 78, 0, 0.3) 50%,
-      rgba(211, 174, 54, 0.4) 80%,
+      rgba(212, 175, 55, 0.4) 20%,
+      rgba(155, 27, 48, 0.3) 50%,
+      rgba(212, 175, 55, 0.4) 80%,
       transparent 92%
     );
   }
@@ -146,14 +146,14 @@
     height: 1px;
     background: linear-gradient(90deg,
       transparent 10%,
-      rgba(143, 78, 0, 0.25) 30%,
-      rgba(143, 78, 0, 0.45) 50%,
-      rgba(143, 78, 0, 0.25) 70%,
+      rgba(155, 27, 48, 0.25) 30%,
+      rgba(155, 27, 48, 0.45) 50%,
+      rgba(155, 27, 48, 0.25) 70%,
       transparent 90%
     );
   }
 
-  /* Decorative corner ornaments with lotus-inspired glow */
+  /* Decorative corner ornaments */
   .ornamental-corner-tl {
     position: fixed;
     top: 0;
@@ -164,12 +164,12 @@
     z-index: 0;
     background:
       radial-gradient(circle at 0 0,
-        rgba(143, 78, 0, 0.10) 0%,
-        rgba(255, 153, 51, 0.05) 25%,
+        rgba(155, 27, 48, 0.10) 0%,
+        rgba(212, 175, 55, 0.05) 25%,
         transparent 70%
       ),
       radial-gradient(circle at 15px 15px,
-        rgba(211, 174, 54, 0.06) 0%,
+        rgba(212, 175, 55, 0.06) 0%,
         transparent 50%
       );
   }
@@ -180,8 +180,8 @@
     left: 8px;
     width: 40px;
     height: 40px;
-    border-top: 2px solid rgba(143, 78, 0, 0.12);
-    border-left: 2px solid rgba(143, 78, 0, 0.12);
+    border-top: 2px solid rgba(155, 27, 48, 0.12);
+    border-left: 2px solid rgba(155, 27, 48, 0.12);
     border-radius: 4px 0 0 0;
   }
 
@@ -195,12 +195,12 @@
     z-index: 0;
     background:
       radial-gradient(circle at 100% 100%,
-        rgba(211, 174, 54, 0.10) 0%,
-        rgba(211, 174, 54, 0.05) 25%,
+        rgba(212, 175, 55, 0.10) 0%,
+        rgba(212, 175, 55, 0.05) 25%,
         transparent 70%
       ),
       radial-gradient(circle at calc(100% - 15px) calc(100% - 15px),
-        rgba(143, 78, 0, 0.05) 0%,
+        rgba(155, 27, 48, 0.05) 0%,
         transparent 50%
       );
   }
@@ -227,8 +227,8 @@
     right: 8px;
     width: 50px;
     height: 50px;
-    border-bottom: 2px solid rgba(211, 174, 54, 0.12);
-    border-right: 2px solid rgba(211, 174, 54, 0.12);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.12);
+    border-right: 2px solid rgba(212, 175, 55, 0.12);
     border-radius: 0 0 4px 0;
   }
 }

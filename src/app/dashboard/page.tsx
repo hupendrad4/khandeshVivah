@@ -205,7 +205,7 @@ export default function DashboardPage() {
                     className="min-w-[280px] md:min-w-[320px] bg-surface-container-low rounded-2xl shadow-[0_4px_20px_rgba(0,27,77,0.05)] border-0 snap-start overflow-hidden group"
                   >
                     <Link href={`/profile?userId=${m.id}`}>
-                      <div className="h-48 relative bg-gradient-to-br from-[#8f4e00]/10 to-[#435b9f]/10">
+                      <div className="h-48 relative bg-gradient-to-br from-[#9B1B30]/10 to-[#D4AF37]/10">
                         {m.photos?.[0]?.url ? (
                           <img src={m.photos[0].url} alt="" className="w-full h-full object-cover" />
                         ) : (
@@ -297,7 +297,7 @@ export default function DashboardPage() {
                   transition={{ delay: i * 0.1 }}
                   className="bg-surface-container-low p-4 rounded-2xl flex items-center gap-4 border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                 >
-                  <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-[#8f4e00]/10 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-[#9B1B30]/10 flex items-center justify-center">
                     {v.photo ? (
                       <img src={v.photo} alt="" className="w-full h-full object-cover" />
                     ) : (

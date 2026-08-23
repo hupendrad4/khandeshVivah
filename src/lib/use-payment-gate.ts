@@ -100,7 +100,7 @@ export function usePaymentGate(options: PaymentGateOptions = {}): PaymentGateRes
                 name: "Khandesh Vivah", description: "Premium Membership",
                 order_id: orderId,
                 prefill: { contact: currentUser?.mobile || "", email: currentUser?.email || "" },
-                theme: { color: "#8f4e00" },
+                theme: { color: "#9B1B30" },
                 handler: (response: any) => resolve({
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_order_id: response.razorpay_order_id,

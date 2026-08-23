@@ -10,8 +10,8 @@ export function ToastProvider() {
           borderRadius: "12px",
           background: "#fff",
           color: "#1b1c1c",
-          boxShadow: "0px 8px 32px rgba(0, 35, 102, 0.12)",
-          border: "1px solid #E4E2E1",
+          boxShadow: "0px 8px 32px rgba(155, 27, 48, 0.12)",
+          border: "1px solid #E8B8BC",
         },
         success: {
           iconTheme: { primary: "#50C878", secondary: "#fff" },

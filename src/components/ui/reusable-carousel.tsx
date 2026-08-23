@@ -93,14 +93,14 @@ export function ReusableCarousel({
             className="absolute -left-3 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl md:flex"
             aria-label="Previous"
           >
-            <ChevronLeft className="h-5 w-5 text-[#554336]" />
+            <ChevronLeft className="h-5 w-5 text-[#5C4B4D]" />
           </button>
           <button
             onClick={scrollNext}
             className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl md:flex"
             aria-label="Next"
           >
-            <ChevronRight className="h-5 w-5 text-[#554336]" />
+            <ChevronRight className="h-5 w-5 text-[#5C4B4D]" />
           </button>
         </>
       )}
@@ -115,8 +115,8 @@ export function ReusableCarousel({
               className={cn(
                 "h-2 rounded-full transition-all duration-300",
                 i === selectedIndex
-                  ? "w-8 bg-gradient-to-r from-[#8f4e00] to-[#ff9933]"
-                  : "w-2 bg-[#E4E2E1] hover:bg-[#887364]",
+                  ? "w-8 bg-gradient-to-r from-[#9B1B30] to-[#D4AF37]"
+                  : "w-2 bg-[#E8B8BC] hover:bg-[#C4A0A3]",
               )}
               aria-label={`Go to slide ${i + 1}`}
             />

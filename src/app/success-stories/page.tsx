@@ -57,7 +57,7 @@ export default function SuccessStoriesPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ export default function SuccessStoriesPage() {
               <motion.div key={story.id || i} initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                 <Card className="bg-surface-container-low border-0 shadow-sm overflow-hidden">
-                  <div className="relative h-32 bg-gradient-to-r from-[#8f4e00]/10 via-[#ff9933]/5 to-[#d3ae36]/10">
+                  <div className="relative h-32 bg-gradient-to-r from-[#9B1B30]/10 via-[#D4AF37]/5 to-[#D4AF37]/10">
                     <div className="absolute -bottom-8 left-6 flex">
                       <Avatar className="h-16 w-16 border-4 border-white shadow-md">
                         <AvatarImage src={`https://i.pravatar.cc/200?img=${(i * 2 + 1) % 50}`} />
@@ -160,7 +160,7 @@ export default function SuccessStoriesPage() {
                         <AvatarFallback>{story.partnerName?.[0] || "V"}</AvatarFallback>
                       </Avatar>
                     </div>
-                    <span className="material-symbols-outlined absolute right-4 top-4 text-3xl text-[#d3ae36]/20">format_quote</span>
+                    <span className="material-symbols-outlined absolute right-4 top-4 text-3xl text-[#D4AF37]/20">format_quote</span>
                   </div>
                   <CardContent className="pt-10">
                     <h3 className="text-lg font-bold text-royal-ink">

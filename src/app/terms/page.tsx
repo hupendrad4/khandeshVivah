@@ -17,11 +17,11 @@ export default function TermsPage() {
   return (
     <MainLayout>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10">
-        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#C4A0A3] hover:text-[#9B1B30]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
         <motion.h1 variants={fadeUp} initial="initial" animate="animate" className="mb-2 text-2xl font-bold text-[#1b1c1c]">{t("common.terms")}</motion.h1>
-        <motion.p variants={fadeUp} initial="initial" animate="animate" className="mb-8 text-sm text-[#554336]">{locale === "mr" ? "शेवटचे अपडेट: जानेवारी २०२४" : "Last updated: January 2024"}</motion.p>
+        <motion.p variants={fadeUp} initial="initial" animate="animate" className="mb-8 text-sm text-[#5C4B4D]">{locale === "mr" ? "शेवटचे अपडेट: जानेवारी २०२४" : "Last updated: January 2024"}</motion.p>
 
         <div className="space-y-6">
           {[
@@ -42,10 +42,10 @@ export default function TermsPage() {
               initial="initial"
               animate="animate"
               transition={{ delay: i * 0.1 }}
-              className="rounded-2xl border border-[#E4E2E1] bg-white p-5 shadow-card"
+              className="rounded-2xl border border-[#E8B8BC] bg-white p-5 shadow-card"
             >
               <h2 className="mb-2 text-lg font-bold text-[#1b1c1c]">{section.title}</h2>
-              <p className="text-sm leading-relaxed text-[#554336]">{section.content}</p>
+              <p className="text-sm leading-relaxed text-[#5C4B4D]">{section.content}</p>
             </motion.div>
           ))}
         </div>

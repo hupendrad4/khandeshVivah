@@ -161,25 +161,25 @@ export function FileUpload({
       <div
         {...getRootProps()}
         className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-colors ${
-          isDragActive
-            ? "border-[#8f4e00] bg-[#8f4e00]/5"
+           isDragActive
+            ? "border-[#9B1B30] bg-[#9B1B30]/5"
             : allItems >= maxFiles
               ? "border-gray-200 bg-gray-50 opacity-50"
-              : "border-[#E4E2E1] hover:border-[#8f4e00] hover:bg-[#8f4e00]/5"
+              : "border-[#E8B8BC] hover:border-[#9B1B30] hover:bg-[#9B1B30]/5"
         }`}
       >
         <input {...getInputProps()} />
-        <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-[#8f4e00]/10">
-          <Upload className="h-6 w-6 text-[#8f4e00]" />
+        <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-[#9B1B30]/10">
+          <Upload className="h-6 w-6 text-[#9B1B30]" />
         </div>
         {isDragActive ? (
-          <p className="font-medium text-[#8f4e00]">{t("profile.dropActive")}</p>
+          <p className="font-medium text-[#9B1B30]">{t("profile.dropActive")}</p>
         ) : (
           <>
             <p className="font-semibold text-[#1b1c1c]">
               {t("profile.dropPhotos")}
             </p>
-            <p className="mt-1 text-xs text-[#887364]">
+            <p className="mt-1 text-xs text-[#C4A0A3]">
               {t("profile.photoFormats")}
             </p>
           </>
@@ -200,7 +200,7 @@ export function FileUpload({
               onDragEnter={() => handleDragEnter(i)}
               onDragEnd={handleDragEnd}
               onDragOver={(e) => e.preventDefault()}
-              className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#ffdcc2] transition-shadow hover:shadow-md"
+              className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E8B8BC] bg-[#FFF5F5] transition-shadow hover:shadow-md"
             >
               <img
                 src={photo.thumbUrl || photo.url}
@@ -219,7 +219,7 @@ export function FileUpload({
                 }
                 className={`absolute left-1 top-1 rounded-full p-1 transition-all ${
                   photo.isPrimary
-                    ? "bg-[#8f4e00] text-white shadow-md"
+                    ? "bg-[#9B1B30] text-white shadow-md"
                     : "bg-black/40 text-white/70 opacity-0 group-hover:opacity-100"
                 }`}
               >
@@ -270,7 +270,7 @@ export function FileUpload({
               {photo.isPrimary && (
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-1.5">
                   <span className="flex items-center gap-1 text-[10px] font-semibold text-white">
-                    <Star className="h-2.5 w-2.5 fill-[#8f4e00] text-[#8f4e00]" />
+                    <Star className="h-2.5 w-2.5 fill-[#D4AF37] text-[#D4AF37]" />
                     Primary
                   </span>
                 </div>
@@ -282,7 +282,7 @@ export function FileUpload({
           {uploadingFiles.map((f, i) => (
             <div
               key={f.preview}
-              className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E4E2E1] bg-[#ffdcc2]"
+              className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[#E8B8BC] bg-[#FFF5F5]"
             >
               <img
                 src={f.preview}
@@ -300,8 +300,8 @@ export function FileUpload({
       {/* Empty state hint */}
       {photos.length === 0 && uploadingFiles.length === 0 && (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
-          <ImageIcon className="h-10 w-10 text-[#E4E2E1]" />
-          <p className="text-sm text-[#887364]">
+          <ImageIcon className="h-10 w-10 text-[#E8B8BC]" />
+          <p className="text-sm text-[#C4A0A3]">
             {t("profile.noPhotosGallery")}
           </p>
         </div>

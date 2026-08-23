@@ -14,10 +14,10 @@ import {
 } from "lucide-react"
 
 const stats = [
-  { label: "admin.totalUsers", value: "25,847", icon: Users, change: "+12%", color: "text-[#435b9f]" },
+  { label: "admin.totalUsers", value: "25,847", icon: Users, change: "+12%", color: "text-[#D4AF37]" },
   { label: "admin.activeUsers", value: "8,234", icon: UserCheck, change: "+8%", color: "text-[#50C878]" },
-  { label: "admin.premiumUsers", value: "1,847", icon: Star, change: "+23%", color: "text-[#d3ae36]" },
-  { label: "admin.pendingVerifications", value: "342", icon: Shield, change: "-5%", color: "text-[#8f4e00]" },
+  { label: "admin.premiumUsers", value: "1,847", icon: Star, change: "+23%", color: "text-[#D4AF37]" },
+  { label: "admin.pendingVerifications", value: "342", icon: Shield, change: "-5%", color: "text-[#9B1B30]" },
 ]
 
 const recentUsers = [
@@ -41,7 +41,7 @@ export default function AdminPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.div
@@ -72,7 +72,7 @@ export default function AdminPage() {
                   <span className="text-xs font-medium text-[#50C878]">{s.change}</span>
                 </div>
                 <p className="text-2xl font-bold text-[#1b1c1c]">{s.value}</p>
-                <p className="text-xs text-[#887364]">{t(s.label as any)}</p>
+                <p className="text-xs text-[#C4A0A3]">{t(s.label as any)}</p>
               </CardContent>
             </Card>
           ))}
@@ -92,7 +92,7 @@ export default function AdminPage() {
               <CardContent className="p-5">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="relative flex-1 max-w-sm">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#887364]" />
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C4A0A3]" />
                     <Input placeholder={t("common.search")} className="pl-9" />
                   </div>
                   <div className="flex gap-2">
@@ -103,7 +103,7 @@ export default function AdminPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#E4E2E1] text-left text-xs text-[#887364]">
+                      <tr className="border-b border-[#E8B8BC] text-left text-xs text-[#C4A0A3]">
                         <th className="pb-3 font-medium">{locale === "mr" ? "वापरकर्ता" : "User"}</th>
                         <th className="pb-3 font-medium">{locale === "mr" ? "मोबाइल" : "Mobile"}</th>
                         <th className="pb-3 font-medium">{locale === "mr" ? "भूमिका" : "Role"}</th>
@@ -114,23 +114,23 @@ export default function AdminPage() {
                     </thead>
                     <tbody>
                       {recentUsers.map((u) => (
-                        <tr key={u.name} className="border-b border-[#F0EDED]">
+                        <tr key={u.name} className="border-b border-[#F5D0D4]">
                           <td className="py-3">
                             <div className="flex items-center gap-2">
                               <Avatar className="h-8 w-8">
-                                <AvatarFallback className="text-xs bg-[#8f4e00]/10 text-[#8f4e00]">{u.name[0]}</AvatarFallback>
+                                <AvatarFallback className="text-xs bg-[#9B1B30]/10 text-[#9B1B30]">{u.name[0]}</AvatarFallback>
                               </Avatar>
                               <span className="font-medium text-[#1b1c1c]">{u.name}</span>
                             </div>
                           </td>
-                          <td className="py-3 text-[#554336]">{u.mobile}</td>
+                          <td className="py-3 text-[#5C4B4D]">{u.mobile}</td>
                           <td className="py-3"><Badge variant="outline">{u.role}</Badge></td>
                           <td className="py-3">
                             <Badge variant={u.status === "verified" ? "success" : u.status === "pending" ? "default" : "destructive"}>
                               {u.status}
                             </Badge>
                           </td>
-                          <td className="py-3 text-xs text-[#887364]">{u.date}</td>
+                          <td className="py-3 text-xs text-[#C4A0A3]">{u.date}</td>
                           <td className="py-3">
                             <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
                           </td>
@@ -162,11 +162,11 @@ export default function AdminPage() {
                     >
                       <div className="flex items-center gap-3">
                         <Avatar className="h-10 w-10">
-                          <AvatarFallback className="bg-[#8f4e00]/10 text-[#8f4e00]">{item.name[0]}</AvatarFallback>
+                          <AvatarFallback className="bg-[#9B1B30]/10 text-[#9B1B30]">{item.name[0]}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-medium text-[#1b1c1c]">{item.name}</p>
-                          <p className="text-xs text-[#887364]">{item.doc} | {item.submitted}</p>
+                          <p className="text-xs text-[#C4A0A3]">{item.doc} | {item.submitted}</p>
                         </div>
                       </div>
                       <div className="flex gap-2">

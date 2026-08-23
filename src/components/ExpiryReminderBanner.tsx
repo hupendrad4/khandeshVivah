@@ -31,7 +31,7 @@ export function ExpiryReminderBanner() {
         isExpired
           ? "bg-destructive/10 text-destructive border-b border-destructive/20"
           : daysRemaining <= 3
-          ? "bg-[#8f4e00]/10 text-primary border-b border-primary/20"
+          ? "bg-[#9B1B30]/10 text-primary border-b border-primary/20"
           : "bg-tertiary-container/20 text-tertiary border-b border-tertiary-container/20"
       }`}
     >

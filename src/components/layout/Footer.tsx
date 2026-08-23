@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-secondary">{t("footer.about")}</h4>
+            <h4 className="mb-4 text-sm font-semibold text-[#D4AF37]">{t("footer.about")}</h4>
             <ul className="space-y-2 text-sm text-on-surface-variant">
               <li><Link href="/about" className="transition-colors hover:text-primary">{t("nav.about")}</Link></li>
               <li><Link href="/success-stories" className="transition-colors hover:text-primary">{t("nav.successStories")}</Link></li>
@@ -30,7 +30,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-secondary">{t("common.support")}</h4>
+            <h4 className="mb-4 text-sm font-semibold text-[#D4AF37]">{t("common.support")}</h4>
             <ul className="space-y-2 text-sm text-on-surface-variant">
               <li><Link href="/contact" className="transition-colors hover:text-primary">{t("nav.contact")}</Link></li>
               <li><Link href="/privacy" className="transition-colors hover:text-primary">{t("footer.privacy")}</Link></li>
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-secondary">{t("nav.contact")}</h4>
+            <h4 className="mb-4 text-sm font-semibold text-[#D4AF37]">{t("nav.contact")}</h4>
             <ul className="space-y-3 text-sm text-on-surface-variant">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +91-XXXXX XXXXX</li>
               <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> info@khandeshvivah.com</li>

@@ -28,23 +28,23 @@ export async function POST(req: Request) {
     const transporter = getMailTransporter()
 
     const html = `
-      <div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 600px; margin: 0 auto; background: #FFFEF2; border-radius: 16px; overflow: hidden;">
-        <div style="background: linear-gradient(135deg, #8f4e00, #ff9933); padding: 32px; text-align: center;">
+      <div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 600px; margin: 0 auto; background: #FFFAFA; border-radius: 16px; overflow: hidden;">
+        <div style="background: linear-gradient(135deg, #9B1B30, #D4AF37); padding: 32px; text-align: center;">
           <h1 style="color: #fff; margin: 0; font-size: 24px;">Khandesh Vivah</h1>
           <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Subscription Confirmed!</p>
         </div>
         <div style="padding: 32px;">
-          <p style="color: #001B4D; font-size: 16px; margin: 0 0 16px;">Dear Member,</p>
+          <p style="color: #9B1B30; font-size: 16px; margin: 0 0 16px;">Dear Member,</p>
           <p style="color: #666; font-size: 14px; line-height: 1.6; margin: 0 0 24px;">
             Thank you for subscribing to Khandesh Vivah! Your premium membership is now active.
           </p>
-          <div style="background: #f8f4ec; border-radius: 12px; padding: 20px; border: 1px solid #e8dcc8; margin-bottom: 24px;">
-            <h3 style="color: #8f4e00; margin: 0 0 16px; font-size: 16px;">Plan Details</h3>
+          <div style="background: #FDE8EA; border-radius: 12px; padding: 20px; border: 1px solid #E8B8BC; margin-bottom: 24px;">
+            <h3 style="color: #9B1B30; margin: 0 0 16px; font-size: 16px;">Plan Details</h3>
             <table style="width: 100%; font-size: 14px;">
-              <tr><td style="color: #666; padding: 4px 0;">Plan</td><td style="color: #001B4D; font-weight: bold; text-align: right;">${planName}</td></tr>
-              <tr><td style="color: #666; padding: 4px 0;">Duration</td><td style="color: #001B4D; text-align: right;">${planDuration}</td></tr>
-              <tr><td style="color: #666; padding: 4px 0;">Amount Paid</td><td style="color: #001B4D; font-weight: bold; text-align: right;">${planPrice}</td></tr>
-              <tr><td style="color: #666; padding: 4px 0;">Valid Until</td><td style="color: #001B4D; text-align: right;">${endDate}</td></tr>
+              <tr><td style="color: #666; padding: 4px 0;">Plan</td><td style="color: #9B1B30; font-weight: bold; text-align: right;">${planName}</td></tr>
+              <tr><td style="color: #666; padding: 4px 0;">Duration</td><td style="color: #9B1B30; text-align: right;">${planDuration}</td></tr>
+              <tr><td style="color: #666; padding: 4px 0;">Amount Paid</td><td style="color: #9B1B30; font-weight: bold; text-align: right;">${planPrice}</td></tr>
+              <tr><td style="color: #666; padding: 4px 0;">Valid Until</td><td style="color: #9B1B30; text-align: right;">${endDate}</td></tr>
             </table>
           </div>
           <p style="color: #666; font-size: 14px; line-height: 1.6;">
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
           </p>
           <div style="text-align: center; margin: 32px 0;">
             <a href="${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:4000"}/chat"
-               style="background: #8f4e00; color: #fff; text-decoration: none; padding: 12px 32px; border-radius: 12px; font-weight: bold; display: inline-block;">
+               style="background: #9B1B30; color: #fff; text-decoration: none; padding: 12px 32px; border-radius: 12px; font-weight: bold; display: inline-block;">
               Start Chatting
             </a>
           </div>

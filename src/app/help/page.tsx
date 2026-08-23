@@ -31,7 +31,7 @@ export default function HelpPage() {
         <div className="absolute inset-0">
           <div className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573497620053-e4e2924b8f1f?w=1600&q=80')" }} />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#8f4e00]/80 via-[#435b9f]/70 to-[#001B4D]/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9B1B30]/80 via-[#D4AF37]/70 to-[#9B1B30]/90" />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -50,12 +50,12 @@ export default function HelpPage() {
 
       <div className="mx-auto max-w-container px-4 py-8 md:px-6 lg:px-10 bg-mandala-ornamental">
         <div className="ornamental-corner-tl" /><div className="ornamental-corner-br" />
-        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#887364] hover:text-[#8f4e00]">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-xs text-[#C4A0A3] hover:text-[#9B1B30]">
           <ChevronLeft className="h-3 w-3" /> {t("common.back")}
         </Link>
 
         <div className="relative mb-8">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#887364]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C4A0A3]" />
           <Input placeholder={t("home.searchPlaceholder")} className="pl-9" />
         </div>
 
@@ -68,9 +68,9 @@ export default function HelpPage() {
             <motion.div key={i} variants={fadeUp} initial="initial" animate="animate" transition={{ delay: i * 0.1 }}>
               <Card className="bg-surface-container-low border-0 shadow-sm cursor-pointer hover:shadow-elevated">
                 <CardContent className="flex flex-col items-center p-5 text-center">
-                  <item.icon className="mb-2 h-8 w-8 text-[#8f4e00]" />
+                  <item.icon className="mb-2 h-8 w-8 text-[#9B1B30]" />
                   <h3 className="font-semibold text-[#1b1c1c]">{locale === "mr" ? item.labelMr : item.labelEn}</h3>
-                  <p className="text-xs text-[#887364]">{locale === "mr" ? item.descMr : item.descEn}</p>
+                  <p className="text-xs text-[#C4A0A3]">{locale === "mr" ? item.descMr : item.descEn}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -80,7 +80,7 @@ export default function HelpPage() {
         <div className="relative mb-6">
           <div className="ornamental-band mb-4" />
           <h2 className="text-lg font-bold text-[#1b1c1c] flex items-center gap-2">
-            <HelpCircle className="h-5 w-5 text-[#8f4e00]" />
+            <HelpCircle className="h-5 w-5 text-[#9B1B30]" />
             {t("home.faq")}
           </h2>
         </div>
@@ -92,9 +92,9 @@ export default function HelpPage() {
                   <div className="flex items-start justify-between cursor-pointer">
                     <div>
                       <h3 className="font-medium text-[#1b1c1c]">{locale === "mr" ? faq.qMr : faq.qEn}</h3>
-                      <p className="mt-1 text-sm text-[#554336]">{locale === "mr" ? faq.aMr : faq.aEn}</p>
+                      <p className="mt-1 text-sm text-[#5C4B4D]">{locale === "mr" ? faq.aMr : faq.aEn}</p>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-[#887364] shrink-0 mt-1" />
+                    <ChevronRight className="h-5 w-5 text-[#C4A0A3] shrink-0 mt-1" />
                   </div>
                 </CardContent>
               </Card>

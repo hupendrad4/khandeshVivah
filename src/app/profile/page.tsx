@@ -169,7 +169,7 @@ export default function ProfilePage() {
           <div className="lg:col-span-1">
             <Card className="bg-surface-container-low border-0 shadow-sm">
               <CardContent className="p-0">
-                <div className="relative h-48 rounded-t-xl bg-gradient-to-br from-[#8f4e00]/20 to-[#435b9f]/20">
+                <div className="relative h-48 rounded-t-xl bg-gradient-to-br from-[#9B1B30]/20 to-[#D4AF37]/20">
                   {gallery[0]?.url ? (
                     <img src={gallery[0].url} alt="" className="h-full w-full rounded-t-xl object-cover" />
                   ) : (
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                       {gallery[0]?.url ? (
                         <img src={gallery[0].url} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <div className="flex h-full items-center justify-center bg-[#8f4e00]/10">
+                        <div className="flex h-full items-center justify-center bg-[#9B1B30]/10">
                           <span className="material-symbols-outlined text-3xl text-primary">person</span>
                         </div>
                       )}
